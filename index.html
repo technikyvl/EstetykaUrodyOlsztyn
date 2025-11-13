@@ -2519,18 +2519,26 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   content: none !important;
 }
 
-/* Podział tła sekcji newsletter - pierwsza część tłohero4gold.png, druga część tłohero2.png */
+/* Tło sekcji newsletter - podzielone na dwie części */
 #newsletter .section-background {
   position: relative !important;
   background-color: transparent !important;
   overflow: hidden !important;
+  background-image: linear-gradient(to right, 
+    transparent 0%, 
+    transparent 50%, 
+    transparent 50%, 
+    transparent 100%
+  ) !important;
 }
 
-/* Usuń wszystkie obecne tła */
+/* Usuń wszystkie obecne tła obrazkowe */
 #newsletter .section-background img {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
 }
 
 /* Usuń overlay */
@@ -2538,6 +2546,7 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+  height: 0 !important;
 }
 
 /* Pierwsza połowa - tłohero4gold.png */
@@ -2550,7 +2559,7 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   height: 100% !important;
   background-image: url('/assets/img/tłohero4gold.png') !important;
   background-size: cover !important;
-  background-position: center !important;
+  background-position: center center !important;
   background-repeat: no-repeat !important;
   z-index: 0 !important;
   pointer-events: none !important;
@@ -2567,7 +2576,7 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   height: 100% !important;
   background-image: url('/assets/img/tłohero2.png') !important;
   background-size: cover !important;
-  background-position: center !important;
+  background-position: center center !important;
   background-repeat: no-repeat !important;
   z-index: 0 !important;
   pointer-events: none !important;
@@ -10971,10 +10980,50 @@ setTimeout(applyFemenFont, 500);
 setTimeout(applyFemenFont, 1000);
 setTimeout(applyFemenFont, 2000);
 
+// Funkcja do wymuszenia podzielonego tła sekcji newsletter
+function applyNewsletterBackground() {
+  var newsletterSection = document.getElementById('newsletter');
+  if (newsletterSection) {
+    var sectionBackground = newsletterSection.querySelector('.section-background');
+    if (sectionBackground) {
+      // Ukryj wszystkie obrazki tła
+      var backgroundImages = sectionBackground.querySelectorAll('img');
+      backgroundImages.forEach(function(img) {
+        img.style.display = 'none';
+        img.style.visibility = 'hidden';
+        img.style.opacity = '0';
+        img.style.height = '0';
+        img.style.width = '0';
+      });
+      
+      // Ukryj overlay
+      var overlay = sectionBackground.querySelector('.section-background-overlay');
+      if (overlay) {
+        overlay.style.display = 'none';
+        overlay.style.visibility = 'hidden';
+        overlay.style.opacity = '0';
+        overlay.style.height = '0';
+      }
+      
+      // Upewnij się, że sekcja ma odpowiednie style
+      sectionBackground.style.position = 'relative';
+      sectionBackground.style.backgroundColor = 'transparent';
+      sectionBackground.style.overflow = 'hidden';
+    }
+  }
+}
+
+// Wywołaj funkcję natychmiast i po załadowaniu
+applyNewsletterBackground();
+setTimeout(applyNewsletterBackground, 100);
+setTimeout(applyNewsletterBackground, 500);
+setTimeout(applyNewsletterBackground, 1000);
+
 // Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów)
 var observer = new MutationObserver(function(mutations) {
   applyWoodlandFont();
   applyFemenFont();
+  applyNewsletterBackground();
 });
 observer.observe(document.body, {
   childList: true,
