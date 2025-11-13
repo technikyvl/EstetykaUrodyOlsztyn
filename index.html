@@ -2550,13 +2550,28 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 
 /* Ukryj złoty blok kształtu w sekcji newsletter */
 #newsletter .fe-block-yui_3_17_2_1_1754411224232_13154,
-#newsletter #block-yui_3_17_2_1_1754411224232_13154 {
+#newsletter #block-yui_3_17_2_1_1754411224232_13154,
+#newsletter .sqs-shape-block-container,
+#newsletter .sqs-shape,
+#newsletter [data-sqsp-shape-block-shape],
+#newsletter [data-shape-name="rectangle"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   height: 0 !important;
   width: 0 !important;
   overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
+}
+
+/* Ukryj również wszystkie elementy z klasą sqs-shape w sekcji newsletter */
+#newsletter .sqs-shape-block-container *,
+#newsletter .sqs-shape * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
 
 /* NOVA news */
@@ -7894,7 +7909,7 @@ margin: 0 !important;
     }
   }
 
-</style><div class="fluid-engine fe-688e4e9c99f40f476643f20f"><div class="fe-block fe-block-yui_3_17_2_1_1754411224232_13154"><div class="sqs-block website-component-block sqs-block-website-component" data-block-css="[&quot;/assets/css/website.components.shape.styles.css&quot;]" data-block-scripts="[&quot;/assets/js/website.components.shape.visitor.js&quot;]" data-block-type="1337" data-definition-name="website.components.shape" data-sqsp-block="shape" id="block-yui_3_17_2_1_1754411224232_13154"><div class="sqs-block-content">
+</style><div class="fluid-engine fe-688e4e9c99f40f476643f20f"><div class="sqs-block website-component-block sqs-block-website-component" data-block-css="[&quot;/assets/css/website.components.shape.styles.css&quot;]" data-block-scripts="[&quot;/assets/js/website.components.shape.visitor.js&quot;]" data-block-type="1337" data-definition-name="website.components.shape" data-sqsp-block="shape" id="block-yui_3_17_2_1_1754411224232_13154"><div class="sqs-block-content">
 
 
 
@@ -10605,6 +10620,41 @@ margin: 0 !important;
     <script defer="true" src="/assets/js/site-bundle.a1f8071840fbd943ce7cb60f20a9fc6b.js" type="text/javascript"></script>
     <script>
 document.addEventListener("DOMContentLoaded", function() {
+  // Usuń złoty blok kształtu w sekcji newsletter
+  function removeGoldenShapeBlock() {
+    var newsletterSection = document.getElementById('newsletter');
+    if (newsletterSection) {
+      var shapeBlock = newsletterSection.querySelector('#block-yui_3_17_2_1_1754411224232_13154');
+      if (shapeBlock) {
+        shapeBlock.remove();
+      }
+      var shapeBlockFe = newsletterSection.querySelector('.fe-block-yui_3_17_2_1_1754411224232_13154');
+      if (shapeBlockFe) {
+        shapeBlockFe.remove();
+      }
+      // Usuń również wszystkie elementy z klasą sqs-shape w sekcji newsletter
+      var shapeElements = newsletterSection.querySelectorAll('.sqs-shape, .sqs-shape-block-container');
+      shapeElements.forEach(function(el) {
+        el.remove();
+      });
+    }
+  }
+  
+  removeGoldenShapeBlock();
+  setTimeout(removeGoldenShapeBlock, 100);
+  setTimeout(removeGoldenShapeBlock, 500);
+  setTimeout(removeGoldenShapeBlock, 1000);
+  
+  // Obserwuj zmiany w DOM i usuń blok kształtu, jeśli się pojawi
+  var observer = new MutationObserver(function(mutations) {
+    removeGoldenShapeBlock();
+  });
+  
+  var newsletterSection = document.getElementById('newsletter');
+  if (newsletterSection) {
+    observer.observe(newsletterSection, { childList: true, subtree: true });
+  }
+  
 const headerTitleNavWrapper = document.querySelector(".header-layout-branding-center-nav-center .header-title-nav-wrapper");const headerNav = document.querySelector(".header-layout-branding-center-nav-center .header-nav");const clonedHeaderNav = headerNav.cloneNode(true); headerTitleNavWrapper.prepend(clonedHeaderNav);setTimeout(function(){ headerTitleNavWrapper.classList.add('has-nav'); }, 200);
 if(window.location == window.parent.location){var folderTitleElements = document.querySelectorAll('.header-nav-folder-title');folderTitleElements.forEach(function(folderTitleElement){folderTitleElement.addEventListener('click', function(event) {event.preventDefault();var parentContainer = folderTitleElement.closest('.header-nav-item--folder');var firstChildLink = parentContainer.querySelector('.header-nav-folder-item:first-child > a');var targetUrl = firstChildLink.getAttribute('href');window.location.href = targetUrl;});});}
 
