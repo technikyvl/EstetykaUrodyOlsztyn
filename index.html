@@ -2548,30 +2548,33 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   display: none !important;
 }
 
-/* Ukryj złoty blok kształtu w sekcji newsletter */
-#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154,
-#newsletter #block-yui_3_17_2_1_1754411224232_13154,
-#newsletter .sqs-shape-block-container,
-#newsletter .sqs-shape,
-#newsletter [data-sqsp-shape-block-shape],
-#newsletter [data-shape-name="rectangle"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  height: 0 !important;
-  width: 0 !important;
-  overflow: hidden !important;
-  position: absolute !important;
-  left: -9999px !important;
-  pointer-events: none !important;
+/* Zmień kolor bloku kształtu na czarny w sekcji newsletter */
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 {
+  --shape-block-background-color: #000000 !important;
 }
 
-/* Ukryj również wszystkie elementy z klasą sqs-shape w sekcji newsletter */
-#newsletter .sqs-shape-block-container *,
-#newsletter .sqs-shape * {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape,
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape-block-container {
+  background-color: #000000 !important;
+  background: #000000 !important;
+}
+
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape svg,
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape svg * {
+  fill: #000000 !important;
+  stroke: #000000 !important;
+  background-color: #000000 !important;
+}
+
+/* Upewnij się, że wszystkie elementy kształtu są czarne */
+#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 * {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 .sqs-shape-block-container {
+  background-color: #000000 !important;
+  background: #000000 !important;
 }
 
 /* NOVA news */
@@ -7965,14 +7968,18 @@ margin: 0 !important;
     
       
         #block-yui_3_17_2_1_1754411224232_13154 {
-          --shape-block-background-color: 
-  
-    
-      #000000
-    
-  
-  
-;
+          --shape-block-background-color: #000000 !important;
+        }
+        
+        #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape {
+          background-color: #000000 !important;
+          fill: #000000 !important;
+        }
+        
+        #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape * {
+          background-color: #000000 !important;
+          fill: #000000 !important;
+          stroke: #000000 !important;
         }
         
       
@@ -10620,34 +10627,46 @@ margin: 0 !important;
     <script defer="true" src="/assets/js/site-bundle.a1f8071840fbd943ce7cb60f20a9fc6b.js" type="text/javascript"></script>
     <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // Usuń złoty blok kształtu w sekcji newsletter
-  function removeGoldenShapeBlock() {
+  // Zmień kolor bloku kształtu na czarny w sekcji newsletter
+  function makeShapeBlockBlack() {
     var newsletterSection = document.getElementById('newsletter');
     if (newsletterSection) {
       var shapeBlock = newsletterSection.querySelector('#block-yui_3_17_2_1_1754411224232_13154');
       if (shapeBlock) {
-        shapeBlock.remove();
+        shapeBlock.style.setProperty('--shape-block-background-color', '#000000', 'important');
+        var shapeElement = shapeBlock.querySelector('.sqs-shape');
+        if (shapeElement) {
+          shapeElement.style.backgroundColor = '#000000';
+          shapeElement.style.background = '#000000';
+          shapeElement.style.fill = '#000000';
+          var svg = shapeElement.querySelector('svg');
+          if (svg) {
+            svg.style.fill = '#000000';
+            svg.style.backgroundColor = '#000000';
+            var paths = svg.querySelectorAll('*');
+            paths.forEach(function(path) {
+              path.style.fill = '#000000';
+              path.style.stroke = '#000000';
+            });
+          }
+        }
+        var container = shapeBlock.querySelector('.sqs-shape-block-container');
+        if (container) {
+          container.style.backgroundColor = '#000000';
+          container.style.background = '#000000';
+        }
       }
-      var shapeBlockFe = newsletterSection.querySelector('.fe-block-yui_3_17_2_1_1754411224232_13154');
-      if (shapeBlockFe) {
-        shapeBlockFe.remove();
-      }
-      // Usuń również wszystkie elementy z klasą sqs-shape w sekcji newsletter
-      var shapeElements = newsletterSection.querySelectorAll('.sqs-shape, .sqs-shape-block-container');
-      shapeElements.forEach(function(el) {
-        el.remove();
-      });
     }
   }
   
-  removeGoldenShapeBlock();
-  setTimeout(removeGoldenShapeBlock, 100);
-  setTimeout(removeGoldenShapeBlock, 500);
-  setTimeout(removeGoldenShapeBlock, 1000);
+  makeShapeBlockBlack();
+  setTimeout(makeShapeBlockBlack, 100);
+  setTimeout(makeShapeBlockBlack, 500);
+  setTimeout(makeShapeBlockBlack, 1000);
   
-  // Obserwuj zmiany w DOM i usuń blok kształtu, jeśli się pojawi
+  // Obserwuj zmiany w DOM i zmień kolor, jeśli się pojawi
   var observer = new MutationObserver(function(mutations) {
-    removeGoldenShapeBlock();
+    makeShapeBlockBlack();
   });
   
   var newsletterSection = document.getElementById('newsletter');
