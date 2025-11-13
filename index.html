@@ -9573,23 +9573,23 @@ margin: 0 !important;
   }
 
   #footer-sections {
-    padding-bottom: 0.5vw !important;
+    padding-bottom: 0 !important;
     margin-bottom: 0 !important;
   }
 
   footer section {
-    padding-bottom: 0.5vw !important;
+    padding-bottom: 0 !important;
     margin-bottom: 0 !important;
   }
 
   @media (max-width: 767px) {
     #footer-sections {
-      padding-bottom: 1vw !important;
+      padding-bottom: 0 !important;
       margin-bottom: 0 !important;
     }
     
     footer section {
-      padding-bottom: 1vw !important;
+      padding-bottom: 0 !important;
       margin-bottom: 0 !important;
     }
   }
@@ -9607,6 +9607,7 @@ margin: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
   }
+
 
   .fe-block-yui_3_17_2_1_1754604745348_2175 {
     grid-area: 50/2/52/10;
@@ -9770,9 +9771,6 @@ margin: 0 !important;
 
 
 
-
-  
-  sqs-gallery-aspect-ratio-square
   sqs-gallery-thumbnails-per-row-6
   
   
@@ -10006,10 +10004,6 @@ margin: 0 !important;
           
         
 
-      
-    
-
-</div></div></div></div></div>
     </div>
   
   </div>
@@ -10048,6 +10042,24 @@ if (footer) {
     galleryBlock.style.height = '0';
     galleryBlock.style.overflow = 'hidden';
   }
+
+  // Ukryj tekst kodu HTML galerii
+  var allFooterElements = footer.querySelectorAll('*');
+  allFooterElements.forEach(function(el) {
+    if (el.textContent && (
+        el.textContent.includes('sqs-gallery-thumbnails-per-row-6') ||
+        el.textContent.includes('sqs-gallery-block-show-meta') ||
+        el.textContent.includes('block-animation-none clear') ||
+        el.textContent.includes('data-async-rendering-enabled')
+    )) {
+      el.style.display = 'none';
+      el.style.visibility = 'hidden';
+      el.style.height = '0';
+      el.style.overflow = 'hidden';
+      el.style.fontSize = '0';
+      el.style.lineHeight = '0';
+    }
+  });
 }
 });
 </script>
