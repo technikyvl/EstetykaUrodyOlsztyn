@@ -2291,20 +2291,33 @@
 min-height: 100vh !important;
 }
 
-/* Style przycisków BOOK NOW i OUR SERVICES tak samo jak przycisk w headerze */
-#block-84839d3f8472e21a7188 .sqs-button-element--primary,
-#block-a8dd694463125fa9ff22 .sqs-button-element--secondary {
+/* Style przycisku BOOK NOW tak samo jak przycisk w headerze */
+#block-84839d3f8472e21a7188 .sqs-button-element--primary {
   background-color: #000000 !important;
   color: #ffffff !important;
   border-color: #000000 !important;
 }
 
-#block-84839d3f8472e21a7188 .sqs-button-element--primary:hover,
-#block-a8dd694463125fa9ff22 .sqs-button-element--secondary:hover {
+#block-84839d3f8472e21a7188 .sqs-button-element--primary:hover {
   background-color: #000000 !important;
   color: #ffffff !important;
   border-color: #000000 !important;
   opacity: 0.9 !important;
+}
+
+/* Style przycisku OUR SERVICES - przezroczyste tło, czarne obramowanie i tekst */
+#block-a8dd694463125fa9ff22 .sqs-button-element--secondary {
+  background-color: transparent !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  border-width: 2px !important;
+}
+
+/* Hover dla OUR SERVICES - zmienia się na czarny z białym tekstem */
+#block-a8dd694463125fa9ff22 .sqs-button-element--secondary:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
 }
 </style>
   
@@ -10420,3 +10433,4 @@ if (footer) {
 
   </body>
 </html>
+
