@@ -2509,34 +2509,49 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 }
 
 /* Złote ramki z gradientem dla zdjęć w sekcji "Enter to win a Free Makeover" */
-#block-yui_3_17_2_1_1754412078200_3801 .content-fill,
-.fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill,
-#block-3cec84cba25f017e8acd .content-fill,
-.fe-block-3cec84cba25f017e8acd .content-fill {
+#newsletter #block-yui_3_17_2_1_1754412078200_3801 .content-fill,
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill,
+#newsletter #block-3cec84cba25f017e8acd .content-fill,
+#newsletter .fe-block-3cec84cba25f017e8acd .content-fill {
   position: relative !important;
   border: none !important;
+  overflow: visible !important;
 }
 
-#block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
-.fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
-#block-3cec84cba25f017e8acd .content-fill::after,
-.fe-block-3cec84cba25f017e8acd .content-fill::after {
+#newsletter #block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
+#newsletter #block-3cec84cba25f017e8acd .content-fill::after,
+#newsletter .fe-block-3cec84cba25f017e8acd .content-fill::after {
   content: '' !important;
   position: absolute !important;
-  inset: -4px !important;
+  top: -4px !important;
+  left: -4px !important;
+  right: -4px !important;
+  bottom: -4px !important;
   background: linear-gradient(135deg, #a47a1e 0%, #d3a84c 20%, #ffec94 40%, #e6be69 60%, #ffdb7c 80%, #b58f3e 100%) !important;
   border-radius: 2px !important;
   z-index: 0 !important;
   pointer-events: none !important;
 }
 
-#block-yui_3_17_2_1_1754412078200_3801 img,
-.fe-block-yui_3_17_2_1_1754412078200_3801 img,
-#block-3cec84cba25f017e8acd img,
-.fe-block-3cec84cba25f017e8acd img {
+#newsletter #block-yui_3_17_2_1_1754412078200_3801 img,
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 img,
+#newsletter #block-3cec84cba25f017e8acd img,
+#newsletter .fe-block-3cec84cba25f017e8acd img {
   display: block !important;
   position: relative !important;
   z-index: 1 !important;
+}
+
+/* Ogranicz ramki tylko do kontenera obrazka */
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .sqs-block-image,
+#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-image {
+  overflow: hidden !important;
+}
+
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .image-block-outer-wrapper,
+#newsletter .fe-block-3cec84cba25f017e8acd .image-block-outer-wrapper {
+  overflow: hidden !important;
 }
 
 /* NOVA news */
