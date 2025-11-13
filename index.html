@@ -7677,7 +7677,6 @@ margin: 0 !important;
   .fe-block-yui_3_17_2_1_1754411224232_13154 {
     grid-area: 1/1/7/11;
     z-index: 1;
-    display: none !important;
 
     @media (max-width: 767px) {
       
@@ -7699,7 +7698,6 @@ margin: 0 !important;
     .fe-block-yui_3_17_2_1_1754411224232_13154 {
       grid-area: 1/16/20/27;
       z-index: 1;
-      display: none !important;
 
       
         
@@ -7943,34 +7941,6 @@ margin: 0 !important;
 ;
         }
         
-        .fe-block-yui_3_17_2_1_1754411224232_13154,
-        #block-yui_3_17_2_1_1754411224232_13154,
-        .fe-block-yui_3_17_2_1_1754411224232_13154 *,
-        #block-yui_3_17_2_1_1754411224232_13154 * {
-          display: none !important;
-          visibility: hidden !important;
-          opacity: 0 !important;
-          height: 0 !important;
-          width: 0 !important;
-          overflow: hidden !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          position: absolute !important;
-          left: -9999px !important;
-        }
-        
-        /* Dodatkowe reguły dla całej sekcji newsletter */
-        #newsletter .fe-block-yui_3_17_2_1_1754411224232_13154,
-        #newsletter #block-yui_3_17_2_1_1754411224232_13154 {
-          display: none !important;
-          visibility: hidden !important;
-          opacity: 0 !important;
-          height: 0 !important;
-          width: 0 !important;
-          overflow: hidden !important;
-          margin: 0 !important;
-          padding: 0 !important;
-        }
       
     
 
@@ -10612,59 +10582,6 @@ margin: 0 !important;
     <script defer="true" src="/assets/js/site-bundle.a1f8071840fbd943ce7cb60f20a9fc6b.js" type="text/javascript"></script>
     <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // Usuń złoty blok kształtu z sekcji newsletter - bardzo agresywne podejście
-  function removeGoldenShapeBlock() {
-    // Usuń po ID
-    var goldenShapeBlock = document.getElementById('block-yui_3_17_2_1_1754411224232_13154');
-    if (goldenShapeBlock) {
-      goldenShapeBlock.remove();
-    }
-    
-    // Usuń po klasie
-    var goldenShapeBlockFe = document.querySelector('.fe-block-yui_3_17_2_1_1754411224232_13154');
-    if (goldenShapeBlockFe) {
-      goldenShapeBlockFe.remove();
-    }
-    
-    // Usuń wszystkie elementy z tym ID lub klasą
-    var allShapeBlocks = document.querySelectorAll('#block-yui_3_17_2_1_1754411224232_13154, .fe-block-yui_3_17_2_1_1754411224232_13154, [id="block-yui_3_17_2_1_1754411224232_13154"]');
-    allShapeBlocks.forEach(function(block) {
-      if (block && block.parentNode) {
-        block.remove();
-      }
-    });
-    
-    // Usuń również kontener kształtu
-    var shapeContainers = document.querySelectorAll('.sqs-shape-block-container');
-    shapeContainers.forEach(function(container) {
-      var parent = container.closest('.fe-block-yui_3_17_2_1_1754411224232_13154, #block-yui_3_17_2_1_1754411224232_13154');
-      if (parent) {
-        parent.remove();
-      }
-    });
-  }
-  
-  // Wywołaj natychmiast
-  removeGoldenShapeBlock();
-  
-  // Wywołaj z opóźnieniami
-  setTimeout(removeGoldenShapeBlock, 50);
-  setTimeout(removeGoldenShapeBlock, 100);
-  setTimeout(removeGoldenShapeBlock, 200);
-  setTimeout(removeGoldenShapeBlock, 500);
-  setTimeout(removeGoldenShapeBlock, 1000);
-  setTimeout(removeGoldenShapeBlock, 2000);
-  
-  // Obserwuj zmiany w DOM i usuń blok jeśli się pojawi
-  var observer = new MutationObserver(function(mutations) {
-    removeGoldenShapeBlock();
-  });
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-    attributes: true
-  });
-  
 const headerTitleNavWrapper = document.querySelector(".header-layout-branding-center-nav-center .header-title-nav-wrapper");const headerNav = document.querySelector(".header-layout-branding-center-nav-center .header-nav");const clonedHeaderNav = headerNav.cloneNode(true); headerTitleNavWrapper.prepend(clonedHeaderNav);setTimeout(function(){ headerTitleNavWrapper.classList.add('has-nav'); }, 200);
 if(window.location == window.parent.location){var folderTitleElements = document.querySelectorAll('.header-nav-folder-title');folderTitleElements.forEach(function(folderTitleElement){folderTitleElement.addEventListener('click', function(event) {event.preventDefault();var parentContainer = folderTitleElement.closest('.header-nav-item--folder');var firstChildLink = parentContainer.querySelector('.header-nav-folder-item:first-child > a');var targetUrl = firstChildLink.getAttribute('href');window.location.href = targetUrl;});});}
 
