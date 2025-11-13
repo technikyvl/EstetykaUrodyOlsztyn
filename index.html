@@ -2417,11 +2417,24 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 300 !important;
 }
 
-/* Recent Looks */
+/* Recent Looks - bardzo specyficzne selektory */
+#68921d0047edc42290b07ea6,
+#68921d0047edc42290b07ea6 *,
+.list-section-title,
+.list-section-title *,
+#68921d0047edc42290b07ea6 p,
+.list-section-title p,
 #68921d0047edc42290b07ea6 p:last-child,
 .list-section-title p:last-child,
 #68921d0047edc42290b07ea6 p:last-child *,
-.list-section-title p:last-child * {
+.list-section-title p:last-child *,
+#68921d0047edc42290b07ea6 p *,
+.list-section-title p *,
+div.list-section-title#68921d0047edc42290b07ea6,
+div.list-section-title#68921d0047edc42290b07ea6 *,
+div.list-section-title#68921d0047edc42290b07ea6 p,
+div.list-section-title#68921d0047edc42290b07ea6 p:last-child,
+div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   font-family: 'Woodland', 'Georgia', 'Times New Roman', serif !important;
   font-weight: 300 !important;
 }
@@ -10720,16 +10733,45 @@ function applyWoodlandFont() {
     });
   });
 
-  // Recent Looks
-  var recentLooksElements = document.querySelectorAll('#68921d0047edc42290b07ea6 p:last-child, .list-section-title p:last-child');
-  recentLooksElements.forEach(function(el) {
-    el.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
-    el.style.setProperty('font-weight', '300', 'important');
-    var recentChildren = el.querySelectorAll('*');
-    recentChildren.forEach(function(child) {
-      child.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
-      child.style.setProperty('font-weight', '300', 'important');
-    });
+  // Recent Looks - bardziej agresywne selektory
+  var recentLooksSelectors = [
+    '#68921d0047edc42290b07ea6',
+    '.list-section-title',
+    '#68921d0047edc42290b07ea6 p',
+    '.list-section-title p',
+    '#68921d0047edc42290b07ea6 p:last-child',
+    '.list-section-title p:last-child'
+  ];
+  
+  recentLooksSelectors.forEach(function(selector) {
+    try {
+      var elements = document.querySelectorAll(selector);
+      elements.forEach(function(el) {
+        el.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
+        el.style.setProperty('font-weight', '300', 'important');
+        var recentChildren = el.querySelectorAll('*');
+        recentChildren.forEach(function(child) {
+          child.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
+          child.style.setProperty('font-weight', '300', 'important');
+        });
+      });
+    } catch(e) {
+      // Ignoruj błędy dla nieobsługiwanych selektorów
+    }
+  });
+  
+  // Dodatkowo: znajdź wszystkie elementy zawierające tekst "Recent Looks"
+  var allPElements = document.querySelectorAll('p');
+  allPElements.forEach(function(el) {
+    if (el.textContent && el.textContent.trim() === 'Recent Looks') {
+      el.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
+      el.style.setProperty('font-weight', '300', 'important');
+      var children = el.querySelectorAll('*');
+      children.forEach(function(child) {
+        child.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
+        child.style.setProperty('font-weight', '300', 'important');
+      });
+    }
   });
 
   // Wszystkie nagłówki h1, h2, h3 na stronie
