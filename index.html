@@ -9573,23 +9573,23 @@ margin: 0 !important;
   }
 
   #footer-sections {
-    padding-bottom: 0 !important;
+    padding-bottom: 1vw !important;
     margin-bottom: 0 !important;
   }
 
   footer section {
-    padding-bottom: 0 !important;
+    padding-bottom: 1vw !important;
     margin-bottom: 0 !important;
   }
 
   @media (max-width: 767px) {
     #footer-sections {
-      padding-bottom: 0 !important;
+      padding-bottom: 2vw !important;
       margin-bottom: 0 !important;
     }
     
     footer section {
-      padding-bottom: 0 !important;
+      padding-bottom: 2vw !important;
       margin-bottom: 0 !important;
     }
   }
@@ -10043,23 +10043,44 @@ if (footer) {
     galleryBlock.style.overflow = 'hidden';
   }
 
-  // Ukryj tekst kodu HTML galerii
-  var allFooterElements = footer.querySelectorAll('*');
-  allFooterElements.forEach(function(el) {
-    if (el.textContent && (
-        el.textContent.includes('sqs-gallery-thumbnails-per-row-6') ||
-        el.textContent.includes('sqs-gallery-block-show-meta') ||
-        el.textContent.includes('block-animation-none clear') ||
-        el.textContent.includes('data-async-rendering-enabled')
+  // Ukryj tekst kodu HTML galerii - tylko elementy, które zawierają TYLKO tekst galerii
+  // Szukaj elementów, które zawierają tylko tekst galerii (bez innych treści)
+  var textNodes = [];
+  var walker = document.createTreeWalker(
+    footer,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  
+  var node;
+  while (node = walker.nextNode()) {
+    var text = node.textContent ? node.textContent.trim() : '';
+    if (text && (
+        text.includes('sqs-gallery-thumbnails-per-row-6') ||
+        text.includes('sqs-gallery-block-show-meta') ||
+        text.includes('block-animation-none clear') ||
+        text.includes('data-async-rendering-enabled')
     )) {
-      el.style.display = 'none';
-      el.style.visibility = 'hidden';
-      el.style.height = '0';
-      el.style.overflow = 'hidden';
-      el.style.fontSize = '0';
-      el.style.lineHeight = '0';
+      // Sprawdź, czy tekst nie zawiera innych ważnych treści
+      if (!text.includes('NAVIGATION') && 
+          !text.includes('LOCATION') && 
+          !text.includes('STORE HOURS') &&
+          !text.includes('SERVICES') &&
+          !text.includes('SOCIALS') &&
+          !text.includes('Book Now') &&
+          !text.includes('Contact Us')) {
+        // Ukryj tylko element nadrzędny, który zawiera ten tekst
+        var parent = node.parentElement;
+        if (parent && parent !== footer) {
+          parent.style.display = 'none';
+          parent.style.visibility = 'hidden';
+          parent.style.height = '0';
+          parent.style.overflow = 'hidden';
+        }
+      }
     }
-  });
+  }
 }
 });
 </script>
