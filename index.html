@@ -2548,33 +2548,46 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   display: none !important;
 }
 
-/* Zmień kolor bloku kształtu na czarny w sekcji newsletter */
-#newsletter #block-yui_3_17_2_1_1754411224232_13154 {
-  --shape-block-background-color: #000000 !important;
+/* Zmień kolor bloku kształtu na czarny w sekcji newsletter - zachowaj strukturę */
+#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  width: auto !important;
 }
 
-#newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape,
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 {
+  --shape-block-background-color: #000000 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  width: auto !important;
+}
+
 #newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape-block-container {
   background-color: #000000 !important;
   background: #000000 !important;
+  display: block !important;
+  visibility: visible !important;
 }
 
-#newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape svg,
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape svg {
+  fill: #000000 !important;
+  background-color: #000000 !important;
+}
+
 #newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape svg * {
   fill: #000000 !important;
   stroke: #000000 !important;
-  background-color: #000000 !important;
-}
-
-/* Upewnij się, że wszystkie elementy kształtu są czarne */
-#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 * {
-  background-color: transparent !important;
-  background: transparent !important;
-}
-
-#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 .sqs-shape-block-container {
-  background-color: #000000 !important;
-  background: #000000 !important;
 }
 
 /* NOVA news */
@@ -7714,6 +7727,8 @@ margin: 0 !important;
   .fe-block-yui_3_17_2_1_1754411224232_13154 {
     grid-area: 1/1/7/11;
     z-index: 1;
+    display: block !important;
+    visibility: visible !important;
 
     @media (max-width: 767px) {
       
@@ -7735,6 +7750,8 @@ margin: 0 !important;
     .fe-block-yui_3_17_2_1_1754411224232_13154 {
       grid-area: 1/16/20/27;
       z-index: 1;
+      display: block !important;
+      visibility: visible !important;
 
       
         
@@ -10627,13 +10644,22 @@ margin: 0 !important;
     <script defer="true" src="/assets/js/site-bundle.a1f8071840fbd943ce7cb60f20a9fc6b.js" type="text/javascript"></script>
     <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // Zmień kolor bloku kształtu na czarny w sekcji newsletter
+  // Zmień kolor bloku kształtu na czarny w sekcji newsletter - zachowaj strukturę
   function makeShapeBlockBlack() {
     var newsletterSection = document.getElementById('newsletter');
     if (newsletterSection) {
       var shapeBlock = newsletterSection.querySelector('#block-yui_3_17_2_1_1754411224232_13154');
       if (shapeBlock) {
+        // Upewnij się, że blok jest widoczny
+        shapeBlock.style.display = 'block';
+        shapeBlock.style.visibility = 'visible';
+        shapeBlock.style.opacity = '1';
+        shapeBlock.style.height = 'auto';
+        shapeBlock.style.width = 'auto';
+        
+        // Zmień kolor
         shapeBlock.style.setProperty('--shape-block-background-color', '#000000', 'important');
+        
         var shapeElement = shapeBlock.querySelector('.sqs-shape');
         if (shapeElement) {
           shapeElement.style.backgroundColor = '#000000';
@@ -10654,6 +10680,16 @@ document.addEventListener("DOMContentLoaded", function() {
         if (container) {
           container.style.backgroundColor = '#000000';
           container.style.background = '#000000';
+        }
+        
+        // Upewnij się, że fe-block jest widoczny
+        var feBlock = newsletterSection.querySelector('.fe-block-yui_3_17_2_1_1754411224232_13154');
+        if (feBlock) {
+          feBlock.style.display = 'block';
+          feBlock.style.visibility = 'visible';
+          feBlock.style.opacity = '1';
+          feBlock.style.height = 'auto';
+          feBlock.style.width = 'auto';
         }
       }
     }
