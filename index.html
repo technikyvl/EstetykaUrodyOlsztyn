@@ -2298,6 +2298,7 @@
 }
 
 /* Czcionka Woodland dla WSZYSTKICH nagłówków na stronie - odchudzona wersja z fallback */
+/* WYJĄTEK: Złote napisy zachowują swoje oryginalne czcionki */
 h1, h2, h3, h4, h5, h6,
 .sqs-html-content h1, .sqs-html-content h2, .sqs-html-content h3,
 .sqs-html-content h4, .sqs-html-content h5, .sqs-html-content h6,
@@ -2308,6 +2309,45 @@ h1, h2, h3, h4, h5, h6,
 .sqsrte-scaled-text-container h1, .sqsrte-scaled-text-container h2, .sqsrte-scaled-text-container h3 {
   font-family: 'Woodland', 'Georgia', 'Times New Roman', serif !important;
   font-weight: 300 !important;
+}
+
+/* Przywrócenie oryginalnych czcionek dla złotych napisów */
+/* "Estetyka Urody" w sekcji hero */
+#block-yui_3_17_2_1_1754181089441_2070 h1,
+.fe-block-yui_3_17_2_1_1754181089441_2070 h1,
+#block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text h1,
+.fe-block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text h1,
+#block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text-container h1,
+.fe-block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text-container h1,
+#block-yui_3_17_2_1_1754181089441_2070 .sqs-html-content h1,
+.fe-block-yui_3_17_2_1_1754181089441_2070 .sqs-html-content h1,
+#block-yui_3_17_2_1_1754181089441_2070 h1 *,
+.fe-block-yui_3_17_2_1_1754181089441_2070 h1 *,
+#block-yui_3_17_2_1_1754181089441_2070 h1 em,
+.fe-block-yui_3_17_2_1_1754181089441_2070 h1 em,
+#block-yui_3_17_2_1_1754181089441_2070 h1 span,
+.fe-block-yui_3_17_2_1_1754181089441_2070 h1 span {
+  font-family: 'Aboreto', cursive !important;
+  font-weight: normal !important;
+}
+
+/* "Joanna K" w sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" */
+#block-7da1d85dc54f90cab987 h1,
+.fe-block-7da1d85dc54f90cab987 h1,
+#block-7da1d85dc54f90cab987 .sqsrte-scaled-text h1,
+.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text h1,
+#block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container h1,
+.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container h1,
+#block-7da1d85dc54f90cab987 .sqs-html-content h1,
+.fe-block-7da1d85dc54f90cab987 .sqs-html-content h1,
+#block-7da1d85dc54f90cab987 h1 *,
+.fe-block-7da1d85dc54f90cab987 h1 *,
+#block-7da1d85dc54f90cab987 h1 em,
+.fe-block-7da1d85dc54f90cab987 h1 em,
+#block-7da1d85dc54f90cab987 h1 span,
+.fe-block-7da1d85dc54f90cab987 h1 span {
+  font-family: 'Aboreto', cursive !important;
+  font-weight: normal !important;
 }
 
 /* Specyficzne reguły dla konkretnych nagłówków - Woodland Regular (odchudzona wersja) */
@@ -10707,14 +10747,31 @@ function applyWoodlandFont() {
   allHeadings.forEach(function(heading) {
     // Sprawdź, czy nie jest w headerze (tam używamy Montserrat)
     if (!heading.closest('header')) {
-      heading.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
-      heading.style.setProperty('font-weight', '300', 'important');
-      // Wymuszenie również na wszystkich dzieciach
-      var headingChildren = heading.querySelectorAll('*');
-      headingChildren.forEach(function(child) {
-        child.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
-        child.style.setProperty('font-weight', '300', 'important');
-      });
+      // Wyklucz złote napisy - przywróć ich oryginalne czcionki
+      var isGoldText = heading.closest('#block-yui_3_17_2_1_1754181089441_2070') || 
+                       heading.closest('.fe-block-yui_3_17_2_1_1754181089441_2070') ||
+                       heading.closest('#block-7da1d85dc54f90cab987') ||
+                       heading.closest('.fe-block-7da1d85dc54f90cab987');
+      
+      if (!isGoldText) {
+        heading.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
+        heading.style.setProperty('font-weight', '300', 'important');
+        // Wymuszenie również na wszystkich dzieciach
+        var headingChildren = heading.querySelectorAll('*');
+        headingChildren.forEach(function(child) {
+          child.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
+          child.style.setProperty('font-weight', '300', 'important');
+        });
+      } else {
+        // Przywróć oryginalną czcionkę dla złotych napisów
+        heading.style.setProperty('font-family', "'Aboreto', cursive", 'important');
+        heading.style.setProperty('font-weight', 'normal', 'important');
+        var headingChildren = heading.querySelectorAll('*');
+        headingChildren.forEach(function(child) {
+          child.style.setProperty('font-family', "'Aboreto', cursive", 'important');
+          child.style.setProperty('font-weight', 'normal', 'important');
+        });
+      }
     }
   });
 }
