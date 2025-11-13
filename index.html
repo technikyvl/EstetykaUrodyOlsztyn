@@ -9608,6 +9608,36 @@ margin: 0 !important;
     margin-bottom: 0 !important;
   }
 
+  footer .fluid-engine {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  footer .fe-block {
+    margin-bottom: 0 !important;
+  }
+
+  footer .sqs-block {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  footer .sqs-block-content {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Usuń wszystkie puste przestrzenie na dole footera */
+  footer > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  footer section > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
   @media (max-width: 767px) {
     #footer-sections {
       padding-bottom: 0 !important;
@@ -10115,13 +10145,17 @@ if (footer) {
           !text.includes('STORE HOURS') &&
           !text.includes('SERVICES') &&
           !text.includes('SOCIALS') &&
+          !text.includes('Services') &&
           !text.includes('Book Now') &&
           !text.includes('Contact Us') &&
           !text.includes('Mon-Fri') &&
           !text.includes('Saturday') &&
           !text.includes('Sunday') &&
           !text.includes('@') &&
-          !text.includes('Main Street')) {
+          !text.includes('Main Street') &&
+          !text.includes('Email') &&
+          !text.includes('Facebook') &&
+          !text.includes('Instagram')) {
         // Ukryj tylko element nadrzędny, który zawiera ten tekst
         // Ale nie ukrywaj sekcji ani głównych kontenerów
         var parent = node.parentElement;
@@ -10129,7 +10163,10 @@ if (footer) {
             parent !== footer && 
             parent.tagName !== 'SECTION' &&
             parent.id !== 'footer-sections' &&
-            !parent.classList.contains('page-section')) {
+            !parent.classList.contains('page-section') &&
+            !parent.classList.contains('fe-block') &&
+            !parent.classList.contains('sqs-block') &&
+            !parent.classList.contains('sqs-block-content')) {
           parent.style.display = 'none';
           parent.style.visibility = 'hidden';
           parent.style.height = '0';
