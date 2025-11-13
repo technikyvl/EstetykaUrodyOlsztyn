@@ -2508,50 +2508,15 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   font-weight: 300 !important;
 }
 
-/* Złote ramki z gradientem dla zdjęć w sekcji "Enter to win a Free Makeover" */
-#newsletter #block-yui_3_17_2_1_1754412078200_3801 .content-fill,
-#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill,
-#newsletter #block-3cec84cba25f017e8acd .content-fill,
-#newsletter .fe-block-3cec84cba25f017e8acd .content-fill {
-  position: relative !important;
-  border: none !important;
-  overflow: visible !important;
-}
-
+/* Tymczasowo wyłącz złote ramki w sekcji newsletter, aby sprawdzić, czy powodują złote tło */
 #newsletter #block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
 #newsletter #block-3cec84cba25f017e8acd .content-fill::after,
 #newsletter .fe-block-3cec84cba25f017e8acd .content-fill::after {
-  content: '' !important;
-  position: absolute !important;
-  top: -4px !important;
-  left: -4px !important;
-  right: -4px !important;
-  bottom: -4px !important;
-  background: linear-gradient(135deg, #a47a1e 0%, #d3a84c 20%, #ffec94 40%, #e6be69 60%, #ffdb7c 80%, #b58f3e 100%) !important;
-  border-radius: 2px !important;
-  z-index: 0 !important;
-  pointer-events: none !important;
-}
-
-#newsletter #block-yui_3_17_2_1_1754412078200_3801 img,
-#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 img,
-#newsletter #block-3cec84cba25f017e8acd img,
-#newsletter .fe-block-3cec84cba25f017e8acd img {
-  display: block !important;
-  position: relative !important;
-  z-index: 1 !important;
-}
-
-/* Ogranicz ramki tylko do kontenera obrazka */
-#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .sqs-block-image,
-#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-image {
-  overflow: hidden !important;
-}
-
-#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .image-block-outer-wrapper,
-#newsletter .fe-block-3cec84cba25f017e8acd .image-block-outer-wrapper {
-  overflow: hidden !important;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  content: none !important;
 }
 
 /* NOVA news */
@@ -7953,6 +7918,17 @@ margin: 0 !important;
   
   
 ;
+        }
+        
+        /* Ukryj złoty blok kształtu w sekcji newsletter */
+        #newsletter #block-yui_3_17_2_1_1754411224232_13154 {
+          --shape-block-background-color: transparent !important;
+        }
+        
+        #newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape,
+        #newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape-block-container {
+          background-color: transparent !important;
+          background: transparent !important;
         }
         
       
