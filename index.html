@@ -2356,25 +2356,24 @@ min-height: 100vh !important;
   margin-bottom: 0;
 }
 
-/* Powiększenie podpisu "Joanna K" */
-#block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text h1,
-#block-7da1d85dc54f90cab987 .sqsrte-scaled-text h1,
+/* Powiększenie podpisu "Joanna K" - używamy transform scale na całym kontenerze */
+.fe-block-7da1d85dc54f90cab987 .sqs-html-content .sqsrte-scaled-text-container,
+#block-7da1d85dc54f90cab987 .sqs-html-content .sqsrte-scaled-text-container {
+  transform: scale(2.5) !important;
+  transform-origin: left bottom !important;
+  display: inline-block !important;
+  width: auto !important;
+}
+
+.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text,
+#block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text {
+  transform: none !important;
+}
+
 .fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text h1,
-.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text h1 {
-  font-size: 5em !important;
-  line-height: 1.2 !important;
-}
-
-#block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text h1 span,
-#block-7da1d85dc54f90cab987 .sqsrte-scaled-text h1 span,
-.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text h1 span,
-.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text h1 span {
+#block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text h1 {
   font-size: inherit !important;
-}
-
-#block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text h1 em,
-.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container .sqsrte-scaled-text h1 em {
-  font-size: inherit !important;
+  line-height: inherit !important;
 }
 </style>
   
