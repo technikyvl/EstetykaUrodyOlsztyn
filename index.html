@@ -2517,19 +2517,17 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   border: none !important;
 }
 
-#block-yui_3_17_2_1_1754412078200_3801 .content-fill::before,
-.fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill::before,
-#block-3cec84cba25f017e8acd .content-fill::before,
-.fe-block-3cec84cba25f017e8acd .content-fill::before {
+#block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
+.fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
+#block-3cec84cba25f017e8acd .content-fill::after,
+.fe-block-3cec84cba25f017e8acd .content-fill::after {
   content: '' !important;
   position: absolute !important;
-  top: -4px !important;
-  left: -4px !important;
-  right: -4px !important;
-  bottom: -4px !important;
+  inset: -4px !important;
   background: linear-gradient(135deg, #a47a1e 0%, #d3a84c 20%, #ffec94 40%, #e6be69 60%, #ffdb7c 80%, #b58f3e 100%) !important;
   border-radius: 2px !important;
-  z-index: -1 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
 }
 
 #block-yui_3_17_2_1_1754412078200_3801 img,
