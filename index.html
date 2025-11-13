@@ -28,7 +28,7 @@
 <meta name="description" content="" />
 <link rel="preconnect" href="https://images.squarespace-cdn.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,500;1,700&family=Aboreto:ital,wght@0,400&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900"><script type="text/javascript" crossorigin="anonymous" defer="true" nomodule="nomodule" src="//assets.squarespace.com/@sqs/polyfiller/1.6/legacy.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,500;1,700&family=Aboreto:ital,wght@0,400&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900"><script type="text/javascript" crossorigin="anonymous" defer="true" nomodule="nomodule" src="//assets.squarespace.com/@sqs/polyfiller/1.6/legacy.js"></script>
 <script type="text/javascript" crossorigin="anonymous" defer="true" src="/assets/js/modern.js"></script>
 <script type="text/javascript">SQUARESPACE_ROLLUPS = {};</script>
 <script>(function(rollups, name) { if (!rollups[name]) { rollups[name] = {}; } rollups[name].js = ["/assets/js/extract-css-runtime-d75ad899ad99b3d3-min.en-US.js"]; })(SQUARESPACE_ROLLUPS, 'squarespace-extract_css_runtime');</script>
@@ -2311,7 +2311,7 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 300 !important;
 }
 
-/* Przywrócenie oryginalnych czcionek dla złotych napisów */
+/* Przywrócenie oryginalnych czcionek dla złotych napisów - Playfair Display */
 /* "Estetyka Urody" w sekcji hero */
 #block-yui_3_17_2_1_1754181089441_2070 h1,
 .fe-block-yui_3_17_2_1_1754181089441_2070 h1,
@@ -2327,8 +2327,9 @@ h1, h2, h3, h4, h5, h6,
 .fe-block-yui_3_17_2_1_1754181089441_2070 h1 em,
 #block-yui_3_17_2_1_1754181089441_2070 h1 span,
 .fe-block-yui_3_17_2_1_1754181089441_2070 h1 span {
-  font-family: 'Aboreto', cursive !important;
+  font-family: 'Playfair Display', serif !important;
   font-weight: normal !important;
+  font-style: italic !important;
 }
 
 /* "Joanna K" w sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" */
@@ -2346,8 +2347,9 @@ h1, h2, h3, h4, h5, h6,
 .fe-block-7da1d85dc54f90cab987 h1 em,
 #block-7da1d85dc54f90cab987 h1 span,
 .fe-block-7da1d85dc54f90cab987 h1 span {
-  font-family: 'Aboreto', cursive !important;
+  font-family: 'Playfair Display', serif !important;
   font-weight: normal !important;
+  font-style: italic !important;
 }
 
 /* Specyficzne reguły dla konkretnych nagłówków - Woodland Regular (odchudzona wersja) */
@@ -10763,13 +10765,15 @@ function applyWoodlandFont() {
           child.style.setProperty('font-weight', '300', 'important');
         });
       } else {
-        // Przywróć oryginalną czcionkę dla złotych napisów
-        heading.style.setProperty('font-family', "'Aboreto', cursive", 'important');
+        // Przywróć oryginalną czcionkę dla złotych napisów - Playfair Display
+        heading.style.setProperty('font-family', "'Playfair Display', serif", 'important');
         heading.style.setProperty('font-weight', 'normal', 'important');
+        heading.style.setProperty('font-style', 'italic', 'important');
         var headingChildren = heading.querySelectorAll('*');
         headingChildren.forEach(function(child) {
-          child.style.setProperty('font-family', "'Aboreto', cursive", 'important');
+          child.style.setProperty('font-family', "'Playfair Display', serif", 'important');
           child.style.setProperty('font-weight', 'normal', 'important');
+          child.style.setProperty('font-style', 'italic', 'important');
         });
       }
     }
