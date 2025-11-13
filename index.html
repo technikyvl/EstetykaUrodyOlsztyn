@@ -2526,6 +2526,21 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   overflow: hidden !important;
 }
 
+/* Usuń wszystkie obecne tła */
+#newsletter .section-background img {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Usuń overlay */
+#newsletter .section-background-overlay {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Pierwsza połowa - tłohero4gold.png */
 #newsletter .section-background::before {
   content: '' !important;
   position: absolute !important;
@@ -2542,6 +2557,7 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   display: block !important;
 }
 
+/* Druga połowa - tłohero2.png */
 #newsletter .section-background::after {
   content: '' !important;
   position: absolute !important;
@@ -2556,14 +2572,6 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   z-index: 0 !important;
   pointer-events: none !important;
   display: block !important;
-}
-
-#newsletter .section-background img {
-  display: none !important;
-}
-
-#newsletter .section-background-overlay {
-  z-index: 1 !important;
 }
 
 /* NOVA news */
@@ -7966,7 +7974,7 @@ margin: 0 !important;
   
 ;
         }
-        
+      
         /* Ukryj złoty blok kształtu w sekcji newsletter */
         #newsletter #block-yui_3_17_2_1_1754411224232_13154 {
           --shape-block-background-color: transparent !important;
