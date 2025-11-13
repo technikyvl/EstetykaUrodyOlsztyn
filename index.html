@@ -2524,12 +2524,6 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   position: relative !important;
   background-color: transparent !important;
   overflow: hidden !important;
-  background-image: linear-gradient(to right, 
-    transparent 0%, 
-    transparent 50%, 
-    transparent 50%, 
-    transparent 100%
-  ) !important;
 }
 
 /* Usuń wszystkie obecne tła obrazkowe */
@@ -2539,6 +2533,8 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   opacity: 0 !important;
   height: 0 !important;
   width: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
 
 /* Usuń overlay */
@@ -2549,7 +2545,38 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   height: 0 !important;
 }
 
-/* Pierwsza połowa - tłohero4gold.png */
+/* Style dla dynamicznie dodanych divów tła */
+#newsletter .section-background .custom-bg-left {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 50% !important;
+  height: 100% !important;
+  background-image: url('/assets/img/tłohero4gold.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+#newsletter .section-background .custom-bg-right {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 50% !important;
+  height: 100% !important;
+  background-image: url('/assets/img/tłohero2.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+/* Fallback - pseudo-elementy na wypadek, gdyby JavaScript nie zadziałał */
 #newsletter .section-background::before {
   content: '' !important;
   position: absolute !important;
@@ -2566,7 +2593,6 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   display: block !important;
 }
 
-/* Druga połowa - tłohero2.png */
 #newsletter .section-background::after {
   content: '' !important;
   position: absolute !important;
@@ -10994,6 +11020,7 @@ function applyNewsletterBackground() {
         img.style.opacity = '0';
         img.style.height = '0';
         img.style.width = '0';
+        img.remove();
       });
       
       // Ukryj overlay
@@ -11009,6 +11036,24 @@ function applyNewsletterBackground() {
       sectionBackground.style.position = 'relative';
       sectionBackground.style.backgroundColor = 'transparent';
       sectionBackground.style.overflow = 'hidden';
+      
+      // Usuń istniejące divy tła, jeśli już istnieją
+      var existingBg1 = sectionBackground.querySelector('.custom-bg-left');
+      var existingBg2 = sectionBackground.querySelector('.custom-bg-right');
+      if (existingBg1) existingBg1.remove();
+      if (existingBg2) existingBg2.remove();
+      
+      // Utwórz lewy div z tłem
+      var bgLeft = document.createElement('div');
+      bgLeft.className = 'custom-bg-left';
+      bgLeft.style.cssText = 'position: absolute; top: 0; left: 0; width: 50%; height: 100%; background-image: url("/assets/img/tłohero4gold.png"); background-size: cover; background-position: center center; background-repeat: no-repeat; z-index: 0; pointer-events: none;';
+      sectionBackground.appendChild(bgLeft);
+      
+      // Utwórz prawy div z tłem
+      var bgRight = document.createElement('div');
+      bgRight.className = 'custom-bg-right';
+      bgRight.style.cssText = 'position: absolute; top: 0; right: 0; width: 50%; height: 100%; background-image: url("/assets/img/tłohero2.png"); background-size: cover; background-position: center center; background-repeat: no-repeat; z-index: 0; pointer-events: none;';
+      sectionBackground.appendChild(bgRight);
     }
   }
 }
