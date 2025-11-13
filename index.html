@@ -9669,6 +9669,153 @@ margin: 0 !important;
     padding: 0 !important;
   }
 
+  /* Ukryj tekst kodu HTML galerii w footerze - bardziej precyzyjne reguły */
+  /* Ukryj wszystkie elementy po .sqs-html-content w bloku NAVIGATION */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    position: relative;
+    overflow: hidden;
+  }
+
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-html-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Ukryj wszystko po .sqs-html-content w tym bloku */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    bottom: -1000px;
+    background: transparent;
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  /* Ukryj wszystkie elementy po .sqs-html-content */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content > *:not(.sqs-html-content) {
+    display: none !important;
+  }
+
+  /* Ukryj tekst kodu HTML galerii bezpośrednio */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    max-height: fit-content;
+    overflow: hidden;
+  }
+
+  /* Ukryj tekst kodu HTML galerii - bardziej agresywne podejście */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    height: auto !important;
+    max-height: 500px !important;
+    overflow: hidden !important;
+    position: relative;
+  }
+
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-html-content {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Ukryj wszystko po .sqs-html-content używając pseudo-elementu */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    z-index: 9;
+    pointer-events: none;
+  }
+
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-html-content {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Ukryj tekst po .sqs-html-content ustawiając wysokość kontenera */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    max-height: calc(100% - 0px) !important;
+  }
+
+  /* Ukryj tekst kodu HTML galerii - ustaw wysokość kontenera na wysokość .sqs-html-content */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    height: auto !important;
+  }
+
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-html-content {
+    display: block !important;
+  }
+
+  /* Ukryj wszystko po .sqs-html-content ustawiając wysokość */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    max-height: 400px !important;
+    overflow: hidden !important;
+  }
+
+  /* Ukryj tekst kodu HTML galerii - ustaw wysokość kontenera na wysokość .sqs-html-content + mały margines */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    height: auto !important;
+    max-height: 350px !important;
+    overflow: hidden !important;
+    position: relative;
+  }
+
+  /* Ukryj wszystko po .sqs-html-content używając pseudo-elementu z tłem */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    z-index: 8;
+    pointer-events: none;
+    height: 100%;
+  }
+
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-html-content {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Ukryj tekst kodu HTML galerii - ustaw wysokość kontenera dokładnie na wysokość .sqs-html-content */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-html-content {
+    flex: 0 0 auto;
+  }
+
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content > *:not(.sqs-html-content) {
+    flex: 0 0 0;
+    height: 0;
+    overflow: hidden;
+    display: none !important;
+  }
+
+  /* Ukryj tekst kodu HTML galerii - ustaw wysokość kontenera dokładnie na wysokość .sqs-html-content */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    height: auto !important;
+    max-height: 300px !important;
+  }
+
+  /* Ukryj wszystkie węzły tekstowe zawierające tekst galerii */
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-block-content {
+    font-size: 0;
+  }
+
+  footer .fe-block-a7acb983c33bd47e8dda .sqs-html-content {
+    font-size: inherit;
+  }
+
   /* Zachowaj poprawny layout footera */
   footer {
     display: block !important;
@@ -10121,18 +10268,11 @@ if (footer) {
   }
 
   // Ukryj tekst kodu HTML galerii - tylko elementy, które zawierają TYLKO tekst galerii
-  // Szukaj elementów, które zawierają tylko tekst galerii (bez innych treści)
-  var walker = document.createTreeWalker(
-    footer,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false
-  );
-  
-  var node;
-  while (node = walker.nextNode()) {
-    var text = node.textContent ? node.textContent.trim() : '';
-    // Sprawdź, czy tekst zawiera tylko kod galerii (bez innych treści)
+  // Szukaj wszystkich elementów w footerze i ukryj te, które zawierają tylko tekst galerii
+  var allFooterElements = footer.querySelectorAll('*');
+  allFooterElements.forEach(function(el) {
+    var text = el.textContent ? el.textContent.trim() : '';
+    // Sprawdź, czy element zawiera tekst galerii
     if (text && text.length > 0 && (
         text.includes('sqs-gallery-thumbnails-per-row-6') ||
         text.includes('sqs-gallery-block-show-meta') ||
@@ -10148,6 +10288,10 @@ if (footer) {
           !text.includes('Services') &&
           !text.includes('Book Now') &&
           !text.includes('Contact Us') &&
+          !text.includes('Our Nurses') &&
+          !text.includes('Blog') &&
+          !text.includes('Events') &&
+          !text.includes('FAQ') &&
           !text.includes('Mon-Fri') &&
           !text.includes('Saturday') &&
           !text.includes('Sunday') &&
@@ -10156,40 +10300,68 @@ if (footer) {
           !text.includes('Email') &&
           !text.includes('Facebook') &&
           !text.includes('Instagram') &&
-          !text.includes('FAQ')) {
-        // Ukryj tylko element nadrzędny, który zawiera ten tekst
-        // Ale nie ukrywaj sekcji ani głównych kontenerów
-        var parent = node.parentElement;
-        // Przejdź w górę, aż znajdziemy odpowiedni element do ukrycia
-        while (parent && 
-               parent !== footer && 
-               parent.tagName !== 'SECTION' &&
-               parent.id !== 'footer-sections' &&
-               !parent.classList.contains('page-section') &&
-               !parent.classList.contains('fe-block') &&
-               !parent.classList.contains('sqs-block') &&
-               !parent.classList.contains('sqs-block-content') &&
-               !parent.classList.contains('sqs-html-content')) {
-          // Sprawdź, czy ten element zawiera tylko tekst galerii
-          var parentText = parent.textContent ? parent.textContent.trim() : '';
-          if (parentText && (
-              parentText.includes('sqs-gallery-thumbnails-per-row-6') ||
-              parentText.includes('sqs-gallery-block-show-meta') ||
-              parentText.includes('block-animation-none clear') ||
-              parentText.includes('data-async-rendering-enabled')
-          ) && !parentText.includes('FAQ') && 
-             !parentText.includes('NAVIGATION') &&
-             !parentText.includes('Book Now')) {
-            parent.style.display = 'none';
-            parent.style.visibility = 'hidden';
-            parent.style.height = '0';
-            parent.style.overflow = 'hidden';
-            parent.style.margin = '0';
-            parent.style.padding = '0';
-            break;
-          }
-          parent = parent.parentElement;
+          !text.includes('Juvederm') &&
+          !text.includes('Botox') &&
+          !text.includes('Sculptra')) {
+        // Sprawdź, czy element nie jest ważnym kontenerem
+        if (el.tagName !== 'SECTION' &&
+            el.id !== 'footer-sections' &&
+            !el.classList.contains('page-section') &&
+            !el.classList.contains('fe-block') &&
+            !el.classList.contains('sqs-block') &&
+            !el.classList.contains('sqs-block-content') &&
+            !el.classList.contains('sqs-html-content') &&
+            el !== footer) {
+          el.style.display = 'none';
+          el.style.visibility = 'hidden';
+          el.style.height = '0';
+          el.style.overflow = 'hidden';
+          el.style.margin = '0';
+          el.style.padding = '0';
+          el.style.fontSize = '0';
+          el.style.lineHeight = '0';
         }
+      }
+    }
+  });
+
+  // Ukryj również węzły tekstowe zawierające tylko tekst galerii
+  var walker = document.createTreeWalker(
+    footer,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  
+  var node;
+  while (node = walker.nextNode()) {
+    var text = node.textContent ? node.textContent.trim() : '';
+    if (text && text.length > 0 && (
+        text.includes('sqs-gallery-thumbnails-per-row-6') ||
+        text.includes('sqs-gallery-block-show-meta') ||
+        text.includes('block-animation-none clear') ||
+        text.includes('data-async-rendering-enabled')
+    ) && !text.includes('FAQ') && 
+       !text.includes('NAVIGATION') &&
+       !text.includes('Book Now')) {
+      var parent = node.parentElement;
+      if (parent && 
+          parent !== footer && 
+          parent.tagName !== 'SECTION' &&
+          parent.id !== 'footer-sections' &&
+          !parent.classList.contains('page-section') &&
+          !parent.classList.contains('fe-block') &&
+          !parent.classList.contains('sqs-block') &&
+          !parent.classList.contains('sqs-block-content') &&
+          !parent.classList.contains('sqs-html-content')) {
+        parent.style.display = 'none';
+        parent.style.visibility = 'hidden';
+        parent.style.height = '0';
+        parent.style.overflow = 'hidden';
+        parent.style.margin = '0';
+        parent.style.padding = '0';
+        parent.style.fontSize = '0';
+        parent.style.lineHeight = '0';
       }
     }
   }
