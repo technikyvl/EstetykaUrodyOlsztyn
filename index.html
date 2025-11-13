@@ -10155,24 +10155,40 @@ if (footer) {
           !text.includes('Main Street') &&
           !text.includes('Email') &&
           !text.includes('Facebook') &&
-          !text.includes('Instagram')) {
+          !text.includes('Instagram') &&
+          !text.includes('FAQ')) {
         // Ukryj tylko element nadrzędny, który zawiera ten tekst
         // Ale nie ukrywaj sekcji ani głównych kontenerów
         var parent = node.parentElement;
-        if (parent && 
-            parent !== footer && 
-            parent.tagName !== 'SECTION' &&
-            parent.id !== 'footer-sections' &&
-            !parent.classList.contains('page-section') &&
-            !parent.classList.contains('fe-block') &&
-            !parent.classList.contains('sqs-block') &&
-            !parent.classList.contains('sqs-block-content')) {
-          parent.style.display = 'none';
-          parent.style.visibility = 'hidden';
-          parent.style.height = '0';
-          parent.style.overflow = 'hidden';
-          parent.style.margin = '0';
-          parent.style.padding = '0';
+        // Przejdź w górę, aż znajdziemy odpowiedni element do ukrycia
+        while (parent && 
+               parent !== footer && 
+               parent.tagName !== 'SECTION' &&
+               parent.id !== 'footer-sections' &&
+               !parent.classList.contains('page-section') &&
+               !parent.classList.contains('fe-block') &&
+               !parent.classList.contains('sqs-block') &&
+               !parent.classList.contains('sqs-block-content') &&
+               !parent.classList.contains('sqs-html-content')) {
+          // Sprawdź, czy ten element zawiera tylko tekst galerii
+          var parentText = parent.textContent ? parent.textContent.trim() : '';
+          if (parentText && (
+              parentText.includes('sqs-gallery-thumbnails-per-row-6') ||
+              parentText.includes('sqs-gallery-block-show-meta') ||
+              parentText.includes('block-animation-none clear') ||
+              parentText.includes('data-async-rendering-enabled')
+          ) && !parentText.includes('FAQ') && 
+             !parentText.includes('NAVIGATION') &&
+             !parentText.includes('Book Now')) {
+            parent.style.display = 'none';
+            parent.style.visibility = 'hidden';
+            parent.style.height = '0';
+            parent.style.overflow = 'hidden';
+            parent.style.margin = '0';
+            parent.style.padding = '0';
+            break;
+          }
+          parent = parent.parentElement;
         }
       }
     }
