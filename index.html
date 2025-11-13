@@ -2316,13 +2316,18 @@ h1, h2, h3, h4, h5, h6,
   font-family: 'Femen';
   src: url('/assets/fonts/Femen.woff2') format('woff2'),
        url('/assets/fonts/Femen.woff') format('woff'),
-       url('/assets/fonts/Femen.ttf') format('truetype');
+       url('/assets/fonts/Femen.ttf') format('truetype'),
+       url('/assets/fonts/Femen.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-/* "Estetyka Urody" w sekcji hero */
+/* "Estetyka Urody" w sekcji hero - bardzo specyficzne selektory */
+#block-yui_3_17_2_1_1754181089441_2070,
+.fe-block-yui_3_17_2_1_1754181089441_2070,
+#block-yui_3_17_2_1_1754181089441_2070 *,
+.fe-block-yui_3_17_2_1_1754181089441_2070 *,
 #block-yui_3_17_2_1_1754181089441_2070 h1,
 .fe-block-yui_3_17_2_1_1754181089441_2070 h1,
 #block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text h1,
@@ -2336,13 +2341,21 @@ h1, h2, h3, h4, h5, h6,
 #block-yui_3_17_2_1_1754181089441_2070 h1 em,
 .fe-block-yui_3_17_2_1_1754181089441_2070 h1 em,
 #block-yui_3_17_2_1_1754181089441_2070 h1 span,
-.fe-block-yui_3_17_2_1_1754181089441_2070 h1 span {
-  font-family: 'Femen', serif !important;
+.fe-block-yui_3_17_2_1_1754181089441_2070 h1 span,
+#block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text-container *,
+.fe-block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text-container *,
+#block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text *,
+.fe-block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text * {
+  font-family: 'Femen', 'Playfair Display', 'Georgia', serif !important;
   font-weight: normal !important;
   font-style: normal !important;
 }
 
-/* "Joanna K" w sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" */
+/* "Joanna K" w sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - bardzo specyficzne selektory */
+#block-7da1d85dc54f90cab987,
+.fe-block-7da1d85dc54f90cab987,
+#block-7da1d85dc54f90cab987 *,
+.fe-block-7da1d85dc54f90cab987 *,
 #block-7da1d85dc54f90cab987 h1,
 .fe-block-7da1d85dc54f90cab987 h1,
 #block-7da1d85dc54f90cab987 .sqsrte-scaled-text h1,
@@ -2356,8 +2369,12 @@ h1, h2, h3, h4, h5, h6,
 #block-7da1d85dc54f90cab987 h1 em,
 .fe-block-7da1d85dc54f90cab987 h1 em,
 #block-7da1d85dc54f90cab987 h1 span,
-.fe-block-7da1d85dc54f90cab987 h1 span {
-  font-family: 'Femen', serif !important;
+.fe-block-7da1d85dc54f90cab987 h1 span,
+#block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container *,
+.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container *,
+#block-7da1d85dc54f90cab987 .sqsrte-scaled-text *,
+.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text * {
+  font-family: 'Femen', 'Playfair Display', 'Georgia', serif !important;
   font-weight: normal !important;
   font-style: normal !important;
 }
@@ -10775,16 +10792,26 @@ function applyWoodlandFont() {
           child.style.setProperty('font-weight', '300', 'important');
         });
       } else {
-        // Przywróć czcionkę Femen dla złotych napisów
-        heading.style.setProperty('font-family', "'Femen', serif", 'important');
+        // Przywróć czcionkę Femen dla złotych napisów - bardzo agresywne wymuszenie
+        heading.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
         heading.style.setProperty('font-weight', 'normal', 'important');
         heading.style.setProperty('font-style', 'normal', 'important');
         var headingChildren = heading.querySelectorAll('*');
         headingChildren.forEach(function(child) {
-          child.style.setProperty('font-family', "'Femen', serif", 'important');
+          child.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
           child.style.setProperty('font-weight', 'normal', 'important');
           child.style.setProperty('font-style', 'normal', 'important');
         });
+        // Wymuszenie również na wszystkich elementach wewnątrz kontenerów
+        var containers = heading.closest('#block-yui_3_17_2_1_1754181089441_2070, .fe-block-yui_3_17_2_1_1754181089441_2070, #block-7da1d85dc54f90cab987, .fe-block-7da1d85dc54f90cab987');
+        if (containers) {
+          var allElements = containers.querySelectorAll('*');
+          allElements.forEach(function(el) {
+            el.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
+            el.style.setProperty('font-weight', 'normal', 'important');
+            el.style.setProperty('font-style', 'normal', 'important');
+          });
+        }
       }
     }
   });
@@ -10796,9 +10823,91 @@ setTimeout(applyWoodlandFont, 100);
 setTimeout(applyWoodlandFont, 500);
 setTimeout(applyWoodlandFont, 1000);
 
+// Specjalna funkcja do wymuszenia czcionki Femen dla złotych napisów
+function applyFemenFont() {
+  // "Estetyka Urody"
+  var estetykaSelectors = [
+    '#block-yui_3_17_2_1_1754181089441_2070',
+    '.fe-block-yui_3_17_2_1_1754181089441_2070',
+    '#block-yui_3_17_2_1_1754181089441_2070 h1',
+    '.fe-block-yui_3_17_2_1_1754181089441_2070 h1',
+    '#block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text',
+    '.fe-block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text',
+    '#block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text-container',
+    '.fe-block-yui_3_17_2_1_1754181089441_2070 .sqsrte-scaled-text-container'
+  ];
+  
+  estetykaSelectors.forEach(function(selector) {
+    var elements = document.querySelectorAll(selector);
+    elements.forEach(function(el) {
+      el.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
+      el.style.setProperty('font-weight', 'normal', 'important');
+      el.style.setProperty('font-style', 'normal', 'important');
+      var children = el.querySelectorAll('*');
+      children.forEach(function(child) {
+        child.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
+        child.style.setProperty('font-weight', 'normal', 'important');
+        child.style.setProperty('font-style', 'normal', 'important');
+      });
+    });
+  });
+  
+  // "Joanna K"
+  var joannaSelectors = [
+    '#block-7da1d85dc54f90cab987',
+    '.fe-block-7da1d85dc54f90cab987',
+    '#block-7da1d85dc54f90cab987 h1',
+    '.fe-block-7da1d85dc54f90cab987 h1',
+    '#block-7da1d85dc54f90cab987 .sqsrte-scaled-text',
+    '.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text',
+    '#block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container',
+    '.fe-block-7da1d85dc54f90cab987 .sqsrte-scaled-text-container'
+  ];
+  
+  joannaSelectors.forEach(function(selector) {
+    var elements = document.querySelectorAll(selector);
+    elements.forEach(function(el) {
+      el.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
+      el.style.setProperty('font-weight', 'normal', 'important');
+      el.style.setProperty('font-style', 'normal', 'important');
+      var children = el.querySelectorAll('*');
+      children.forEach(function(child) {
+        child.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
+        child.style.setProperty('font-weight', 'normal', 'important');
+        child.style.setProperty('font-style', 'normal', 'important');
+      });
+    });
+  });
+  
+  // Znajdź elementy zawierające dokładnie tekst "Estetyka Urody" lub "Joanna K"
+  var allElements = document.querySelectorAll('*');
+  allElements.forEach(function(el) {
+    var text = el.textContent ? el.textContent.trim() : '';
+    if (text === 'Estetyka Urody' || text === 'Joanna K') {
+      el.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
+      el.style.setProperty('font-weight', 'normal', 'important');
+      el.style.setProperty('font-style', 'normal', 'important');
+      var children = el.querySelectorAll('*');
+      children.forEach(function(child) {
+        child.style.setProperty('font-family', "'Femen', 'Playfair Display', 'Georgia', serif", 'important');
+        child.style.setProperty('font-weight', 'normal', 'important');
+        child.style.setProperty('font-style', 'normal', 'important');
+      });
+    }
+  });
+}
+
+// Wywołaj funkcję Femen natychmiast i po załadowaniu strony
+applyFemenFont();
+setTimeout(applyFemenFont, 100);
+setTimeout(applyFemenFont, 500);
+setTimeout(applyFemenFont, 1000);
+setTimeout(applyFemenFont, 2000);
+
 // Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów)
 var observer = new MutationObserver(function(mutations) {
   applyWoodlandFont();
+  applyFemenFont();
 });
 observer.observe(document.body, {
   childList: true,
