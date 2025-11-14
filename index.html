@@ -2560,11 +2560,32 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   opacity: 0 !important;
 }
 
-/* Usuń WSZYSTKIE obecne tła obrazkowe - bardzo agresywne */
+/* Usuń WSZYSTKIE obecne tła obrazkowe - bardzo agresywne - USUŃ Z DOM */
 #newsletter .section-background img,
 #newsletter .section-background > img,
 #newsletter .section-background img[data-image],
-#newsletter .section-background img[data-src] {
+#newsletter .section-background img[data-src],
+#newsletter .section-background img[src],
+#newsletter .section-background img[alt],
+#newsletter .section-background img[elementtiming],
+#newsletter .section-background img.background-image-fx,
+#newsletter .section-background img[class*="background"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
+  content: none !important;
+}
+
+/* Usuń również wszystkie obrazki tła z całej sekcji newsletter */
+#newsletter img[data-image],
+#newsletter img[data-src],
+#newsletter img[elementtiming="nbf-background"],
+#newsletter img.background-image-fx {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -11035,7 +11056,22 @@ function applyNewsletterBackground() {
         bg.remove();
       });
       
-      // Usuń WSZYSTKIE obrazki tła
+      // Usuń WSZYSTKIE obrazki tła - również z całej sekcji newsletter
+      var allImages = newsletterSection.querySelectorAll('img');
+      allImages.forEach(function(img) {
+        // Sprawdź, czy to obrazek tła (nie obrazek treści)
+        var isBackgroundImage = img.closest('.section-background') || 
+                                img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background') ||
+                                img.classList.contains('background-image-fx') ||
+                                img.hasAttribute('data-image') && !img.closest('.sqs-block-image');
+        
+        if (isBackgroundImage) {
+          img.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; position: absolute !important; left: -9999px !important; pointer-events: none !important;';
+          img.remove();
+        }
+      });
+      
+      // Usuń również obrazki tła z section-background
       var backgroundImages = sectionBackground.querySelectorAll('img');
       backgroundImages.forEach(function(img) {
         img.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; position: absolute !important; left: -9999px !important; pointer-events: none !important;';
@@ -11066,22 +11102,39 @@ function applyNewsletterBackground() {
 
 // Wywołaj funkcję wielokrotnie, aby upewnić się, że zadziała
 applyNewsletterBackground();
+setTimeout(applyNewsletterBackground, 50);
 setTimeout(applyNewsletterBackground, 100);
+setTimeout(applyNewsletterBackground, 300);
 setTimeout(applyNewsletterBackground, 500);
 setTimeout(applyNewsletterBackground, 1000);
 setTimeout(applyNewsletterBackground, 2000);
+setTimeout(applyNewsletterBackground, 3000);
 
-// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów)
+// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów) - BARDZO AGRESYWNE
 var observerTimeout;
 var observer = new MutationObserver(function(mutations) {
   clearTimeout(observerTimeout);
   observerTimeout = setTimeout(function() {
     applyNewsletterBackground();
-  }, 200);
+    // Dodatkowo usuń wszystkie obrazki tła, które mogły zostać dodane
+    var newsletterSection = document.getElementById('newsletter');
+    if (newsletterSection) {
+      var allImgs = newsletterSection.querySelectorAll('img');
+      allImgs.forEach(function(img) {
+        if (img.closest('.section-background') || 
+            (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
+            img.classList.contains('background-image-fx')) {
+          img.remove();
+        }
+      });
+    }
+  }, 100);
 });
 observer.observe(document.body, {
   childList: true,
-  subtree: true
+  subtree: true,
+  attributes: true,
+  attributeFilter: ['src', 'data-src', 'data-image']
 });
 });
 </script>
