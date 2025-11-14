@@ -10919,14 +10919,20 @@ function applyWoodlandFont() {
   });
 }
 
-// Wywołaj funkcję natychmiast i po załadowaniu strony
-applyWoodlandFont();
-setTimeout(applyWoodlandFont, 100);
-setTimeout(applyWoodlandFont, 500);
-setTimeout(applyWoodlandFont, 1000);
+// Wywołaj funkcję tylko raz po załadowaniu
+var woodlandFontApplied = false;
+function applyWoodlandFontOnce() {
+  if (woodlandFontApplied) return;
+  applyWoodlandFont();
+  woodlandFontApplied = true;
+}
+setTimeout(applyWoodlandFontOnce, 500);
 
 // Specjalna funkcja do wymuszenia czcionki Allura (eleganckie pismo ręczne) dla złotych napisów
+var femenFontApplied = false;
 function applyFemenFont() {
+  if (femenFontApplied) return; // Zapobiegaj wielokrotnemu wykonaniu
+  
   // "Estetyka Urody"
   var estetykaSelectors = [
     '#block-yui_3_17_2_1_1754181089441_2070',
@@ -10945,7 +10951,7 @@ function applyFemenFont() {
       el.style.setProperty('font-family', "'Allura', 'Dancing Script', 'Great Vibes', cursive", 'important');
       el.style.setProperty('font-weight', 'normal', 'important');
       el.style.setProperty('font-style', 'normal', 'important');
-      var children = el.querySelectorAll('*');
+      var children = el.querySelectorAll('span, em, strong, h1, h2, h3');
       children.forEach(function(child) {
         child.style.setProperty('font-family', "'Allura', 'Dancing Script', 'Great Vibes', cursive", 'important');
         child.style.setProperty('font-weight', 'normal', 'important');
@@ -10972,7 +10978,7 @@ function applyFemenFont() {
       el.style.setProperty('font-family', "'Allura', 'Dancing Script', 'Great Vibes', cursive", 'important');
       el.style.setProperty('font-weight', 'normal', 'important');
       el.style.setProperty('font-style', 'normal', 'important');
-      var children = el.querySelectorAll('*');
+      var children = el.querySelectorAll('span, em, strong, h1, h2, h3');
       children.forEach(function(child) {
         child.style.setProperty('font-family', "'Allura', 'Dancing Script', 'Great Vibes', cursive", 'important');
         child.style.setProperty('font-weight', 'normal', 'important');
@@ -10981,45 +10987,32 @@ function applyFemenFont() {
     });
   });
   
-  // Znajdź elementy zawierające dokładnie tekst "Estetyka Urody" lub "Joanna K"
-  var allElements = document.querySelectorAll('*');
-  allElements.forEach(function(el) {
-    var text = el.textContent ? el.textContent.trim() : '';
-    if (text === 'Estetyka Urody' || text === 'Joanna K') {
-      el.style.setProperty('font-family', "'Allura', 'Dancing Script', 'Great Vibes', cursive", 'important');
-      el.style.setProperty('font-weight', 'normal', 'important');
-      el.style.setProperty('font-style', 'normal', 'important');
-      var children = el.querySelectorAll('*');
-      children.forEach(function(child) {
-        child.style.setProperty('font-family', "'Allura', 'Dancing Script', 'Great Vibes', cursive", 'important');
-        child.style.setProperty('font-weight', 'normal', 'important');
-        child.style.setProperty('font-style', 'normal', 'important');
-      });
-    }
-  });
+  femenFontApplied = true;
 }
 
-// Wywołaj funkcję Femen natychmiast i po załadowaniu strony
-applyFemenFont();
-setTimeout(applyFemenFont, 100);
+// Wywołaj funkcję Femen tylko raz po załadowaniu
 setTimeout(applyFemenFont, 500);
-setTimeout(applyFemenFont, 1000);
-setTimeout(applyFemenFont, 2000);
 
 // Funkcja do wymuszenia podzielonego tła sekcji newsletter
+var newsletterBackgroundApplied = false;
 function applyNewsletterBackground() {
+  if (newsletterBackgroundApplied) return; // Zapobiegaj wielokrotnemu wykonaniu
+  
   var newsletterSection = document.getElementById('newsletter');
   if (newsletterSection) {
     var sectionBackground = newsletterSection.querySelector('.section-background');
     if (sectionBackground) {
+      // Sprawdź, czy już istnieją divy tła
+      var existingBg1 = sectionBackground.querySelector('.custom-bg-left');
+      var existingBg2 = sectionBackground.querySelector('.custom-bg-right');
+      if (existingBg1 && existingBg2) {
+        newsletterBackgroundApplied = true;
+        return; // Tło już jest ustawione
+      }
+      
       // Ukryj wszystkie obrazki tła
       var backgroundImages = sectionBackground.querySelectorAll('img');
       backgroundImages.forEach(function(img) {
-        img.style.display = 'none';
-        img.style.visibility = 'hidden';
-        img.style.opacity = '0';
-        img.style.height = '0';
-        img.style.width = '0';
         img.remove();
       });
       
@@ -11037,12 +11030,6 @@ function applyNewsletterBackground() {
       sectionBackground.style.backgroundColor = 'transparent';
       sectionBackground.style.overflow = 'hidden';
       
-      // Usuń istniejące divy tła, jeśli już istnieją
-      var existingBg1 = sectionBackground.querySelector('.custom-bg-left');
-      var existingBg2 = sectionBackground.querySelector('.custom-bg-right');
-      if (existingBg1) existingBg1.remove();
-      if (existingBg2) existingBg2.remove();
-      
       // Utwórz lewy div z tłem
       var bgLeft = document.createElement('div');
       bgLeft.className = 'custom-bg-left';
@@ -11054,25 +11041,29 @@ function applyNewsletterBackground() {
       bgRight.className = 'custom-bg-right';
       bgRight.style.cssText = 'position: absolute; top: 0; right: 0; width: 50%; height: 100%; background-image: url("/assets/img/tłohero2.png"); background-size: cover; background-position: center center; background-repeat: no-repeat; z-index: 0; pointer-events: none;';
       sectionBackground.appendChild(bgRight);
+      
+      newsletterBackgroundApplied = true;
     }
   }
 }
 
-// Wywołaj funkcję natychmiast i po załadowaniu
-applyNewsletterBackground();
-setTimeout(applyNewsletterBackground, 100);
+// Wywołaj funkcję tylko raz po załadowaniu
 setTimeout(applyNewsletterBackground, 500);
-setTimeout(applyNewsletterBackground, 1000);
 
-// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów)
+// Obserwuj zmiany w DOM z debouncingiem (dla dynamicznie ładowanych elementów)
+var observerTimeout;
 var observer = new MutationObserver(function(mutations) {
-  applyWoodlandFont();
-  applyFemenFont();
-  applyNewsletterBackground();
+  clearTimeout(observerTimeout);
+  observerTimeout = setTimeout(function() {
+    // Sprawdź tylko, czy sekcja newsletter istnieje i czy tło nie jest już ustawione
+    if (!newsletterBackgroundApplied) {
+      applyNewsletterBackground();
+    }
+  }, 300); // Debounce 300ms
 });
 observer.observe(document.body, {
   childList: true,
-  subtree: true
+  subtree: false // Zmieniono na false, żeby obserwować tylko bezpośrednie dzieci
 });
 });
 </script>
