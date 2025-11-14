@@ -2712,6 +2712,68 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   background: #000000 !important;
 }
 
+/* UKRYJ WSZYSTKIE OBRAZKI TŁA W RAMKACH ZDJĘĆ - graniteTexture i inne */
+#newsletter .content-fill img[src*="graniteTexture"],
+#newsletter .content-fill img[src*="granite"],
+#newsletter .content-fill img[data-src*="graniteTexture"],
+#newsletter .content-fill img[data-src*="granite"],
+#newsletter .content-fill img[data-image*="graniteTexture"],
+#newsletter .content-fill img[data-image*="granite"],
+#newsletter .fluid-image-container img[src*="graniteTexture"],
+#newsletter .fluid-image-container img[src*="granite"],
+#newsletter .fluid-image-container img[data-src*="graniteTexture"],
+#newsletter .fluid-image-container img[data-src*="granite"],
+#newsletter .image-block img[src*="graniteTexture"],
+#newsletter .image-block img[src*="granite"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  pointer-events: none !important;
+  max-height: 0 !important;
+  max-width: 0 !important;
+  z-index: -9999 !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0, 0, 0, 0) !important;
+}
+
+/* Ustaw czarne tło na content-fill i wszystkich kontenerach obrazków */
+#newsletter .content-fill,
+#newsletter .fluid-image-container,
+#newsletter .fluid-image-animation-wrapper,
+#newsletter .image-block-outer-wrapper,
+#newsletter .sqs-block-image,
+#newsletter .sqs-block-image .sqs-block-content {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+}
+
+/* Ustaw czarne tło na WSZYSTKICH elementach w sekcji newsletter - bardzo agresywne */
+#newsletter * {
+  background-image: none !important;
+}
+
+/* Wyjątek: tylko obrazy treści mogą być widoczne */
+#newsletter .sqs-block-image img:not([src*="granite"]):not([src*="graniteTexture"]):not([data-src*="granite"]):not([data-src*="graniteTexture"]),
+#newsletter .image-block img:not([src*="granite"]):not([src*="graniteTexture"]):not([data-src*="granite"]):not([data-src*="graniteTexture"]) {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Ustaw czarne tło na grid area i wszystkich kontenerach */
+#newsletter .fe-688e4e9c99f40f476643f20f > *,
+#newsletter [class*="fe-block"] {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+}
+
 /* Ukryj wszystkie shape blocks w sekcji newsletter */
 #newsletter .sqs-shape-block,
 #newsletter .sqs-shape-block-container,
@@ -11358,12 +11420,14 @@ function applyNewsletterBackground() {
     setBlackBackground(backgroundFxCanvas);
     
     if (contentWrapper) {
-      contentWrapper.style.setProperty('background-color', 'transparent', 'important');
+      contentWrapper.style.setProperty('background-color', '#000000', 'important');
       contentWrapper.style.setProperty('background-image', 'none', 'important');
+      contentWrapper.style.setProperty('background', '#000000', 'important');
     }
     if (content) {
-      content.style.setProperty('background-color', 'transparent', 'important');
+      content.style.setProperty('background-color', '#000000', 'important');
       content.style.setProperty('background-image', 'none', 'important');
+      content.style.setProperty('background', '#000000', 'important');
     }
     // Ukryj canvas elementy (są już obsłużone przez setBlackBackground)
     if (sectionBackgroundCanvas) {
@@ -11409,14 +11473,31 @@ function applyNewsletterBackground() {
       // KROK 4: Usuń WSZYSTKIE obrazki tła - TYLKO tła, NIE obrazy treści
       var allImages = newsletterSection.querySelectorAll('img');
       allImages.forEach(function(img) {
-        // Sprawdź, czy to obrazek treści (NIE usuwać)
-        var isContentImage = img.closest('.sqs-block-image') || 
-                            img.closest('.image-block') ||
-                            (img.closest('.fe-block') && !img.closest('.section-background'));
+        var imgSrc = img.getAttribute('src') || img.getAttribute('data-src') || img.getAttribute('data-image') || '';
         
+        // Sprawdź, czy to obrazek graniteTexture lub darkGranite - USUŃ WSZYSTKIE
+        var isGraniteTexture = imgSrc.includes('graniteTexture') || 
+                               imgSrc.includes('darkGranite') ||
+                               imgSrc.includes('granite');
+        
+        // Sprawdź, czy to obrazek treści (NIE usuwać) - ale tylko jeśli NIE jest graniteTexture
+        var isContentImage = !isGraniteTexture && (
+          img.closest('.sqs-block-image') && 
+          !img.closest('.content-fill') ||
+          (img.closest('.fe-block') && !img.closest('.section-background') && !img.closest('.content-fill'))
+        );
+        
+        // Jeśli to graniteTexture lub darkGranite - USUŃ ZAWSZE
+        if (isGraniteTexture) {
+          img.style.setProperty('display', 'none', 'important');
+          img.style.setProperty('visibility', 'hidden', 'important');
+          img.style.setProperty('opacity', '0', 'important');
+          img.style.setProperty('height', '0', 'important');
+          img.style.setProperty('width', '0', 'important');
+          img.remove();
+        }
         // Jeśli to NIE jest obrazek treści, sprawdź czy to tło
-        if (!isContentImage) {
-          var imgSrc = img.getAttribute('src') || img.getAttribute('data-src') || '';
+        else if (!isContentImage) {
           var isBackgroundImage = img.closest('.section-background') || 
                                   (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
                                   img.classList.contains('background-image-fx') ||
@@ -11433,6 +11514,25 @@ function applyNewsletterBackground() {
             img.remove();
           }
         }
+      });
+      
+      // DODATKOWO: Usuń WSZYSTKIE obrazki graniteTexture z content-fill
+      var contentFills = newsletterSection.querySelectorAll('.content-fill');
+      contentFills.forEach(function(contentFill) {
+        var graniteImgs = contentFill.querySelectorAll('img[src*="graniteTexture"], img[src*="granite"], img[data-src*="graniteTexture"], img[data-src*="granite"], img[data-image*="graniteTexture"], img[data-image*="granite"]');
+        graniteImgs.forEach(function(img) {
+          img.style.setProperty('display', 'none', 'important');
+          img.style.setProperty('visibility', 'hidden', 'important');
+          img.style.setProperty('opacity', '0', 'important');
+          img.style.setProperty('height', '0', 'important');
+          img.style.setProperty('width', '0', 'important');
+          img.remove();
+        });
+        
+        // Ustaw czarne tło na content-fill
+        contentFill.style.setProperty('background-color', '#000000', 'important');
+        contentFill.style.setProperty('background-image', 'none', 'important');
+        contentFill.style.setProperty('background', '#000000', 'important');
       });
       
       // Usuń również WSZYSTKIE obrazki tła z section-background (bez wyjątków)
