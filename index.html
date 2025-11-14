@@ -2694,7 +2694,33 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 
 /* Ustaw transparentne tło na wszystkich blokach treści - zachowaj layout */
 #newsletter .fe-block,
+/* Ukryj szary blok kształtu po lewej stronie - BARDZO AGRESYWNE */
 #newsletter .fe-block-yui_3_17_2_1_1754411224232_13154,
+#newsletter #block-yui_3_17_2_1_1754411224232_13154,
+#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 *,
+#newsletter #block-yui_3_17_2_1_1754411224232_13154 * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  max-height: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  pointer-events: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0, 0, 0, 0) !important;
+}
+
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801,
 #newsletter .fe-block-3cec84cba25f017e8acd,
 #newsletter .fe-block-a4c125db3a4991caf1c2 {
