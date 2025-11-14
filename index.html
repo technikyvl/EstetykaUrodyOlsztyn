@@ -2671,7 +2671,7 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   background: #000000 !important;
 }
 
-/* Ustaw czarne tło na wszystkich możliwych elementach */
+/* Ustaw transparentne tło na wszystkich blokach treści - zachowaj layout */
 #newsletter .fe-block,
 #newsletter .fe-block-yui_3_17_2_1_1754411224232_13154,
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801,
@@ -2679,9 +2679,10 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 #newsletter .fe-block-a4c125db3a4991caf1c2 {
   background-color: transparent !important;
   background-image: none !important;
+  background: transparent !important;
 }
 
-/* Ustaw czarne tło na blokach z obrazkami po prawej stronie */
+/* Ustaw transparentne tło na blokach z obrazkami - zachowaj layout */
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801,
 #newsletter .fe-block-3cec84cba25f017e8acd,
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .sqs-block,
@@ -2692,24 +2693,30 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 #newsletter .fe-block-3cec84cba25f017e8acd .image-block-outer-wrapper,
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .fluid-image-animation-wrapper,
 #newsletter .fe-block-3cec84cba25f017e8acd .fluid-image-animation-wrapper {
-  background-color: #000000 !important;
+  background-color: transparent !important;
   background-image: none !important;
-  background: #000000 !important;
+  background: transparent !important;
 }
 
-/* Ustaw czarne tło na kontenerze fluid-engine po prawej stronie */
+/* Ustaw czarne tło na kontenerze fluid-engine - tylko główny kontener */
 #newsletter .fe-688e4e9c99f40f476643f20f {
   background-color: #000000 !important;
   background-image: none !important;
   background: #000000 !important;
+  position: relative !important;
 }
 
 /* Ustaw czarne tło na content-wrapper i content w sekcji newsletter */
-#newsletter .content-wrapper,
-#newsletter .content {
+#newsletter .content-wrapper {
   background-color: #000000 !important;
   background-image: none !important;
   background: #000000 !important;
+}
+
+#newsletter .content {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
 }
 
 /* UKRYJ WSZYSTKIE OBRAZKI TŁA W RAMKACH ZDJĘĆ - graniteTexture i inne */
@@ -2741,16 +2748,16 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   clip: rect(0, 0, 0, 0) !important;
 }
 
-/* Ustaw czarne tło na content-fill i wszystkich kontenerach obrazków */
+/* Ustaw transparentne tło na content-fill i kontenerach obrazków - zachowaj layout */
 #newsletter .content-fill,
 #newsletter .fluid-image-container,
 #newsletter .fluid-image-animation-wrapper,
 #newsletter .image-block-outer-wrapper,
 #newsletter .sqs-block-image,
 #newsletter .sqs-block-image .sqs-block-content {
-  background-color: #000000 !important;
+  background-color: transparent !important;
   background-image: none !important;
-  background: #000000 !important;
+  background: transparent !important;
 }
 
 /* Ustaw czarne tło na WSZYSTKICH elementach w sekcji newsletter - bardzo agresywne */
@@ -2766,12 +2773,25 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   opacity: 1 !important;
 }
 
-/* Ustaw czarne tło na grid area i wszystkich kontenerach */
-#newsletter .fe-688e4e9c99f40f476643f20f > *,
-#newsletter [class*="fe-block"] {
+/* Ustaw czarne tło na grid area - tylko kontener główny */
+#newsletter .fe-688e4e9c99f40f476643f20f {
   background-color: #000000 !important;
   background-image: none !important;
   background: #000000 !important;
+}
+
+/* Ustaw transparentne tło na blokach treści - zachowaj layout */
+#newsletter [class*="fe-block"] {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+}
+
+/* Wyjątek: tylko strukturalne elementy mają czarne tło */
+#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
 }
 
 /* Ukryj wszystkie shape blocks w sekcji newsletter */
@@ -11359,13 +11379,26 @@ function applyNewsletterBackground() {
       newsletterSection.style.setProperty('background-image', 'none', 'important');
     }
     
-    // KROK 2: Znajdź i ustaw czarne tło na WSZYSTKICH elementach struktury sekcji
+    // KROK 2: Znajdź i ustaw czarne tło TYLKO na strukturalnych elementach sekcji
     var allSectionElements = newsletterSection.querySelectorAll('div, section');
     allSectionElements.forEach(function(el) {
-      // Pomiń elementy treści
-      if (!el.closest('.content-wrapper') && !el.closest('.content') && 
-          !el.closest('.sqs-block-image') && !el.closest('.sqs-block-html') && 
-          !el.closest('.sqs-block-text') && !el.closest('.sqs-block')) {
+      // Pomiń elementy treści - tylko strukturalne elementy mają czarne tło
+      var isStructuralElement = el.classList.contains('section-border') ||
+                               el.classList.contains('section-background') ||
+                               el.classList.contains('content-wrapper') ||
+                               (el.classList.contains('fe-688e4e9c99f40f476643f20f') && !el.closest('.fe-block'));
+      
+      var isContentElement = el.closest('.content') ||
+                             el.closest('.sqs-block-image') ||
+                             el.closest('.sqs-block-html') ||
+                             el.closest('.sqs-block-text') ||
+                             el.closest('.sqs-block') ||
+                             el.closest('.fe-block') ||
+                             el.classList.contains('content-fill') ||
+                             el.classList.contains('fluid-image-container') ||
+                             el.classList.contains('image-block-outer-wrapper');
+      
+      if (isStructuralElement && !isContentElement) {
         // Usuń wszystkie możliwe właściwości tła
         el.style.removeProperty('background');
         el.style.removeProperty('background-color');
@@ -11373,10 +11406,15 @@ function applyNewsletterBackground() {
         el.style.removeProperty('--background-color');
         el.style.removeProperty('--background-image');
         
-        // Ustaw czarne tło
+        // Ustaw czarne tło TYLKO na strukturalnych elementach
         el.style.setProperty('background-color', '#000000', 'important');
         el.style.setProperty('background-image', 'none', 'important');
         el.style.setProperty('background', '#000000', 'important');
+      } else if (isContentElement) {
+        // Ustaw transparentne tło na elementach treści - zachowaj layout
+        el.style.setProperty('background-color', 'transparent', 'important');
+        el.style.setProperty('background-image', 'none', 'important');
+        el.style.setProperty('background', 'transparent', 'important');
       }
     });
     
@@ -11425,9 +11463,9 @@ function applyNewsletterBackground() {
       contentWrapper.style.setProperty('background', '#000000', 'important');
     }
     if (content) {
-      content.style.setProperty('background-color', '#000000', 'important');
+      content.style.setProperty('background-color', 'transparent', 'important');
       content.style.setProperty('background-image', 'none', 'important');
-      content.style.setProperty('background', '#000000', 'important');
+      content.style.setProperty('background', 'transparent', 'important');
     }
     // Ukryj canvas elementy (są już obsłużone przez setBlackBackground)
     if (sectionBackgroundCanvas) {
@@ -11529,10 +11567,10 @@ function applyNewsletterBackground() {
           img.remove();
         });
         
-        // Ustaw czarne tło na content-fill
-        contentFill.style.setProperty('background-color', '#000000', 'important');
+        // Ustaw transparentne tło na content-fill - zachowaj layout
+        contentFill.style.setProperty('background-color', 'transparent', 'important');
         contentFill.style.setProperty('background-image', 'none', 'important');
-        contentFill.style.setProperty('background', '#000000', 'important');
+        contentFill.style.setProperty('background', 'transparent', 'important');
       });
       
       // Usuń również WSZYSTKIE obrazki tła z section-background (bez wyjątków)
