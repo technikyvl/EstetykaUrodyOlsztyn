@@ -2475,6 +2475,31 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 300 !important;
 }
 
+/* Zmniejsz padding między nagłówkiem "Spa Philosophy" a akapitem w sekcji our-mission */
+#our-mission #block-29b417948497d887e744 h1,
+#our-mission .fe-block-29b417948497d887e744 h1,
+#our-mission #block-29b417948497d887e744 .sqsrte-scaled-text-container,
+#our-mission .fe-block-29b417948497d887e744 .sqsrte-scaled-text-container {
+  margin-bottom: 0.5em !important;
+  padding-bottom: 0 !important;
+}
+
+#our-mission #block-f4462786c7c3301d5124 .sqs-html-content p:first-of-type,
+#our-mission .fe-block-f4462786c7c3301d5124 .sqs-html-content p:first-of-type {
+  margin-top: 0.5em !important;
+  padding-top: 0 !important;
+}
+
+/* Ukryj małe zdjęcie salonu w sekcji our-mission */
+#our-mission .fe-block-yui_3_17_2_1_1754416919520_5501,
+#our-mission #block-yui_3_17_2_1_1754416919520_5501 {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
 /* Recent Looks - bardzo specyficzne selektory */
 #68921d0047edc42290b07ea6,
 #68921d0047edc42290b07ea6 *,
@@ -6255,8 +6280,7 @@ margin: 0 !important;
   
   
 </div>
-</div></div></div><div class="fe-block fe-block-yui_3_17_2_1_1754416919520_5501"><div class="sqs-block image-block sqs-block-image sqs-stretched" data-aspect-ratio="166.90130864080882" data-block-type="5" data-sqsp-block="image" id="block-yui_3_17_2_1_1754416919520_5501"><div class="sqs-block-content">
-
+</div></div></div>
 
 
 
@@ -11060,6 +11084,25 @@ function applyWoodlandFont() {
       }
     }
   });
+  
+  // Usuń małe zdjęcie salonu z sekcji our-mission
+  var smallSalonImage = document.querySelector('#our-mission .fe-block-yui_3_17_2_1_1754416919520_5501, #our-mission #block-yui_3_17_2_1_1754416919520_5501');
+  if (smallSalonImage) {
+    smallSalonImage.remove();
+  }
+  
+  // Alternatywnie - znajdź obrazek salon-estetyka.jpg w sekcji our-mission i usuń jego kontener
+  var ourMissionSection = document.getElementById('our-mission');
+  if (ourMissionSection) {
+    var salonImages = ourMissionSection.querySelectorAll('img[src*="salon-estetyka.jpg"]');
+    salonImages.forEach(function(img) {
+      // Sprawdź, czy to małe zdjęcie (nie duże zdjęcie testimonial2.png)
+      var block = img.closest('.fe-block-yui_3_17_2_1_1754416919520_5501, #block-yui_3_17_2_1_1754416919520_5501');
+      if (block) {
+        block.remove();
+      }
+    });
+  }
 }
 
 // Wywołaj funkcję tylko raz po załadowaniu
