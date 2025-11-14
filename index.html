@@ -2485,8 +2485,10 @@ h1, h2, h3, h4, h5, h6,
 #block-29b417948497d887e744 h1,
 .fe-block-29b417948497d887e744 h1,
 #block-29b417948497d887e744 .sqsrte-scaled-text-container,
-.fe-block-29b417948497d887e744 .sqsrte-scaled-text-container {
-  margin-bottom: 0.5em !important;
+.fe-block-29b417948497d887e744 .sqsrte-scaled-text-container,
+#block-29b417948497d887e744 .sqsrte-scaled-text,
+.fe-block-29b417948497d887e744 .sqsrte-scaled-text {
+  margin-bottom: 0.2em !important;
   padding-bottom: 0 !important;
 }
 
@@ -2499,6 +2501,14 @@ h1, h2, h3, h4, h5, h6,
 #block-f4462786c7c3301d5124 p:first-child,
 .fe-block-f4462786c7c3301d5124 p:first-child {
   margin-top: 0 !important;
+  padding-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Dodatkowo zmniejsz odstęp między blokami */
+.fe-block-29b417948497d887e744 + .fe-block-f4462786c7c3301d5124,
+#block-29b417948497d887e744 + #block-f4462786c7c3301d5124 {
+  margin-top: -0.5em !important;
   padding-top: 0 !important;
 }
 
