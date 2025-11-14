@@ -2453,11 +2453,25 @@ h1, h2, h3, h4, h5, h6,
 #block-44e080b9c49f40371f5b h3 span,
 .fe-block-44e080b9c49f40371f5b h3 span,
 #block-44e080b9c49f40371f5b h3 *,
-.fe-block-44e080b9c49f40371f5b h3 * {
+.fe-block-44e080b9c49f40371f5b h3 *,
+#block-44e080b9c49f40371f5b h3 .sqsrte-text-color--black,
+.fe-block-44e080b9c49f40371f5b h3 .sqsrte-text-color--black {
   font-family: 'Woodland', 'Georgia', 'Times New Roman', serif !important;
   font-weight: 300 !important;
-  font-size: 3rem !important;
+  font-size: 3.5rem !important;
   line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Upewnij się, że wszystkie znaki mają dokładnie tę samą grubość */
+#block-44e080b9c49f40371f5b h3,
+.fe-block-44e080b9c49f40371f5b h3,
+#block-44e080b9c49f40371f5b h3 *,
+.fe-block-44e080b9c49f40371f5b h3 * {
+  font-weight: 300 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
 }
 
 /* BOTOX */
