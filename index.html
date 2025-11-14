@@ -2683,16 +2683,12 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 }
 
 /* Ustaw transparentne tło na blokach z obrazkami - zachowaj layout */
+/* Uwaga: fe-block-3cec84cba25f017e8acd i fe-block-51dad62e90195a226a16 mają czarne tło w osobnych regułach poniżej */
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801,
-#newsletter .fe-block-3cec84cba25f017e8acd,
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .sqs-block,
-#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block,
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .sqs-block-content,
-#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-content,
 #newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .image-block-outer-wrapper,
-#newsletter .fe-block-3cec84cba25f017e8acd .image-block-outer-wrapper,
-#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .fluid-image-animation-wrapper,
-#newsletter .fe-block-3cec84cba25f017e8acd .fluid-image-animation-wrapper {
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .fluid-image-animation-wrapper {
   background-color: transparent !important;
   background-image: none !important;
   background: transparent !important;
@@ -2758,6 +2754,35 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   background-color: transparent !important;
   background-image: none !important;
   background: transparent !important;
+}
+
+/* Ustaw czarne tło na kontenerach obrazu estetyka-tło.png, aby przykryć jego jasne tło */
+/* Ustawiamy czarne tło na wszystkich kontenerach, w tym content-fill, aby tło za obrazem było czarne */
+#newsletter .fe-block-3cec84cba25f017e8acd .content-fill,
+#newsletter .fe-block-3cec84cba25f017e8acd .fluid-image-container,
+#newsletter .fe-block-3cec84cba25f017e8acd .fluid-image-animation-wrapper,
+#newsletter .fe-block-3cec84cba25f017e8acd .image-block-outer-wrapper,
+#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-image,
+#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-image .sqs-block-content,
+#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-content,
+#newsletter .fe-block-3cec84cba25f017e8acd {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+}
+
+/* Ustaw czarne tło również na kontenerach drugiego obrazu (salon-estetyka.jpg) */
+#newsletter .fe-block-51dad62e90195a226a16 .content-fill,
+#newsletter .fe-block-51dad62e90195a226a16 .fluid-image-container,
+#newsletter .fe-block-51dad62e90195a226a16 .fluid-image-animation-wrapper,
+#newsletter .fe-block-51dad62e90195a226a16 .image-block-outer-wrapper,
+#newsletter .fe-block-51dad62e90195a226a16 .sqs-block-image,
+#newsletter .fe-block-51dad62e90195a226a16 .sqs-block-image .sqs-block-content,
+#newsletter .fe-block-51dad62e90195a226a16 .sqs-block-content,
+#newsletter .fe-block-51dad62e90195a226a16 {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
 }
 
 /* Ustaw czarne tło na WSZYSTKICH elementach w sekcji newsletter - bardzo agresywne */
