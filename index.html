@@ -2590,10 +2590,32 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   background-color: #000000 !important;
   background-image: url('/assets/img/t%C5%82ohero3gold.png') !important; /* URL encoded: tło = t%C5%82o */
   background-size: cover !important;
-  background-position: center !important;
+  background-position: center center !important;
   background-repeat: no-repeat !important;
-  background: url('/assets/img/t%C5%82ohero3gold.png') center/cover no-repeat #000000 !important;
+  background-attachment: scroll !important;
+  background: url('/assets/img/t%C5%82ohero3gold.png') center center/cover no-repeat #000000 !important;
   position: relative !important;
+  min-height: 100% !important;
+  width: 100% !important;
+}
+
+/* Upewnij się, że obrazek tła jest widoczny - dodatkowe zabezpieczenie */
+#newsletter .section-background::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-image: url('/assets/img/t%C5%82ohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-color: #000000 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
 }
 
 /* Upewnij się, że section-border jest transparentne, aby tło z section-background było widoczne */
@@ -11479,17 +11501,26 @@ function applyNewsletterBackground() {
     }
     
     setBlackBackground(sectionBorder);
-    // Ustaw obrazek tła na section-background zamiast czarnego tła
+    // Ustaw obrazek tła na section-background zamiast czarnego tła - NAJWAŻNIEJSZE!
     if (sectionBackground) {
+      // Usuń wszystkie właściwości tła
       sectionBackground.style.removeProperty('background');
       sectionBackground.style.removeProperty('background-color');
       sectionBackground.style.removeProperty('background-image');
+      sectionBackground.style.removeProperty('--background-color');
+      sectionBackground.style.removeProperty('--background-image');
+      
+      // Ustaw obrazek tła - użyj wielu metod, aby upewnić się, że zadziała
+      var bgImage = 'url("/assets/img/t%C5%82ohero3gold.png")';
       sectionBackground.style.setProperty('background-color', '#000000', 'important');
-      sectionBackground.style.setProperty('background-image', 'url("/assets/img/t%C5%82ohero3gold.png")', 'important');
+      sectionBackground.style.setProperty('background-image', bgImage, 'important');
       sectionBackground.style.setProperty('background-size', 'cover', 'important');
       sectionBackground.style.setProperty('background-position', 'center', 'important');
       sectionBackground.style.setProperty('background-repeat', 'no-repeat', 'important');
-      sectionBackground.style.setProperty('background', 'url("/assets/img/t%C5%82ohero3gold.png") center/cover no-repeat #000000', 'important');
+      sectionBackground.style.setProperty('background', bgImage + ' center/cover no-repeat #000000', 'important');
+      
+      // Ustaw również przez setAttribute, jeśli to możliwe
+      sectionBackground.setAttribute('data-bg-image', '/assets/img/t%C5%82ohero3gold.png');
     }
     setBlackBackground(sectionBackgroundCanvas);
     setBlackBackground(backgroundFxCanvas);
@@ -11632,12 +11663,37 @@ function applyNewsletterBackground() {
       sectionBackground.style.setProperty('overflow', 'hidden', 'important');
       sectionBackground.style.setProperty('min-height', '100%', 'important');
       sectionBackground.style.setProperty('background-color', '#000000', 'important');
-      sectionBackground.style.setProperty('background-image', 'url("/assets/img/t%C5%82ohero3gold.png")', 'important');
+      // Użyj zarówno absolutnej jak i względnej ścieżki, aby upewnić się, że obrazek się załaduje
+      var imagePath1 = '/assets/img/t%C5%82ohero3gold.png';
+      var imagePath2 = 'assets/img/t%C5%82ohero3gold.png';
+      var imagePath3 = './assets/img/t%C5%82ohero3gold.png';
+      
+      sectionBackground.style.setProperty('background-image', 'url("' + imagePath1 + '")', 'important');
       sectionBackground.style.setProperty('background-size', 'cover', 'important');
       sectionBackground.style.setProperty('background-position', 'center', 'important');
       sectionBackground.style.setProperty('background-repeat', 'no-repeat', 'important');
-      sectionBackground.style.setProperty('background', 'url("/assets/img/t%C5%82ohero3gold.png") center/cover no-repeat #000000', 'important');
+      sectionBackground.style.setProperty('background', 'url("' + imagePath1 + '") center/cover no-repeat #000000', 'important');
+      
+      // Upewnij się, że obrazek jest widoczny - sprawdź po chwili
+      setTimeout(function() {
+        var computed = window.getComputedStyle(sectionBackground);
+        if (!computed.backgroundImage || computed.backgroundImage === 'none' || computed.backgroundImage === 'rgba(0, 0, 0, 0)') {
+          // Spróbuj alternatywnych ścieżek
+          sectionBackground.style.setProperty('background-image', 'url("' + imagePath2 + '")', 'important');
+          sectionBackground.style.setProperty('background', 'url("' + imagePath2 + '") center/cover no-repeat #000000', 'important');
+        }
+      }, 100);
     }
+  }
+  
+  // NA KONIEC: Upewnij się, że obrazek tła jest ustawiony na section-background
+  var finalSectionBackground = newsletterSection.querySelector('.section-background');
+  if (finalSectionBackground) {
+    finalSectionBackground.style.setProperty('background-image', 'url("/assets/img/t%C5%82ohero3gold.png")', 'important');
+    finalSectionBackground.style.setProperty('background-size', 'cover', 'important');
+    finalSectionBackground.style.setProperty('background-position', 'center', 'important');
+    finalSectionBackground.style.setProperty('background-repeat', 'no-repeat', 'important');
+    finalSectionBackground.style.setProperty('background', 'url("/assets/img/t%C5%82ohero3gold.png") center/cover no-repeat #000000', 'important');
   }
 }
 
