@@ -2519,27 +2519,76 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   content: none !important;
 }
 
-/* Tło sekcji newsletter - JEDNO CZARNE TŁO - KOMPLETNE NADPISANIE */
+/* Tło sekcji newsletter - JEDNO CZARNE TŁO - KOMPLETNE NADPISANIE WSZYSTKIEGO */
 #newsletter {
   background-color: #000000 !important;
   background-image: none !important;
   background: #000000 !important;
+  position: relative !important;
+}
+
+/* Użyj pseudo-elementu ::before, aby całkowicie przykryć WSZYSTKIE możliwe tła */
+#newsletter::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+/* Użyj również pseudo-elementu ::before na section-background i section-border */
+#newsletter .section-background::before,
+#newsletter .section-border::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
 }
 
 #newsletter section,
-#newsletter > div,
+#newsletter > div:not(.content-wrapper):not(.content),
 #newsletter .section-border,
 #newsletter .section-background,
 #newsletter .section-background-canvas,
 #newsletter .background-fx-canvas,
 #newsletter [class*="section"],
-#newsletter [class*="background"] {
+#newsletter [class*="background"],
+#newsletter [style*="background"] {
   position: relative !important;
   background-color: #000000 !important;
   background-image: none !important;
   background: #000000 !important;
   overflow: hidden !important;
   min-height: 100% !important;
+}
+
+/* Upewnij się, że content-wrapper i content są transparentne */
+#newsletter .content-wrapper,
+#newsletter .content {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  position: relative !important;
+  z-index: 1 !important;
 }
 
 /* Usuń WSZYSTKIE tła z WSZYSTKICH elementów wewnątrz sekcji newsletter */
@@ -2550,7 +2599,8 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 /* Wymuś czarne tło na WSZYSTKICH divach w sekcji newsletter (z wyjątkiem treści) */
 #newsletter > div:not(.content-wrapper):not(.content),
 #newsletter .section-border > div,
-#newsletter .section-background > div {
+#newsletter .section-background > div,
+#newsletter .section-background > * {
   background-color: #000000 !important;
   background-image: none !important;
   background: #000000 !important;
@@ -11070,10 +11120,19 @@ setTimeout(applyFemenFont, 500);
 function applyNewsletterBackground() {
   var newsletterSection = document.getElementById('newsletter');
   if (newsletterSection) {
-    // KROK 1: Ustaw czarne tło na głównej sekcji newsletter
+    // KROK 1: Ustaw czarne tło na głównej sekcji newsletter - użyj wszystkich możliwych właściwości
     newsletterSection.style.setProperty('background-color', '#000000', 'important');
     newsletterSection.style.setProperty('background-image', 'none', 'important');
     newsletterSection.style.setProperty('background', '#000000', 'important');
+    newsletterSection.style.setProperty('--background-color', '#000000', 'important');
+    newsletterSection.style.setProperty('--background-image', 'none', 'important');
+    
+    // KROK 1.5: Usuń wszystkie inline styles związane z tłem
+    var computedStyle = window.getComputedStyle(newsletterSection);
+    if (computedStyle.backgroundImage && computedStyle.backgroundImage !== 'none') {
+      newsletterSection.style.removeProperty('background-image');
+      newsletterSection.style.setProperty('background-image', 'none', 'important');
+    }
     
     // KROK 2: Znajdź i ustaw czarne tło na WSZYSTKICH elementach struktury sekcji
     var allSectionElements = newsletterSection.querySelectorAll('div, section');
@@ -11081,14 +11140,22 @@ function applyNewsletterBackground() {
       // Pomiń elementy treści
       if (!el.closest('.content-wrapper') && !el.closest('.content') && 
           !el.closest('.sqs-block-image') && !el.closest('.sqs-block-html') && 
-          !el.closest('.sqs-block-text')) {
+          !el.closest('.sqs-block-text') && !el.closest('.sqs-block')) {
+        // Usuń wszystkie możliwe właściwości tła
+        el.style.removeProperty('background');
+        el.style.removeProperty('background-color');
+        el.style.removeProperty('background-image');
+        el.style.removeProperty('--background-color');
+        el.style.removeProperty('--background-image');
+        
+        // Ustaw czarne tło
         el.style.setProperty('background-color', '#000000', 'important');
         el.style.setProperty('background-image', 'none', 'important');
         el.style.setProperty('background', '#000000', 'important');
       }
     });
     
-    // KROK 3: Ustaw czarne tło na konkretnych elementach struktury
+    // KROK 3: Ustaw czarne tło na konkretnych elementach struktury - BARDZO AGRESYWNE
     var sectionBorder = newsletterSection.querySelector('.section-border');
     var sectionBackground = newsletterSection.querySelector('.section-background');
     var sectionBackgroundCanvas = newsletterSection.querySelector('.section-background-canvas');
@@ -11096,26 +11163,37 @@ function applyNewsletterBackground() {
     var contentWrapper = newsletterSection.querySelector('.content-wrapper');
     var content = newsletterSection.querySelector('.content');
     
-    if (sectionBorder) {
-      sectionBorder.style.setProperty('background-color', '#000000', 'important');
-      sectionBorder.style.setProperty('background-image', 'none', 'important');
-      sectionBorder.style.setProperty('background', '#000000', 'important');
+    // Funkcja pomocnicza do ustawienia czarnego tła
+    function setBlackBackground(el) {
+      if (el) {
+        // Usuń wszystkie właściwości tła
+        el.style.removeProperty('background');
+        el.style.removeProperty('background-color');
+        el.style.removeProperty('background-image');
+        el.style.removeProperty('--background-color');
+        el.style.removeProperty('--background-image');
+        
+        // Ustaw czarne tło
+        el.style.setProperty('background-color', '#000000', 'important');
+        el.style.setProperty('background-image', 'none', 'important');
+        el.style.setProperty('background', '#000000', 'important');
+        
+        // Sprawdź computed style i nadpisz jeśli potrzeba
+        var computed = window.getComputedStyle(el);
+        if (computed.backgroundImage && computed.backgroundImage !== 'none') {
+          el.style.setProperty('background-image', 'none', 'important');
+        }
+        if (computed.backgroundColor && computed.backgroundColor !== 'rgb(0, 0, 0)') {
+          el.style.setProperty('background-color', '#000000', 'important');
+        }
+      }
     }
-    if (sectionBackground) {
-      sectionBackground.style.setProperty('background-color', '#000000', 'important');
-      sectionBackground.style.setProperty('background-image', 'none', 'important');
-      sectionBackground.style.setProperty('background', '#000000', 'important');
-    }
-    if (sectionBackgroundCanvas) {
-      sectionBackgroundCanvas.style.setProperty('background-color', '#000000', 'important');
-      sectionBackgroundCanvas.style.setProperty('background-image', 'none', 'important');
-      sectionBackgroundCanvas.style.setProperty('display', 'none', 'important');
-    }
-    if (backgroundFxCanvas) {
-      backgroundFxCanvas.style.setProperty('background-color', '#000000', 'important');
-      backgroundFxCanvas.style.setProperty('background-image', 'none', 'important');
-      backgroundFxCanvas.style.setProperty('display', 'none', 'important');
-    }
+    
+    setBlackBackground(sectionBorder);
+    setBlackBackground(sectionBackground);
+    setBlackBackground(sectionBackgroundCanvas);
+    setBlackBackground(backgroundFxCanvas);
+    
     if (contentWrapper) {
       contentWrapper.style.setProperty('background-color', 'transparent', 'important');
       contentWrapper.style.setProperty('background-image', 'none', 'important');
@@ -11123,6 +11201,13 @@ function applyNewsletterBackground() {
     if (content) {
       content.style.setProperty('background-color', 'transparent', 'important');
       content.style.setProperty('background-image', 'none', 'important');
+    }
+    // Ukryj canvas elementy (są już obsłużone przez setBlackBackground)
+    if (sectionBackgroundCanvas) {
+      sectionBackgroundCanvas.style.setProperty('display', 'none', 'important');
+    }
+    if (backgroundFxCanvas) {
+      backgroundFxCanvas.style.setProperty('display', 'none', 'important');
     }
     
     // Ukryj shape blocks całkowicie
@@ -11204,13 +11289,11 @@ function applyNewsletterBackground() {
         overlay.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; pointer-events: none !important;';
       }
       
-      // Upewnij się, że sekcja ma czarne tło (bez obrazków) - użyj setProperty dla lepszej kompatybilności
+      // Upewnij się, że sekcja ma czarne tło (bez obrazków) - użyj funkcji pomocniczej
       sectionBackground.style.setProperty('position', 'relative', 'important');
-      sectionBackground.style.setProperty('background-color', '#000000', 'important');
-      sectionBackground.style.setProperty('background-image', 'none', 'important');
-      sectionBackground.style.setProperty('background', '#000000', 'important');
       sectionBackground.style.setProperty('overflow', 'hidden', 'important');
       sectionBackground.style.setProperty('min-height', '100%', 'important');
+      setBlackBackground(sectionBackground); // Użyj funkcji pomocniczej
     }
   }
 }
