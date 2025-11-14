@@ -11382,12 +11382,10 @@ setTimeout(applyFemenFont, 500);
 function applyNewsletterBackground() {
   var newsletterSection = document.getElementById('newsletter');
   if (newsletterSection) {
-    // KROK 1: Ustaw czarne tło na głównej sekcji newsletter - użyj wszystkich możliwych właściwości
-    newsletterSection.style.setProperty('background-color', '#000000', 'important');
+    // KROK 1: Ustaw transparentne tło na głównej sekcji newsletter, aby tło z section-background było widoczne
+    newsletterSection.style.setProperty('background-color', 'transparent', 'important');
     newsletterSection.style.setProperty('background-image', 'none', 'important');
-    newsletterSection.style.setProperty('background', '#000000', 'important');
-    newsletterSection.style.setProperty('--background-color', '#000000', 'important');
-    newsletterSection.style.setProperty('--background-image', 'none', 'important');
+    newsletterSection.style.setProperty('background', 'transparent', 'important');
     
     // KROK 1.5: Usuń wszystkie inline styles związane z tłem
     var computedStyle = window.getComputedStyle(newsletterSection);
@@ -11423,10 +11421,21 @@ function applyNewsletterBackground() {
         el.style.removeProperty('--background-color');
         el.style.removeProperty('--background-image');
         
-        // Ustaw czarne tło TYLKO na strukturalnych elementach
-        el.style.setProperty('background-color', '#000000', 'important');
-        el.style.setProperty('background-image', 'none', 'important');
-        el.style.setProperty('background', '#000000', 'important');
+        // Ustaw transparentne tło na strukturalnych elementach (oprócz section-background)
+        if (el.classList.contains('section-background')) {
+          // Dla section-background ustaw obrazek tła
+          el.style.setProperty('background-color', '#000000', 'important');
+          el.style.setProperty('background-image', 'url("/assets/img/t%C5%82ohero3gold.png")', 'important');
+          el.style.setProperty('background-size', 'cover', 'important');
+          el.style.setProperty('background-position', 'center', 'important');
+          el.style.setProperty('background-repeat', 'no-repeat', 'important');
+          el.style.setProperty('background', 'url("/assets/img/t%C5%82ohero3gold.png") center/cover no-repeat #000000', 'important');
+        } else {
+          // Dla innych strukturalnych elementów ustaw transparentne tło
+          el.style.setProperty('background-color', 'transparent', 'important');
+          el.style.setProperty('background-image', 'none', 'important');
+          el.style.setProperty('background', 'transparent', 'important');
+        }
       } else if (isContentElement) {
         // Ustaw transparentne tło na elementach treści - zachowaj layout
         el.style.setProperty('background-color', 'transparent', 'important');
@@ -11470,14 +11479,25 @@ function applyNewsletterBackground() {
     }
     
     setBlackBackground(sectionBorder);
-    setBlackBackground(sectionBackground);
+    // Ustaw obrazek tła na section-background zamiast czarnego tła
+    if (sectionBackground) {
+      sectionBackground.style.removeProperty('background');
+      sectionBackground.style.removeProperty('background-color');
+      sectionBackground.style.removeProperty('background-image');
+      sectionBackground.style.setProperty('background-color', '#000000', 'important');
+      sectionBackground.style.setProperty('background-image', 'url("/assets/img/t%C5%82ohero3gold.png")', 'important');
+      sectionBackground.style.setProperty('background-size', 'cover', 'important');
+      sectionBackground.style.setProperty('background-position', 'center', 'important');
+      sectionBackground.style.setProperty('background-repeat', 'no-repeat', 'important');
+      sectionBackground.style.setProperty('background', 'url("/assets/img/t%C5%82ohero3gold.png") center/cover no-repeat #000000', 'important');
+    }
     setBlackBackground(sectionBackgroundCanvas);
     setBlackBackground(backgroundFxCanvas);
     
     if (contentWrapper) {
-      contentWrapper.style.setProperty('background-color', '#000000', 'important');
+      contentWrapper.style.setProperty('background-color', 'transparent', 'important');
       contentWrapper.style.setProperty('background-image', 'none', 'important');
-      contentWrapper.style.setProperty('background', '#000000', 'important');
+      contentWrapper.style.setProperty('background', 'transparent', 'important');
     }
     if (content) {
       content.style.setProperty('background-color', 'transparent', 'important');
@@ -11607,11 +11627,16 @@ function applyNewsletterBackground() {
         overlay.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; pointer-events: none !important;';
       }
       
-      // Upewnij się, że sekcja ma czarne tło (bez obrazków) - użyj funkcji pomocniczej
+      // Ustaw obrazek tła na section-background zamiast czarnego tła
       sectionBackground.style.setProperty('position', 'relative', 'important');
       sectionBackground.style.setProperty('overflow', 'hidden', 'important');
       sectionBackground.style.setProperty('min-height', '100%', 'important');
-      setBlackBackground(sectionBackground); // Użyj funkcji pomocniczej
+      sectionBackground.style.setProperty('background-color', '#000000', 'important');
+      sectionBackground.style.setProperty('background-image', 'url("/assets/img/t%C5%82ohero3gold.png")', 'important');
+      sectionBackground.style.setProperty('background-size', 'cover', 'important');
+      sectionBackground.style.setProperty('background-position', 'center', 'important');
+      sectionBackground.style.setProperty('background-repeat', 'no-repeat', 'important');
+      sectionBackground.style.setProperty('background', 'url("/assets/img/t%C5%82ohero3gold.png") center/cover no-repeat #000000', 'important');
     }
   }
 }
