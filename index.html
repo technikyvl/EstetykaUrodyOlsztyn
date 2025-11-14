@@ -2712,16 +2712,17 @@ div.list-section-title#68921d0047edc42290b07ea6 p:first-child strong {
   font-weight: 300 !important;
 }
 
-/* Wyśrodkowanie całej sekcji newsletter - jedna sekcja zamiast dwóch bloków */
-#newsletter .fe-688e4e9c99f40f476643f20f {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  max-width: 1200px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding: 40px 20px !important;
+/* Ukryj całkowicie sekcję newsletter */
+#newsletter {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  pointer-events: none !important;
 }
 
 /* Wyśrodkowanie tekstu w sekcji newsletter */
