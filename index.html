@@ -2783,6 +2783,71 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   display: none !important;
   content: none !important;
   background-image: none !important;
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* Wymuś czarne tło na section-background - bardzo agresywne */
+#newsletter .section-background {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Ukryj WSZYSTKIE dzieci section-background, które mogą mieć tło */
+#newsletter .section-background > *:not(.content-wrapper):not(.content) {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+}
+
+/* Ukryj wszystkie divy w section-background */
+#newsletter .section-background > div {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+}
+
+/* Ukryj WSZYSTKIE obrazki w section-background - bardzo agresywne */
+#newsletter .section-background img,
+#newsletter .section-background > img,
+#newsletter .section-background img[src],
+#newsletter .section-background img[data-src],
+#newsletter .section-background img[data-image],
+#newsletter .section-background img[elementtiming],
+#newsletter .section-background img[alt],
+#newsletter .section-background img.background-image-fx,
+#newsletter .section-background img[class*="background"],
+#newsletter .section-background * img {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  pointer-events: none !important;
+  max-height: 0 !important;
+  max-width: 0 !important;
+  z-index: -9999 !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0, 0, 0, 0) !important;
+}
+
+/* Ukryj overlay */
+#newsletter .section-background-overlay {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  pointer-events: none !important;
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
 }
 
 /* NOVA news */
