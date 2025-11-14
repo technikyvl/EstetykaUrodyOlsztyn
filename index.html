@@ -2584,11 +2584,14 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   content: none !important;
 }
 
-/* Tło sekcji newsletter - JEDNO CZARNE TŁO - KOMPLETNE NADPISANIE WSZYSTKIEGO */
+/* Tło sekcji newsletter - OBRAZEK tłohero3gold.png */
 #newsletter {
   background-color: #000000 !important;
-  background-image: none !important;
-  background: #000000 !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background: url('/assets/img/tłohero3gold.png') center/cover no-repeat #000000 !important;
   position: relative !important;
 }
 
@@ -2602,9 +2605,12 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   bottom: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  background-color: #000000 !important;
-  background-image: none !important;
-  background: #000000 !important;
+  background-color: transparent !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background: url('/assets/img/tłohero3gold.png') center/cover no-repeat !important;
   z-index: 0 !important;
   pointer-events: none !important;
   display: block !important;
@@ -2621,9 +2627,12 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   bottom: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  background-color: #000000 !important;
-  background-image: none !important;
-  background: #000000 !important;
+  background-color: transparent !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background: url('/assets/img/tłohero3gold.png') center/cover no-repeat !important;
   z-index: 0 !important;
   pointer-events: none !important;
   display: block !important;
@@ -2640,8 +2649,11 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 #newsletter [style*="background"] {
   position: relative !important;
   background-color: #000000 !important;
-  background-image: none !important;
-  background: #000000 !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background: url('/assets/img/tłohero3gold.png') center/cover no-repeat #000000 !important;
   overflow: hidden !important;
   min-height: 100% !important;
 }
@@ -2656,19 +2668,23 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   z-index: 1 !important;
 }
 
-/* Usuń WSZYSTKIE tła z WSZYSTKICH elementów wewnątrz sekcji newsletter */
-#newsletter * {
+/* Usuń WSZYSTKIE tła z WSZYSTKICH elementów wewnątrz sekcji newsletter - WYJĄTEK: nie dotyczy głównych kontenerów tła */
+#newsletter .fe-block *:not(img),
+#newsletter .sqs-block *:not(img) {
   background-image: none !important;
 }
 
-/* Wymuś czarne tło na WSZYSTKICH divach w sekcji newsletter (z wyjątkiem treści) */
+/* Ustaw obrazek tła na WSZYSTKICH divach w sekcji newsletter (z wyjątkiem treści) */
 #newsletter > div:not(.content-wrapper):not(.content),
 #newsletter .section-border > div,
 #newsletter .section-background > div,
 #newsletter .section-background > * {
   background-color: #000000 !important;
-  background-image: none !important;
-  background: #000000 !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background: url('/assets/img/tłohero3gold.png') center/cover no-repeat #000000 !important;
 }
 
 /* Ustaw transparentne tło na wszystkich blokach treści - zachowaj layout */
@@ -2706,11 +2722,14 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   box-shadow: none !important;
 }
 
-/* Ustaw czarne tło na kontenerze fluid-engine - tylko główny kontener */
+/* Ustaw obrazek tła na kontenerze fluid-engine - tylko główny kontener */
 #newsletter .fe-688e4e9c99f40f476643f20f {
   background-color: #000000 !important;
-  background-image: none !important;
-  background: #000000 !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background: url('/assets/img/tłohero3gold.png') center/cover no-repeat #000000 !important;
   position: relative !important;
 }
 
