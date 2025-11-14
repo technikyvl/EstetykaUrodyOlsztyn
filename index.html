@@ -2687,6 +2687,20 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   font-weight: 300 !important;
 }
 
+/* "EFEKTY" - Montserrat (pierwszy paragraf) */
+#68921d0047edc42290b07ea6 p:first-child,
+.list-section-title p:first-child,
+#68921d0047edc42290b07ea6 p:first-child *,
+.list-section-title p:first-child *,
+#68921d0047edc42290b07ea6 p:first-child strong,
+.list-section-title p:first-child strong,
+div.list-section-title#68921d0047edc42290b07ea6 p:first-child,
+div.list-section-title#68921d0047edc42290b07ea6 p:first-child *,
+div.list-section-title#68921d0047edc42290b07ea6 p:first-child strong {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 300 !important;
+}
+
 /* Enter to win a Free Makeover */
 #block-a4c125db3a4991caf1c2 h2,
 .fe-block-a4c125db3a4991caf1c2 h2,
@@ -7149,7 +7163,7 @@ align-items: center;
       style= "padding-bottom: 70px;"
       data-section-title-alignment="center"
     >
-      <p class="" data-rte-preserve-empty="true" style="white-space:pre-wrap;"><strong>Testimonials</strong></p><p class="" data-rte-preserve-empty="true" style="white-space:pre-wrap;">Recent Looks</p>
+      <p class="" data-rte-preserve-empty="true" style="white-space:pre-wrap;"><strong>EFEKTY</strong></p><p class="" data-rte-preserve-empty="true" style="white-space:pre-wrap;">EFEKTY ZABIEGÓW</p>
     </div>
   
 
@@ -11501,15 +11515,25 @@ function applyWoodlandFont() {
     }
   });
   
-  // Dodatkowo: znajdź wszystkie elementy zawierające tekst "Recent Looks"
+  // Dodatkowo: znajdź wszystkie elementy zawierające tekst "EFEKTY ZABIEGÓW"
   var allPElements = document.querySelectorAll('p');
   allPElements.forEach(function(el) {
-    if (el.textContent && el.textContent.trim() === 'Recent Looks') {
+    if (el.textContent && el.textContent.trim() === 'EFEKTY ZABIEGÓW') {
       el.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
       el.style.setProperty('font-weight', '300', 'important');
       var children = el.querySelectorAll('*');
       children.forEach(function(child) {
         child.style.setProperty('font-family', "'Woodland', 'Georgia', 'Times New Roman', serif", 'important');
+        child.style.setProperty('font-weight', '300', 'important');
+      });
+    }
+    // Ustaw Montserrat dla "EFEKTY"
+    if (el.textContent && el.textContent.trim() === 'EFEKTY') {
+      el.style.setProperty('font-family', "'Montserrat', sans-serif", 'important');
+      el.style.setProperty('font-weight', '300', 'important');
+      var children = el.querySelectorAll('*');
+      children.forEach(function(child) {
+        child.style.setProperty('font-family', "'Montserrat', sans-serif", 'important');
         child.style.setProperty('font-weight', '300', 'important');
       });
     }
