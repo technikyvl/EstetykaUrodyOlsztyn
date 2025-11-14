@@ -2588,12 +2588,12 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 /* Ustaw tło TYLKO na głównym kontenerze section-background */
 #newsletter .section-background {
   background-color: #000000 !important;
-  background-image: url('/assets/img/t%C5%82ohero3gold.png') !important; /* URL encoded: tło = t%C5%82o */
+  background-image: url('/assets/img/tłohero3gold.png') !important;
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
   background-attachment: scroll !important;
-  background: url('/assets/img/t%C5%82ohero3gold.png') center center/cover no-repeat #000000 !important;
+  background: url('/assets/img/tłohero3gold.png') center center/cover no-repeat #000000 !important;
   position: relative !important;
   min-height: 100% !important;
   width: 100% !important;
@@ -2609,7 +2609,7 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   bottom: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  background-image: url('/assets/img/t%C5%82ohero3gold.png') !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
@@ -11463,11 +11463,11 @@ function applyNewsletterBackground() {
         if (el.classList.contains('section-background')) {
           // Dla section-background ustaw obrazek tła
           el.style.setProperty('background-color', '#000000', 'important');
-          el.style.setProperty('background-image', 'url("/assets/img/t%C5%82ohero3gold.png")', 'important');
+          el.style.setProperty('background-image', 'url("/assets/img/tłohero3gold.png")', 'important');
           el.style.setProperty('background-size', 'cover', 'important');
           el.style.setProperty('background-position', 'center', 'important');
           el.style.setProperty('background-repeat', 'no-repeat', 'important');
-          el.style.setProperty('background', 'url("/assets/img/t%C5%82ohero3gold.png") center/cover no-repeat #000000', 'important');
+          el.style.setProperty('background', 'url("/assets/img/tłohero3gold.png") center/cover no-repeat #000000', 'important');
         } else {
           // Dla innych strukturalnych elementów ustaw transparentne tło
           el.style.setProperty('background-color', 'transparent', 'important');
@@ -11527,7 +11527,7 @@ function applyNewsletterBackground() {
       sectionBackground.style.removeProperty('--background-image');
       
       // Ustaw obrazek tła - użyj wielu metod, aby upewnić się, że zadziała
-      var bgImage = 'url("/assets/img/t%C5%82ohero3gold.png")';
+      var bgImage = 'url("/assets/img/tłohero3gold.png")';
       sectionBackground.style.setProperty('background-color', '#000000', 'important');
       sectionBackground.style.setProperty('background-image', bgImage, 'important');
       sectionBackground.style.setProperty('background-size', 'cover', 'important');
@@ -11536,7 +11536,7 @@ function applyNewsletterBackground() {
       sectionBackground.style.setProperty('background', bgImage + ' center/cover no-repeat #000000', 'important');
       
       // Ustaw również przez setAttribute, jeśli to możliwe
-      sectionBackground.setAttribute('data-bg-image', '/assets/img/t%C5%82ohero3gold.png');
+      sectionBackground.setAttribute('data-bg-image', '/assets/img/tłohero3gold.png');
     }
     setBlackBackground(sectionBackgroundCanvas);
     setBlackBackground(backgroundFxCanvas);
@@ -11693,8 +11693,8 @@ function applyNewsletterBackground() {
       sectionBackground.style.setProperty('min-height', '100%', 'important');
       sectionBackground.style.setProperty('width', '100%', 'important');
       
-      // Użyj absolutnej ścieżki z URL encoding
-      var bgImageUrl = 'url("/assets/img/t%C5%82ohero3gold.png")';
+      // Użyj absolutnej ścieżki (bez kodowania URL, tak jak w HTML)
+      var bgImageUrl = 'url("/assets/img/tłohero3gold.png")';
       sectionBackground.style.setProperty('background-color', '#000000', 'important');
       sectionBackground.style.setProperty('background-image', bgImageUrl, 'important');
       sectionBackground.style.setProperty('background-size', 'cover', 'important');
@@ -11709,7 +11709,7 @@ function applyNewsletterBackground() {
   var finalSectionBackground = newsletterSection.querySelector('.section-background');
   if (finalSectionBackground) {
     // Ustaw obrazek tła
-    var finalBgImageUrl = 'url("/assets/img/t%C5%82ohero3gold.png")';
+    var finalBgImageUrl = 'url("/assets/img/tłohero3gold.png")';
     finalSectionBackground.style.setProperty('background-color', '#000000', 'important');
     finalSectionBackground.style.setProperty('background-image', finalBgImageUrl, 'important');
     finalSectionBackground.style.setProperty('background-size', 'cover', 'important');
