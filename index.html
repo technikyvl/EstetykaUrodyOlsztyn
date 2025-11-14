@@ -2519,15 +2519,20 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   content: none !important;
 }
 
-/* Tło sekcji newsletter - podzielone na dwie części */
+/* Tło sekcji newsletter - podzielone na dwie części - AGRESYWNE NADPISANIE */
 #newsletter .section-background {
   position: relative !important;
   background-color: transparent !important;
+  background-image: none !important;
   overflow: hidden !important;
+  min-height: 100% !important;
 }
 
-/* Usuń wszystkie obecne tła obrazkowe */
-#newsletter .section-background img {
+/* Usuń WSZYSTKIE obecne tła obrazkowe - bardzo agresywne */
+#newsletter .section-background img,
+#newsletter .section-background > img,
+#newsletter .section-background img[data-image],
+#newsletter .section-background img[data-src] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -2535,30 +2540,37 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   width: 0 !important;
   position: absolute !important;
   left: -9999px !important;
+  pointer-events: none !important;
 }
 
 /* Usuń overlay */
-#newsletter .section-background-overlay {
+#newsletter .section-background-overlay,
+#newsletter .section-background .section-background-overlay {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   height: 0 !important;
+  width: 0 !important;
+  pointer-events: none !important;
 }
 
-/* Style dla dynamicznie dodanych divów tła */
+/* Style dla dynamicznie dodanych divów tła - WYSOKI Z-INDEX */
 #newsletter .section-background .custom-bg-left {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   width: 50% !important;
   height: 100% !important;
+  min-height: 100% !important;
   background-image: url('/assets/img/tłohero4gold.png') !important;
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  z-index: 0 !important;
+  z-index: 1 !important;
   pointer-events: none !important;
   display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 #newsletter .section-background .custom-bg-right {
@@ -2567,16 +2579,19 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   right: 0 !important;
   width: 50% !important;
   height: 100% !important;
+  min-height: 100% !important;
   background-image: url('/assets/img/tłohero2.png') !important;
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  z-index: 0 !important;
+  z-index: 1 !important;
   pointer-events: none !important;
   display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
-/* Fallback - pseudo-elementy na wypadek, gdyby JavaScript nie zadziałał */
+/* Fallback - pseudo-elementy z WYSOKIM Z-INDEX */
 #newsletter .section-background::before {
   content: '' !important;
   position: absolute !important;
@@ -2584,13 +2599,16 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   left: 0 !important;
   width: 50% !important;
   height: 100% !important;
+  min-height: 100% !important;
   background-image: url('/assets/img/tłohero4gold.png') !important;
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  z-index: 0 !important;
+  z-index: 1 !important;
   pointer-events: none !important;
   display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 #newsletter .section-background::after {
@@ -2600,13 +2618,16 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   right: 0 !important;
   width: 50% !important;
   height: 100% !important;
+  min-height: 100% !important;
   background-image: url('/assets/img/tłohero2.png') !important;
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  z-index: 0 !important;
+  z-index: 1 !important;
   pointer-events: none !important;
   display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* NOVA news */
@@ -10994,10 +11015,7 @@ function applyFemenFont() {
 setTimeout(applyFemenFont, 500);
 
 // Funkcja do wymuszenia podzielonego tła sekcji newsletter
-var newsletterBackgroundApplied = false;
 function applyNewsletterBackground() {
-  if (newsletterBackgroundApplied) return; // Zapobiegaj wielokrotnemu wykonaniu
-  
   var newsletterSection = document.getElementById('newsletter');
   if (newsletterSection) {
     var sectionBackground = newsletterSection.querySelector('.section-background');
@@ -11005,65 +11023,61 @@ function applyNewsletterBackground() {
       // Sprawdź, czy już istnieją divy tła
       var existingBg1 = sectionBackground.querySelector('.custom-bg-left');
       var existingBg2 = sectionBackground.querySelector('.custom-bg-right');
+      
+      // Jeśli już istnieją, nie rób nic
       if (existingBg1 && existingBg2) {
-        newsletterBackgroundApplied = true;
-        return; // Tło już jest ustawione
+        return;
       }
       
-      // Ukryj wszystkie obrazki tła
+      // Usuń WSZYSTKIE obrazki tła
       var backgroundImages = sectionBackground.querySelectorAll('img');
       backgroundImages.forEach(function(img) {
+        img.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; position: absolute !important; left: -9999px !important; pointer-events: none !important;';
         img.remove();
       });
       
       // Ukryj overlay
       var overlay = sectionBackground.querySelector('.section-background-overlay');
       if (overlay) {
-        overlay.style.display = 'none';
-        overlay.style.visibility = 'hidden';
-        overlay.style.opacity = '0';
-        overlay.style.height = '0';
+        overlay.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; pointer-events: none !important;';
       }
       
       // Upewnij się, że sekcja ma odpowiednie style
-      sectionBackground.style.position = 'relative';
-      sectionBackground.style.backgroundColor = 'transparent';
-      sectionBackground.style.overflow = 'hidden';
+      sectionBackground.style.cssText = 'position: relative !important; background-color: transparent !important; background-image: none !important; overflow: hidden !important; min-height: 100% !important;';
       
       // Utwórz lewy div z tłem
       var bgLeft = document.createElement('div');
       bgLeft.className = 'custom-bg-left';
-      bgLeft.style.cssText = 'position: absolute; top: 0; left: 0; width: 50%; height: 100%; background-image: url("/assets/img/tłohero4gold.png"); background-size: cover; background-position: center center; background-repeat: no-repeat; z-index: 0; pointer-events: none;';
-      sectionBackground.appendChild(bgLeft);
+      bgLeft.style.cssText = 'position: absolute !important; top: 0 !important; left: 0 !important; width: 50% !important; height: 100% !important; min-height: 100% !important; background-image: url("/assets/img/tłohero4gold.png") !important; background-size: cover !important; background-position: center center !important; background-repeat: no-repeat !important; z-index: 1 !important; pointer-events: none !important; display: block !important; visibility: visible !important; opacity: 1 !important;';
+      sectionBackground.insertBefore(bgLeft, sectionBackground.firstChild);
       
       // Utwórz prawy div z tłem
       var bgRight = document.createElement('div');
       bgRight.className = 'custom-bg-right';
-      bgRight.style.cssText = 'position: absolute; top: 0; right: 0; width: 50%; height: 100%; background-image: url("/assets/img/tłohero2.png"); background-size: cover; background-position: center center; background-repeat: no-repeat; z-index: 0; pointer-events: none;';
-      sectionBackground.appendChild(bgRight);
-      
-      newsletterBackgroundApplied = true;
+      bgRight.style.cssText = 'position: absolute !important; top: 0 !important; right: 0 !important; width: 50% !important; height: 100% !important; min-height: 100% !important; background-image: url("/assets/img/tłohero2.png") !important; background-size: cover !important; background-position: center center !important; background-repeat: no-repeat !important; z-index: 1 !important; pointer-events: none !important; display: block !important; visibility: visible !important; opacity: 1 !important;';
+      sectionBackground.insertBefore(bgRight, sectionBackground.firstChild);
     }
   }
 }
 
-// Wywołaj funkcję tylko raz po załadowaniu
+// Wywołaj funkcję wielokrotnie, aby upewnić się, że zadziała
+applyNewsletterBackground();
+setTimeout(applyNewsletterBackground, 100);
 setTimeout(applyNewsletterBackground, 500);
+setTimeout(applyNewsletterBackground, 1000);
+setTimeout(applyNewsletterBackground, 2000);
 
-// Obserwuj zmiany w DOM z debouncingiem (dla dynamicznie ładowanych elementów)
+// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów)
 var observerTimeout;
 var observer = new MutationObserver(function(mutations) {
   clearTimeout(observerTimeout);
   observerTimeout = setTimeout(function() {
-    // Sprawdź tylko, czy sekcja newsletter istnieje i czy tło nie jest już ustawione
-    if (!newsletterBackgroundApplied) {
-      applyNewsletterBackground();
-    }
-  }, 300); // Debounce 300ms
+    applyNewsletterBackground();
+  }, 200);
 });
 observer.observe(document.body, {
   childList: true,
-  subtree: false // Zmieniono na false, żeby obserwować tylko bezpośrednie dzieci
+  subtree: true
 });
 });
 </script>
