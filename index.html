@@ -2519,10 +2519,10 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   content: none !important;
 }
 
-/* Tło sekcji newsletter - podzielone na dwie części - AGRESYWNE NADPISANIE */
+/* Tło sekcji newsletter - tylko czarne tło, bez obrazków */
 #newsletter .section-background {
   position: relative !important;
-  background-color: transparent !important;
+  background-color: #000000 !important;
   background-image: none !important;
   overflow: hidden !important;
   min-height: 100% !important;
@@ -2554,49 +2554,24 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   pointer-events: none !important;
 }
 
-/* Style dla dynamicznie dodanego diva tła - WYSOKI Z-INDEX - CAŁA SZEROKOŚĆ */
-#newsletter .section-background .custom-bg-full {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 100% !important;
-  background-image: url('/assets/img/tłohero4gold.png') !important;
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  z-index: 1 !important;
+/* Usuń wszystkie dynamicznie dodane divy tła */
+#newsletter .section-background .custom-bg-full,
+#newsletter .section-background .custom-bg-left,
+#newsletter .section-background .custom-bg-right {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
   pointer-events: none !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
 }
 
-/* Fallback - pseudo-element z WYSOKIM Z-INDEX - CAŁA SZEROKOŚĆ */
-#newsletter .section-background::before {
-  content: '' !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 100% !important;
-  background-image: url('/assets/img/tłohero4gold.png') !important;
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  z-index: 1 !important;
-  pointer-events: none !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-/* Usuń pseudo-element ::after */
+/* Usuń wszystkie pseudo-elementy tła */
+#newsletter .section-background::before,
 #newsletter .section-background::after {
   display: none !important;
   content: none !important;
+  background-image: none !important;
 }
 
 /* NOVA news */
@@ -10983,25 +10958,17 @@ function applyFemenFont() {
 // Wywołaj funkcję Femen tylko raz po załadowaniu
 setTimeout(applyFemenFont, 500);
 
-// Funkcja do wymuszenia tła sekcji newsletter - tylko tłohero4gold.png
+// Funkcja do usunięcia WSZYSTKICH teł z sekcji newsletter
 function applyNewsletterBackground() {
   var newsletterSection = document.getElementById('newsletter');
   if (newsletterSection) {
     var sectionBackground = newsletterSection.querySelector('.section-background');
     if (sectionBackground) {
-      // Sprawdź, czy już istnieje div tła
-      var existingBg = sectionBackground.querySelector('.custom-bg-full');
-      
-      // Jeśli już istnieje, nie rób nic
-      if (existingBg) {
-        return;
-      }
-      
-      // Usuń stare divy tła (jeśli istnieją)
-      var oldBgLeft = sectionBackground.querySelector('.custom-bg-left');
-      var oldBgRight = sectionBackground.querySelector('.custom-bg-right');
-      if (oldBgLeft) oldBgLeft.remove();
-      if (oldBgRight) oldBgRight.remove();
+      // Usuń WSZYSTKIE dynamicznie dodane divy tła
+      var customBgs = sectionBackground.querySelectorAll('.custom-bg-full, .custom-bg-left, .custom-bg-right');
+      customBgs.forEach(function(bg) {
+        bg.remove();
+      });
       
       // Usuń WSZYSTKIE obrazki tła
       var backgroundImages = sectionBackground.querySelectorAll('img');
@@ -11016,14 +10983,8 @@ function applyNewsletterBackground() {
         overlay.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; pointer-events: none !important;';
       }
       
-      // Upewnij się, że sekcja ma odpowiednie style
-      sectionBackground.style.cssText = 'position: relative !important; background-color: transparent !important; background-image: none !important; overflow: hidden !important; min-height: 100% !important;';
-      
-      // Utwórz div z tłem na całą szerokość
-      var bgFull = document.createElement('div');
-      bgFull.className = 'custom-bg-full';
-      bgFull.style.cssText = 'position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; min-height: 100% !important; background-image: url("/assets/img/tłohero4gold.png") !important; background-size: cover !important; background-position: center center !important; background-repeat: no-repeat !important; z-index: 1 !important; pointer-events: none !important; display: block !important; visibility: visible !important; opacity: 1 !important;';
-      sectionBackground.insertBefore(bgFull, sectionBackground.firstChild);
+      // Upewnij się, że sekcja ma czarne tło (bez obrazków)
+      sectionBackground.style.cssText = 'position: relative !important; background-color: #000000 !important; background-image: none !important; overflow: hidden !important; min-height: 100% !important;';
     }
   }
 }
