@@ -2519,11 +2519,15 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   content: none !important;
 }
 
-/* Tło sekcji newsletter - tylko czarne tło, bez obrazków - AGRESYWNE */
+/* Tło sekcji newsletter - tylko czarne tło, bez obrazków - BARDZO AGRESYWNE */
 #newsletter,
 #newsletter section,
+#newsletter > div,
 #newsletter .section-border,
-#newsletter .section-background {
+#newsletter .section-background,
+#newsletter .section-background-canvas,
+#newsletter .background-fx-canvas,
+#newsletter [class*="section"] {
   position: relative !important;
   background-color: #000000 !important;
   background-image: none !important;
@@ -2533,6 +2537,24 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 
 /* Usuń WSZYSTKIE tła z elementów wewnątrz sekcji newsletter - BARDZO AGRESYWNE */
 #newsletter * {
+  background-image: none !important;
+}
+
+/* Wymuś czarne tło na wszystkich divach w sekcji newsletter (z wyjątkiem treści) */
+#newsletter > div:not(.content-wrapper):not(.content),
+#newsletter .section-border > div,
+#newsletter .section-background > div:not(.custom-bg-full):not(.custom-bg-left):not(.custom-bg-right) {
+  background-color: #000000 !important;
+  background-image: none !important;
+}
+
+/* Ustaw czarne tło na wszystkich możliwych elementach */
+#newsletter .fe-block,
+#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154,
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801,
+#newsletter .fe-block-3cec84cba25f017e8acd,
+#newsletter .fe-block-a4c125db3a4991caf1c2 {
+  background-color: transparent !important;
   background-image: none !important;
 }
 
@@ -11036,8 +11058,23 @@ setTimeout(applyFemenFont, 500);
 function applyNewsletterBackground() {
   var newsletterSection = document.getElementById('newsletter');
   if (newsletterSection) {
-    // Usuń WSZYSTKIE tła z całej sekcji newsletter
+    // Usuń WSZYSTKIE tła z całej sekcji newsletter i wszystkich elementów
     newsletterSection.style.cssText = 'background-color: #000000 !important; background-image: none !important;';
+    
+    // Ustaw czarne tło na wszystkich możliwych elementach sekcji
+    var sectionBorder = newsletterSection.querySelector('.section-border');
+    var sectionBackground = newsletterSection.querySelector('.section-background');
+    var sectionBackgroundCanvas = newsletterSection.querySelector('.section-background-canvas');
+    var backgroundFxCanvas = newsletterSection.querySelector('.background-fx-canvas');
+    var contentWrapper = newsletterSection.querySelector('.content-wrapper');
+    var content = newsletterSection.querySelector('.content');
+    
+    if (sectionBorder) sectionBorder.style.cssText = 'background-color: #000000 !important; background-image: none !important;';
+    if (sectionBackground) sectionBackground.style.cssText = 'background-color: #000000 !important; background-image: none !important;';
+    if (sectionBackgroundCanvas) sectionBackgroundCanvas.style.cssText = 'background-color: #000000 !important; background-image: none !important; display: none !important;';
+    if (backgroundFxCanvas) backgroundFxCanvas.style.cssText = 'background-color: #000000 !important; background-image: none !important; display: none !important;';
+    if (contentWrapper) contentWrapper.style.cssText = 'background-color: transparent !important; background-image: none !important;';
+    if (content) content.style.cssText = 'background-color: transparent !important; background-image: none !important;';
     
     // Ukryj shape blocks całkowicie
     var shapeBlocks = newsletterSection.querySelectorAll('.fe-block-yui_3_17_2_1_1754411224232_13154, #block-yui_3_17_2_1_1754411224232_13154, .sqs-shape-block, .sqs-shape-block-container');
@@ -11046,18 +11083,25 @@ function applyNewsletterBackground() {
       block.remove();
     });
     
-    // Usuń tła z wszystkich elementów wewnątrz sekcji
+    // Usuń tła z wszystkich elementów wewnątrz sekcji (z wyjątkiem obrazków treści)
     var allElements = newsletterSection.querySelectorAll('*');
     allElements.forEach(function(el) {
+      // Pomiń obrazki treści
       if (el.tagName !== 'IMG' && el.tagName !== 'VIDEO' && !el.closest('.sqs-block-image')) {
+        // Usuń background-image
         el.style.backgroundImage = 'none';
-        if (el.classList.contains('sqs-shape') || el.classList.contains('sqs-shape-block-container')) {
-          el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+        // Jeśli to nie jest element treści, ustaw transparentne tło
+        if (!el.closest('.sqs-block') || el.classList.contains('sqs-shape') || el.classList.contains('sqs-shape-block-container')) {
+          if (el.classList.contains('sqs-shape') || el.classList.contains('sqs-shape-block-container')) {
+            el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+          } else if (!el.closest('.sqs-block-image') && !el.closest('.sqs-block-html') && !el.closest('.sqs-block-text')) {
+            el.style.backgroundColor = 'transparent';
+          }
         }
       }
     });
     
-    var sectionBackground = newsletterSection.querySelector('.section-background');
+    // Kontynuuj z sectionBackground (już zdefiniowany wcześniej)
     if (sectionBackground) {
       // Usuń WSZYSTKIE dynamicznie dodane divy tła
       var customBgs = sectionBackground.querySelectorAll('.custom-bg-full, .custom-bg-left, .custom-bg-right');
