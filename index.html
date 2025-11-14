@@ -2475,6 +2475,32 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 300 !important;
 }
 
+/* Zmniejsz padding między nagłówkiem "Spa Philosophy" a akapitem */
+#block-29b417948497d887e744,
+.fe-block-29b417948497d887e744,
+#block-29b417948497d887e744 .sqs-block-content,
+.fe-block-29b417948497d887e744 .sqs-block-content,
+#block-29b417948497d887e744 .sqs-html-content,
+.fe-block-29b417948497d887e744 .sqs-html-content,
+#block-29b417948497d887e744 h1,
+.fe-block-29b417948497d887e744 h1,
+#block-29b417948497d887e744 .sqsrte-scaled-text-container,
+.fe-block-29b417948497d887e744 .sqsrte-scaled-text-container {
+  margin-bottom: 0.5em !important;
+  padding-bottom: 0 !important;
+}
+
+#block-f4462786c7c3301d5124,
+.fe-block-f4462786c7c3301d5124,
+#block-f4462786c7c3301d5124 .sqs-block-content,
+.fe-block-f4462786c7c3301d5124 .sqs-block-content,
+#block-f4462786c7c3301d5124 .sqs-html-content,
+.fe-block-f4462786c7c3301d5124 .sqs-html-content,
+#block-f4462786c7c3301d5124 p:first-child,
+.fe-block-f4462786c7c3301d5124 p:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
 
 /* Recent Looks - bardzo specyficzne selektory */
 #68921d0047edc42290b07ea6,
@@ -2507,6 +2533,218 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 .fe-block-a4c125db3a4991caf1c2 h2 * {
   font-family: 'Woodland', 'Georgia', 'Times New Roman', serif !important;
   font-weight: 300 !important;
+}
+
+/* Tymczasowo wyłącz złote ramki w sekcji newsletter, aby sprawdzić, czy powodują złote tło */
+#newsletter #block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801 .content-fill::after,
+#newsletter #block-3cec84cba25f017e8acd .content-fill::after,
+#newsletter .fe-block-3cec84cba25f017e8acd .content-fill::after {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  content: none !important;
+}
+
+/* Tło sekcji newsletter - JEDNO CZARNE TŁO - KOMPLETNE NADPISANIE WSZYSTKIEGO */
+#newsletter {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+  position: relative !important;
+}
+
+/* Użyj pseudo-elementu ::before, aby całkowicie przykryć WSZYSTKIE możliwe tła */
+#newsletter::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+/* Użyj również pseudo-elementu ::before na section-background i section-border */
+#newsletter .section-background::before,
+#newsletter .section-border::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+#newsletter section,
+#newsletter > div:not(.content-wrapper):not(.content),
+#newsletter .section-border,
+#newsletter .section-background,
+#newsletter .section-background-canvas,
+#newsletter .background-fx-canvas,
+#newsletter [class*="section"],
+#newsletter [class*="background"],
+#newsletter [style*="background"] {
+  position: relative !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+  overflow: hidden !important;
+  min-height: 100% !important;
+}
+
+/* Upewnij się, że content-wrapper i content są transparentne */
+#newsletter .content-wrapper,
+#newsletter .content {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Usuń WSZYSTKIE tła z WSZYSTKICH elementów wewnątrz sekcji newsletter */
+#newsletter * {
+  background-image: none !important;
+}
+
+/* Wymuś czarne tło na WSZYSTKICH divach w sekcji newsletter (z wyjątkiem treści) */
+#newsletter > div:not(.content-wrapper):not(.content),
+#newsletter .section-border > div,
+#newsletter .section-background > div,
+#newsletter .section-background > * {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+}
+
+/* Ustaw czarne tło na wszystkich możliwych elementach */
+#newsletter .fe-block,
+#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154,
+#newsletter .fe-block-yui_3_17_2_1_1754412078200_3801,
+#newsletter .fe-block-3cec84cba25f017e8acd,
+#newsletter .fe-block-a4c125db3a4991caf1c2 {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Ukryj wszystkie shape blocks w sekcji newsletter */
+#newsletter .sqs-shape-block,
+#newsletter .sqs-shape-block-container,
+#newsletter .sqs-shape {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+#newsletter .content-wrapper,
+#newsletter .content {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Ukryj wszystkie fe-block z tłem w sekcji newsletter */
+#newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Usuń WSZYSTKIE obecne tła obrazkowe - bardzo agresywne - USUŃ Z DOM */
+#newsletter .section-background img,
+#newsletter .section-background > img,
+#newsletter .section-background img[data-image],
+#newsletter .section-background img[data-src],
+#newsletter .section-background img[src],
+#newsletter .section-background img[alt],
+#newsletter .section-background img[elementtiming],
+#newsletter .section-background img.background-image-fx,
+#newsletter .section-background img[class*="background"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
+  content: none !important;
+}
+
+/* Usuń również wszystkie obrazki tła z całej sekcji newsletter - ALE NIE obrazy treści */
+#newsletter img[elementtiming="nbf-background"],
+#newsletter img[elementtiming*="background"],
+#newsletter img.background-image-fx,
+#newsletter .section-background img[data-image],
+#newsletter .section-background img[data-src],
+#newsletter .section-background img[src*="darkGranite"],
+#newsletter .section-background img[src*="granite"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  pointer-events: none !important;
+  content: none !important;
+}
+
+/* NIE usuwać obrazków treści */
+#newsletter .sqs-block-image img,
+#newsletter .image-block img,
+#newsletter .fe-block img:not(.section-background img) {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Usuń overlay */
+#newsletter .section-background-overlay,
+#newsletter .section-background .section-background-overlay {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Usuń wszystkie dynamicznie dodane divy tła */
+#newsletter .section-background .custom-bg-full,
+#newsletter .section-background .custom-bg-left,
+#newsletter .section-background .custom-bg-right {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Usuń wszystkie pseudo-elementy tła */
+#newsletter .section-background::before,
+#newsletter .section-background::after {
+  display: none !important;
+  content: none !important;
+  background-image: none !important;
 }
 
 /* NOVA news */
@@ -6066,6 +6304,7 @@ margin: 0 !important;
 
 
 
+
   
 
     
@@ -6153,7 +6392,7 @@ margin: 0 !important;
   
 
 
-</div></div></div></div></div><div class="fe-block fe-block-yui_3_17_2_1_1754419588591_6625"><div class="sqs-block html-block sqs-block-html" data-blend-mode="NORMAL" data-block-type="2" data-border-radii="&#123;&quot;topLeft&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;topRight&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;bottomLeft&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;bottomRight&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;&#125;" data-sqsp-block="text" id="block-yui_3_17_2_1_1754419588591_6625"><div class="sqs-block-content">
+</div></div></div><div class="fe-block fe-block-yui_3_17_2_1_1754419588591_6625"><div class="sqs-block html-block sqs-block-html" data-blend-mode="NORMAL" data-block-type="2" data-border-radii="&#123;&quot;topLeft&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;topRight&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;bottomLeft&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;bottomRight&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;&#125;" data-sqsp-block="text" id="block-yui_3_17_2_1_1754419588591_6625"><div class="sqs-block-content">
 
 <div class="sqs-html-content" data-sqsp-text-block-content>
   <p class="sqsrte-small" style="white-space:pre-wrap;"><span class="sqsrte-text-color--accent"><strong>HOW IT STARTED</strong></span></p>
@@ -7909,6 +8148,28 @@ margin: 0 !important;
 ;
         }
       
+        /* Ukryj całkowicie złoty blok kształtu w sekcji newsletter */
+        #newsletter #block-yui_3_17_2_1_1754411224232_13154,
+        #newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          height: 0 !important;
+          width: 0 !important;
+          --shape-block-background-color: transparent !important;
+        }
+        
+        #newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape,
+        #newsletter #block-yui_3_17_2_1_1754411224232_13154 .sqs-shape-block-container,
+        #newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 .sqs-shape,
+        #newsletter .fe-block-yui_3_17_2_1_1754411224232_13154 .sqs-shape-block-container {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          background-color: transparent !important;
+          background: transparent !important;
+          background-image: none !important;
+        }
         
       
     
@@ -10536,20 +10797,20 @@ margin: 0 !important;
               </div>
             </div>
           
+
+          
         
 
-      
+  </div>
     
   </div>
-
-</div>
 
 </section>
 
   
 </footer>
+  
 
-      
 </div>
 
     <script defer="true" src="/assets/js/site-bundle.a1f8071840fbd943ce7cb60f20a9fc6b.js" type="text/javascript"></script>
@@ -10882,8 +11143,233 @@ function applyFemenFont() {
 // Wywołaj funkcję Femen tylko raz po załadowaniu
 setTimeout(applyFemenFont, 500);
 
-});
+// Funkcja do usunięcia WSZYSTKICH teł z sekcji newsletter - KOMPLETNE NADPISANIE
+function applyNewsletterBackground() {
+  var newsletterSection = document.getElementById('newsletter');
+  if (newsletterSection) {
+    // KROK 1: Ustaw czarne tło na głównej sekcji newsletter - użyj wszystkich możliwych właściwości
+    newsletterSection.style.setProperty('background-color', '#000000', 'important');
+    newsletterSection.style.setProperty('background-image', 'none', 'important');
+    newsletterSection.style.setProperty('background', '#000000', 'important');
+    newsletterSection.style.setProperty('--background-color', '#000000', 'important');
+    newsletterSection.style.setProperty('--background-image', 'none', 'important');
+    
+    // KROK 1.5: Usuń wszystkie inline styles związane z tłem
+    var computedStyle = window.getComputedStyle(newsletterSection);
+    if (computedStyle.backgroundImage && computedStyle.backgroundImage !== 'none') {
+      newsletterSection.style.removeProperty('background-image');
+      newsletterSection.style.setProperty('background-image', 'none', 'important');
+    }
+    
+    // KROK 2: Znajdź i ustaw czarne tło na WSZYSTKICH elementach struktury sekcji
+    var allSectionElements = newsletterSection.querySelectorAll('div, section');
+    allSectionElements.forEach(function(el) {
+      // Pomiń elementy treści
+      if (!el.closest('.content-wrapper') && !el.closest('.content') && 
+          !el.closest('.sqs-block-image') && !el.closest('.sqs-block-html') && 
+          !el.closest('.sqs-block-text') && !el.closest('.sqs-block')) {
+        // Usuń wszystkie możliwe właściwości tła
+        el.style.removeProperty('background');
+        el.style.removeProperty('background-color');
+        el.style.removeProperty('background-image');
+        el.style.removeProperty('--background-color');
+        el.style.removeProperty('--background-image');
+        
+        // Ustaw czarne tło
+        el.style.setProperty('background-color', '#000000', 'important');
+        el.style.setProperty('background-image', 'none', 'important');
+        el.style.setProperty('background', '#000000', 'important');
+      }
+    });
+    
+    // KROK 3: Ustaw czarne tło na konkretnych elementach struktury - BARDZO AGRESYWNE
+    var sectionBorder = newsletterSection.querySelector('.section-border');
+    var sectionBackground = newsletterSection.querySelector('.section-background');
+    var sectionBackgroundCanvas = newsletterSection.querySelector('.section-background-canvas');
+    var backgroundFxCanvas = newsletterSection.querySelector('.background-fx-canvas');
+    var contentWrapper = newsletterSection.querySelector('.content-wrapper');
+    var content = newsletterSection.querySelector('.content');
+    
+    // Funkcja pomocnicza do ustawienia czarnego tła
+    function setBlackBackground(el) {
+      if (el) {
+        // Usuń wszystkie właściwości tła
+        el.style.removeProperty('background');
+        el.style.removeProperty('background-color');
+        el.style.removeProperty('background-image');
+        el.style.removeProperty('--background-color');
+        el.style.removeProperty('--background-image');
+        
+        // Ustaw czarne tło
+        el.style.setProperty('background-color', '#000000', 'important');
+        el.style.setProperty('background-image', 'none', 'important');
+        el.style.setProperty('background', '#000000', 'important');
+        
+        // Sprawdź computed style i nadpisz jeśli potrzeba
+        var computed = window.getComputedStyle(el);
+        if (computed.backgroundImage && computed.backgroundImage !== 'none') {
+          el.style.setProperty('background-image', 'none', 'important');
+        }
+        if (computed.backgroundColor && computed.backgroundColor !== 'rgb(0, 0, 0)') {
+          el.style.setProperty('background-color', '#000000', 'important');
+        }
+      }
+    }
+    
+    setBlackBackground(sectionBorder);
+    setBlackBackground(sectionBackground);
+    setBlackBackground(sectionBackgroundCanvas);
+    setBlackBackground(backgroundFxCanvas);
+    
+    if (contentWrapper) {
+      contentWrapper.style.setProperty('background-color', 'transparent', 'important');
+      contentWrapper.style.setProperty('background-image', 'none', 'important');
+    }
+    if (content) {
+      content.style.setProperty('background-color', 'transparent', 'important');
+      content.style.setProperty('background-image', 'none', 'important');
+    }
+    // Ukryj canvas elementy (są już obsłużone przez setBlackBackground)
+    if (sectionBackgroundCanvas) {
+      sectionBackgroundCanvas.style.setProperty('display', 'none', 'important');
+    }
+    if (backgroundFxCanvas) {
+      backgroundFxCanvas.style.setProperty('display', 'none', 'important');
+    }
+    
+    // Ukryj shape blocks całkowicie
+    var shapeBlocks = newsletterSection.querySelectorAll('.fe-block-yui_3_17_2_1_1754411224232_13154, #block-yui_3_17_2_1_1754411224232_13154, .sqs-shape-block, .sqs-shape-block-container');
+    shapeBlocks.forEach(function(block) {
+      block.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; background-image: none !important; background-color: transparent !important;';
+      block.remove();
+    });
+    
+    // Usuń tła z wszystkich elementów wewnątrz sekcji (z wyjątkiem obrazków treści)
+    var allElements = newsletterSection.querySelectorAll('*');
+    allElements.forEach(function(el) {
+      // Pomiń obrazki treści
+      if (el.tagName !== 'IMG' && el.tagName !== 'VIDEO' && !el.closest('.sqs-block-image')) {
+        // Usuń background-image
+        el.style.backgroundImage = 'none';
+        // Jeśli to nie jest element treści, ustaw transparentne tło
+        if (!el.closest('.sqs-block') || el.classList.contains('sqs-shape') || el.classList.contains('sqs-shape-block-container')) {
+          if (el.classList.contains('sqs-shape') || el.classList.contains('sqs-shape-block-container')) {
+            el.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+          } else if (!el.closest('.sqs-block-image') && !el.closest('.sqs-block-html') && !el.closest('.sqs-block-text')) {
+            el.style.backgroundColor = 'transparent';
+          }
+        }
+      }
+    });
+    
+    // Kontynuuj z sectionBackground (już zdefiniowany wcześniej)
+    if (sectionBackground) {
+      // Usuń WSZYSTKIE dynamicznie dodane divy tła
+      var customBgs = sectionBackground.querySelectorAll('.custom-bg-full, .custom-bg-left, .custom-bg-right');
+      customBgs.forEach(function(bg) {
+        bg.remove();
+      });
+      
+      // KROK 4: Usuń WSZYSTKIE obrazki tła - TYLKO tła, NIE obrazy treści
+      var allImages = newsletterSection.querySelectorAll('img');
+      allImages.forEach(function(img) {
+        // Sprawdź, czy to obrazek treści (NIE usuwać)
+        var isContentImage = img.closest('.sqs-block-image') || 
+                            img.closest('.image-block') ||
+                            (img.closest('.fe-block') && !img.closest('.section-background'));
+        
+        // Jeśli to NIE jest obrazek treści, sprawdź czy to tło
+        if (!isContentImage) {
+          var imgSrc = img.getAttribute('src') || img.getAttribute('data-src') || '';
+          var isBackgroundImage = img.closest('.section-background') || 
+                                  (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
+                                  img.classList.contains('background-image-fx') ||
+                                  imgSrc.includes('darkGranite') ||
+                                  imgSrc.includes('granite') ||
+                                  (img.hasAttribute('data-image') && !img.closest('.sqs-block-image'));
+          
+          if (isBackgroundImage) {
+            img.style.setProperty('display', 'none', 'important');
+            img.style.setProperty('visibility', 'hidden', 'important');
+            img.style.setProperty('opacity', '0', 'important');
+            img.style.setProperty('height', '0', 'important');
+            img.style.setProperty('width', '0', 'important');
+            img.remove();
+          }
+        }
+      });
+      
+      // Usuń również WSZYSTKIE obrazki tła z section-background (bez wyjątków)
+      var backgroundImages = sectionBackground.querySelectorAll('img');
+      backgroundImages.forEach(function(img) {
+        img.style.setProperty('display', 'none', 'important');
+        img.style.setProperty('visibility', 'hidden', 'important');
+        img.style.setProperty('opacity', '0', 'important');
+        img.style.setProperty('height', '0', 'important');
+        img.style.setProperty('width', '0', 'important');
+        img.remove();
+      });
+      
+      // Ukryj overlay
+      var overlay = sectionBackground.querySelector('.section-background-overlay');
+      if (overlay) {
+        overlay.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; pointer-events: none !important;';
+      }
+      
+      // Upewnij się, że sekcja ma czarne tło (bez obrazków) - użyj funkcji pomocniczej
+      sectionBackground.style.setProperty('position', 'relative', 'important');
+      sectionBackground.style.setProperty('overflow', 'hidden', 'important');
+      sectionBackground.style.setProperty('min-height', '100%', 'important');
+      setBlackBackground(sectionBackground); // Użyj funkcji pomocniczej
+    }
+  }
+}
 
+// Wywołaj funkcję wielokrotnie, aby upewnić się, że zadziała
+applyNewsletterBackground();
+setTimeout(applyNewsletterBackground, 50);
+setTimeout(applyNewsletterBackground, 100);
+setTimeout(applyNewsletterBackground, 300);
+setTimeout(applyNewsletterBackground, 500);
+setTimeout(applyNewsletterBackground, 1000);
+setTimeout(applyNewsletterBackground, 2000);
+setTimeout(applyNewsletterBackground, 3000);
+
+// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów) - BARDZO AGRESYWNE
+var observerTimeout;
+var observer = new MutationObserver(function(mutations) {
+  clearTimeout(observerTimeout);
+  observerTimeout = setTimeout(function() {
+    applyNewsletterBackground();
+    // Dodatkowo usuń wszystkie obrazki tła, które mogły zostać dodane - TYLKO tła, NIE obrazy treści
+    var newsletterSection = document.getElementById('newsletter');
+    if (newsletterSection) {
+      var allImgs = newsletterSection.querySelectorAll('img');
+      allImgs.forEach(function(img) {
+        // Sprawdź, czy to obrazek treści (NIE usuwać)
+        var isContentImage = img.closest('.sqs-block-image') || 
+                            img.closest('.image-block') ||
+                            img.closest('.fe-block') && !img.closest('.section-background');
+        
+        // Jeśli to NIE jest obrazek treści, sprawdź czy to tło
+        if (!isContentImage) {
+          if (img.closest('.section-background') || 
+              (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
+              img.classList.contains('background-image-fx')) {
+            img.remove();
+          }
+        }
+      });
+    }
+  }, 100);
+});
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
+  attributes: true,
+  attributeFilter: ['src', 'data-src', 'data-image']
+});
+});
 </script>
 
   </body>
