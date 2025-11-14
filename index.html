@@ -2706,11 +2706,11 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   position: relative !important;
 }
 
-/* Ustaw czarne tło na content-wrapper i content w sekcji newsletter */
+/* Ustaw transparentne tło na content-wrapper i content - aby sekcja miała jedno tło */
 #newsletter .content-wrapper {
-  background-color: #000000 !important;
+  background-color: transparent !important;
   background-image: none !important;
-  background: #000000 !important;
+  background: transparent !important;
 }
 
 #newsletter .content {
@@ -2867,7 +2867,7 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   opacity: 1 !important;
 }
 
-/* Usuń overlay */
+/* Usuń overlay - upewnij się, że nie tworzy podziałów */
 #newsletter .section-background-overlay,
 #newsletter .section-background .section-background-overlay {
   display: none !important;
@@ -2876,6 +2876,26 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   height: 0 !important;
   width: 0 !important;
   pointer-events: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+}
+
+/* Upewnij się, że section-background ma jednolite czarne tło bez podziałów */
+#newsletter .section-background {
+  background-color: #000000 !important;
+  background-image: none !important;
+  background: #000000 !important;
+  position: relative !important;
+}
+
+/* Upewnij się, że wszystkie kontenery wewnątrz sekcji są transparentne */
+#newsletter .content-wrapper > *,
+#newsletter .content > *,
+#newsletter .fe-688e4e9c99f40f476643f20f > * {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
 }
 
 /* Usuń wszystkie dynamicznie dodane divy tła */
