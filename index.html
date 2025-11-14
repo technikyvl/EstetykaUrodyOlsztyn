@@ -2581,11 +2581,11 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   content: none !important;
 }
 
-/* Usuń również wszystkie obrazki tła z całej sekcji newsletter */
-#newsletter img[data-image],
-#newsletter img[data-src],
+/* Usuń również wszystkie obrazki tła z całej sekcji newsletter - ALE NIE obrazy treści */
 #newsletter img[elementtiming="nbf-background"],
-#newsletter img.background-image-fx {
+#newsletter img.background-image-fx,
+#newsletter .section-background img[data-image],
+#newsletter .section-background img[data-src] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -2594,6 +2594,15 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   position: absolute !important;
   left: -9999px !important;
   pointer-events: none !important;
+}
+
+/* NIE usuwać obrazków treści */
+#newsletter .sqs-block-image img,
+#newsletter .image-block img,
+#newsletter .fe-block img:not(.section-background img) {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Usuń overlay */
@@ -11056,18 +11065,25 @@ function applyNewsletterBackground() {
         bg.remove();
       });
       
-      // Usuń WSZYSTKIE obrazki tła - również z całej sekcji newsletter
+      // Usuń WSZYSTKIE obrazki tła - TYLKO tła, NIE obrazy treści
       var allImages = newsletterSection.querySelectorAll('img');
       allImages.forEach(function(img) {
-        // Sprawdź, czy to obrazek tła (nie obrazek treści)
-        var isBackgroundImage = img.closest('.section-background') || 
-                                img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background') ||
-                                img.classList.contains('background-image-fx') ||
-                                img.hasAttribute('data-image') && !img.closest('.sqs-block-image');
+        // Sprawdź, czy to obrazek treści (NIE usuwać)
+        var isContentImage = img.closest('.sqs-block-image') || 
+                            img.closest('.image-block') ||
+                            img.closest('.fe-block') && !img.closest('.section-background');
         
-        if (isBackgroundImage) {
-          img.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; position: absolute !important; left: -9999px !important; pointer-events: none !important;';
-          img.remove();
+        // Jeśli to NIE jest obrazek treści, sprawdź czy to tło
+        if (!isContentImage) {
+          var isBackgroundImage = img.closest('.section-background') || 
+                                  (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
+                                  img.classList.contains('background-image-fx') ||
+                                  (img.hasAttribute('data-image') && !img.closest('.sqs-block-image'));
+          
+          if (isBackgroundImage) {
+            img.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important; width: 0 !important; position: absolute !important; left: -9999px !important; pointer-events: none !important;';
+            img.remove();
+          }
         }
       });
       
@@ -11116,15 +11132,23 @@ var observer = new MutationObserver(function(mutations) {
   clearTimeout(observerTimeout);
   observerTimeout = setTimeout(function() {
     applyNewsletterBackground();
-    // Dodatkowo usuń wszystkie obrazki tła, które mogły zostać dodane
+    // Dodatkowo usuń wszystkie obrazki tła, które mogły zostać dodane - TYLKO tła, NIE obrazy treści
     var newsletterSection = document.getElementById('newsletter');
     if (newsletterSection) {
       var allImgs = newsletterSection.querySelectorAll('img');
       allImgs.forEach(function(img) {
-        if (img.closest('.section-background') || 
-            (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
-            img.classList.contains('background-image-fx')) {
-          img.remove();
+        // Sprawdź, czy to obrazek treści (NIE usuwać)
+        var isContentImage = img.closest('.sqs-block-image') || 
+                            img.closest('.image-block') ||
+                            img.closest('.fe-block') && !img.closest('.section-background');
+        
+        // Jeśli to NIE jest obrazek treści, sprawdź czy to tło
+        if (!isContentImage) {
+          if (img.closest('.section-background') || 
+              (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
+              img.classList.contains('background-image-fx')) {
+            img.remove();
+          }
         }
       });
     }
