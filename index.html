@@ -801,6 +801,36 @@
   .bottom-bun {
     height: 1px;
   }
+  
+  /* Ukryj wszystkie dropdowny w headerze - desktop i mobile */
+  .header-nav-folder-content,
+  .header-menu-nav-folder {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    max-height: 0 !important;
+    max-width: 0 !important;
+  }
+  
+  /* Usuń funkcjonalność hover dla folderów - traktuj je jak zwykłe linki */
+  .header-nav-item--folder {
+    pointer-events: auto !important;
+  }
+  
+  .header-nav-item--folder:hover .header-nav-folder-content,
+  .header-nav-item--folder:focus .header-nav-folder-content,
+  .header-nav-item--folder:active .header-nav-folder-content {
+    display: none !important;
+  }
+  
+  /* Ukryj również w menu mobilnym */
+  [data-folder] + .header-menu-nav-folder {
+    display: none !important;
+  }
 </style>
 
 <!-- Burger -->
@@ -1158,6 +1188,36 @@
   .patty, 
   .bottom-bun {
     height: 1px;
+  }
+  
+  /* Ukryj wszystkie dropdowny w headerze - desktop i mobile */
+  .header-nav-folder-content,
+  .header-menu-nav-folder {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    max-height: 0 !important;
+    max-width: 0 !important;
+  }
+  
+  /* Usuń funkcjonalność hover dla folderów - traktuj je jak zwykłe linki */
+  .header-nav-item--folder {
+    pointer-events: auto !important;
+  }
+  
+  .header-nav-item--folder:hover .header-nav-folder-content,
+  .header-nav-item--folder:focus .header-nav-folder-content,
+  .header-nav-item--folder:active .header-nav-folder-content {
+    display: none !important;
+  }
+  
+  /* Ukryj również w menu mobilnym */
+  [data-folder] + .header-menu-nav-folder {
+    display: none !important;
   }
 </style>
 
