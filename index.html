@@ -2519,13 +2519,27 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   content: none !important;
 }
 
-/* Tło sekcji newsletter - tylko czarne tło, bez obrazków */
+/* Tło sekcji newsletter - tylko czarne tło, bez obrazków - AGRESYWNE */
+#newsletter,
+#newsletter section,
+#newsletter .section-border,
 #newsletter .section-background {
   position: relative !important;
   background-color: #000000 !important;
   background-image: none !important;
   overflow: hidden !important;
   min-height: 100% !important;
+}
+
+/* Usuń WSZYSTKIE tła z elementów wewnątrz sekcji newsletter */
+#newsletter * {
+  background-image: none !important;
+}
+
+#newsletter .content-wrapper,
+#newsletter .content {
+  background-color: transparent !important;
+  background-image: none !important;
 }
 
 /* Usuń WSZYSTKIE obecne tła obrazkowe - bardzo agresywne */
@@ -10962,6 +10976,17 @@ setTimeout(applyFemenFont, 500);
 function applyNewsletterBackground() {
   var newsletterSection = document.getElementById('newsletter');
   if (newsletterSection) {
+    // Usuń WSZYSTKIE tła z całej sekcji newsletter
+    newsletterSection.style.cssText = 'background-color: #000000 !important; background-image: none !important;';
+    
+    // Usuń tła z wszystkich elementów wewnątrz sekcji
+    var allElements = newsletterSection.querySelectorAll('*');
+    allElements.forEach(function(el) {
+      if (el.tagName !== 'IMG' && el.tagName !== 'VIDEO') {
+        el.style.backgroundImage = 'none';
+      }
+    });
+    
     var sectionBackground = newsletterSection.querySelector('.section-background');
     if (sectionBackground) {
       // Usuń WSZYSTKIE dynamicznie dodane divy tła
@@ -10985,6 +11010,16 @@ function applyNewsletterBackground() {
       
       // Upewnij się, że sekcja ma czarne tło (bez obrazków)
       sectionBackground.style.cssText = 'position: relative !important; background-color: #000000 !important; background-image: none !important; overflow: hidden !important; min-height: 100% !important;';
+    }
+    
+    // Usuń tła z content-wrapper i content
+    var contentWrapper = newsletterSection.querySelector('.content-wrapper');
+    var content = newsletterSection.querySelector('.content');
+    if (contentWrapper) {
+      contentWrapper.style.cssText = 'background-color: transparent !important; background-image: none !important;';
+    }
+    if (content) {
+      content.style.cssText = 'background-color: transparent !important; background-image: none !important;';
     }
   }
 }
