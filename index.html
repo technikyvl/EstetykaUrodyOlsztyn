@@ -2487,9 +2487,12 @@ h1, h2, h3, h4, h5, h6,
 #block-29b417948497d887e744 .sqsrte-scaled-text-container,
 .fe-block-29b417948497d887e744 .sqsrte-scaled-text-container,
 #block-29b417948497d887e744 .sqsrte-scaled-text,
-.fe-block-29b417948497d887e744 .sqsrte-scaled-text {
-  margin-bottom: 0.2em !important;
+.fe-block-29b417948497d887e744 .sqsrte-scaled-text,
+#block-29b417948497d887e744 h1 *,
+.fe-block-29b417948497d887e744 h1 * {
+  margin-bottom: 0 !important;
   padding-bottom: 0 !important;
+  line-height: 1.1 !important;
 }
 
 #block-f4462786c7c3301d5124,
@@ -2503,13 +2506,23 @@ h1, h2, h3, h4, h5, h6,
   margin-top: 0 !important;
   padding-top: 0 !important;
   margin-bottom: 0 !important;
+  line-height: 1.4 !important;
 }
 
 /* Dodatkowo zmniejsz odstęp między blokami */
 .fe-block-29b417948497d887e744 + .fe-block-f4462786c7c3301d5124,
-#block-29b417948497d887e744 + #block-f4462786c7c3301d5124 {
-  margin-top: -0.5em !important;
+#block-29b417948497d887e744 + #block-f4462786c7c3301d5124,
+.fe-block-29b417948497d887e744 ~ .fe-block-f4462786c7c3301d5124,
+#block-29b417948497d887e744 ~ #block-f4462786c7c3301d5124 {
+  margin-top: -1em !important;
   padding-top: 0 !important;
+}
+
+/* Zmniejsz odstęp między wszystkimi elementami w sekcji our-mission */
+#our-mission .fe-block-29b417948497d887e744,
+#our-mission .fe-block-f4462786c7c3301d5124 {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 /* Ukryj małe zdjęcie w sekcji "our dedicated Spa Philosophy" */
