@@ -2785,34 +2785,27 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   background: #000000 !important;
 }
 
-/* Usuń wszystkie obramowania z obrazów w prawej kolumnie sekcji newsletter */
-#newsletter .fe-block-3cec84cba25f017e8acd img,
-#newsletter .fe-block-3cec84cba25f017e8acd .content-fill,
-#newsletter .fe-block-3cec84cba25f017e8acd .fluid-image-container,
-#newsletter .fe-block-3cec84cba25f017e8acd .fluid-image-animation-wrapper,
-#newsletter .fe-block-3cec84cba25f017e8acd .image-block-outer-wrapper,
-#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-image,
-#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-image .sqs-block-content,
-#newsletter .fe-block-3cec84cba25f017e8acd .sqs-block-content,
+/* Usuń wszystkie obramowania z CAŁEJ prawej kolumny (bloków fe-block) w sekcji newsletter */
+/* To usuwa obramowanie z całych bloków, nie tylko z obrazów */
 #newsletter .fe-block-3cec84cba25f017e8acd,
-#newsletter .fe-block-51dad62e90195a226a16 img,
-#newsletter .fe-block-51dad62e90195a226a16 .content-fill,
-#newsletter .fe-block-51dad62e90195a226a16 .fluid-image-container,
-#newsletter .fe-block-51dad62e90195a226a16 .fluid-image-animation-wrapper,
-#newsletter .fe-block-51dad62e90195a226a16 .image-block-outer-wrapper,
-#newsletter .fe-block-51dad62e90195a226a16 .sqs-block-image,
-#newsletter .fe-block-51dad62e90195a226a16 .sqs-block-image .sqs-block-content,
-#newsletter .fe-block-51dad62e90195a226a16 .sqs-block-content,
-#newsletter .fe-block-51dad62e90195a226a16 {
+#newsletter .fe-block-3cec84cba25f017e8acd *,
+#newsletter .fe-block-51dad62e90195a226a16,
+#newsletter .fe-block-51dad62e90195a226a16 * {
   border: none !important;
   border-width: 0 !important;
   border-style: none !important;
   border-color: transparent !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
   outline: none !important;
   outline-width: 0 !important;
   outline-style: none !important;
   outline-color: transparent !important;
   box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
 }
 
 /* Ustaw czarne tło na WSZYSTKICH elementach w sekcji newsletter - bardzo agresywne */
