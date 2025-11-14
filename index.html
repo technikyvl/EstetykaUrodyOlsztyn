@@ -2585,8 +2585,20 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
 }
 
 /* Tło sekcji newsletter - OBRAZEK tłohero3gold.png - JEDNO WSPÓLNE TŁO */
-/* Ustaw tło TYLKO na głównym kontenerze section-background */
-#newsletter .section-background {
+/* Ustaw tło na głównej sekcji newsletter jako backup */
+#newsletter {
+  background-color: #000000 !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background: url('/assets/img/tłohero3gold.png') center center/cover no-repeat #000000 !important;
+  position: relative !important;
+}
+
+/* Ustaw tło na section-border jako backup */
+#newsletter .section-border {
   background-color: #000000 !important;
   background-image: url('/assets/img/tłohero3gold.png') !important;
   background-size: cover !important;
@@ -2597,6 +2609,25 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   position: relative !important;
   min-height: 100% !important;
   width: 100% !important;
+}
+
+/* Ustaw tło TYLKO na głównym kontenerze section-background */
+#newsletter .section-background {
+  background-color: #000000 !important;
+  background-image: url('/assets/img/tłohero3gold.png') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background: url('/assets/img/tłohero3gold.png') center center/cover no-repeat #000000 !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
 }
 
 /* Upewnij się, że obrazek tła jest widoczny - dodatkowe zabezpieczenie */
@@ -2634,21 +2665,7 @@ div.list-section-title#68921d0047edc42290b07ea6 p:last-child * {
   top: -9999px !important;
 }
 
-/* Upewnij się, że section-border jest transparentne, aby tło z section-background było widoczne */
-#newsletter .section-border {
-  background-color: transparent !important;
-  background-image: none !important;
-  background: transparent !important;
-  position: relative !important;
-}
-
-/* Główna sekcja newsletter - transparentne, aby tło z section-background było widoczne */
-#newsletter {
-  background-color: transparent !important;
-  background-image: none !important;
-  background: transparent !important;
-  position: relative !important;
-}
+/* Główna sekcja newsletter - tło ustawione powyżej, content-wrapper i content są transparentne */
 
 /* Upewnij się, że content-wrapper i content są transparentne */
 #newsletter .content-wrapper,
@@ -11420,17 +11437,14 @@ setTimeout(applyFemenFont, 500);
 function applyNewsletterBackground() {
   var newsletterSection = document.getElementById('newsletter');
   if (newsletterSection) {
-    // KROK 1: Ustaw transparentne tło na głównej sekcji newsletter, aby tło z section-background było widoczne
-    newsletterSection.style.setProperty('background-color', 'transparent', 'important');
-    newsletterSection.style.setProperty('background-image', 'none', 'important');
-    newsletterSection.style.setProperty('background', 'transparent', 'important');
-    
-    // KROK 1.5: Usuń wszystkie inline styles związane z tłem
-    var computedStyle = window.getComputedStyle(newsletterSection);
-    if (computedStyle.backgroundImage && computedStyle.backgroundImage !== 'none') {
-      newsletterSection.style.removeProperty('background-image');
-      newsletterSection.style.setProperty('background-image', 'none', 'important');
-    }
+    // KROK 1: Ustaw obrazek tła na głównej sekcji newsletter
+    var bgImageMain = 'url("/assets/img/tłohero3gold.png")';
+    newsletterSection.style.setProperty('background-color', '#000000', 'important');
+    newsletterSection.style.setProperty('background-image', bgImageMain, 'important');
+    newsletterSection.style.setProperty('background-size', 'cover', 'important');
+    newsletterSection.style.setProperty('background-position', 'center center', 'important');
+    newsletterSection.style.setProperty('background-repeat', 'no-repeat', 'important');
+    newsletterSection.style.setProperty('background', bgImageMain + ' center center/cover no-repeat #000000', 'important');
     
     // KROK 2: Znajdź i ustaw czarne tło TYLKO na strukturalnych elementach sekcji
     var allSectionElements = newsletterSection.querySelectorAll('div, section');
@@ -11516,7 +11530,19 @@ function applyNewsletterBackground() {
       }
     }
     
-    setBlackBackground(sectionBorder);
+    // Ustaw obrazek tła na section-border
+    if (sectionBorder) {
+      var bgImageBorder = 'url("/assets/img/tłohero3gold.png")';
+      sectionBorder.style.setProperty('background-color', '#000000', 'important');
+      sectionBorder.style.setProperty('background-image', bgImageBorder, 'important');
+      sectionBorder.style.setProperty('background-size', 'cover', 'important');
+      sectionBorder.style.setProperty('background-position', 'center center', 'important');
+      sectionBorder.style.setProperty('background-repeat', 'no-repeat', 'important');
+      sectionBorder.style.setProperty('background', bgImageBorder + ' center center/cover no-repeat #000000', 'important');
+      sectionBorder.style.setProperty('min-height', '100%', 'important');
+      sectionBorder.style.setProperty('width', '100%', 'important');
+    }
+    
     // Ustaw obrazek tła na section-background zamiast czarnego tła - NAJWAŻNIEJSZE!
     if (sectionBackground) {
       // Usuń wszystkie właściwości tła
@@ -11705,17 +11731,47 @@ function applyNewsletterBackground() {
     }
   }
   
-  // NA KONIEC: Upewnij się, że obrazek tła jest ustawiony na section-background i overlay jest ukryty
+  // NA KONIEC: Upewnij się, że obrazek tła jest ustawiony na wszystkich elementach i overlay jest ukryty
+  var finalBgImageUrl = 'url("/assets/img/tłohero3gold.png")';
+  
+  // Ustaw tło na głównej sekcji newsletter
+  newsletterSection.style.setProperty('background-color', '#000000', 'important');
+  newsletterSection.style.setProperty('background-image', finalBgImageUrl, 'important');
+  newsletterSection.style.setProperty('background-size', 'cover', 'important');
+  newsletterSection.style.setProperty('background-position', 'center center', 'important');
+  newsletterSection.style.setProperty('background-repeat', 'no-repeat', 'important');
+  newsletterSection.style.setProperty('background', finalBgImageUrl + ' center center/cover no-repeat #000000', 'important');
+  
+  // Ustaw tło na section-border
+  var finalSectionBorder = newsletterSection.querySelector('.section-border');
+  if (finalSectionBorder) {
+    finalSectionBorder.style.setProperty('background-color', '#000000', 'important');
+    finalSectionBorder.style.setProperty('background-image', finalBgImageUrl, 'important');
+    finalSectionBorder.style.setProperty('background-size', 'cover', 'important');
+    finalSectionBorder.style.setProperty('background-position', 'center center', 'important');
+    finalSectionBorder.style.setProperty('background-repeat', 'no-repeat', 'important');
+    finalSectionBorder.style.setProperty('background', finalBgImageUrl + ' center center/cover no-repeat #000000', 'important');
+    finalSectionBorder.style.setProperty('min-height', '100%', 'important');
+    finalSectionBorder.style.setProperty('width', '100%', 'important');
+  }
+  
+  // Ustaw tło na section-background
   var finalSectionBackground = newsletterSection.querySelector('.section-background');
   if (finalSectionBackground) {
-    // Ustaw obrazek tła
-    var finalBgImageUrl = 'url("/assets/img/tłohero3gold.png")';
     finalSectionBackground.style.setProperty('background-color', '#000000', 'important');
     finalSectionBackground.style.setProperty('background-image', finalBgImageUrl, 'important');
     finalSectionBackground.style.setProperty('background-size', 'cover', 'important');
     finalSectionBackground.style.setProperty('background-position', 'center center', 'important');
     finalSectionBackground.style.setProperty('background-repeat', 'no-repeat', 'important');
     finalSectionBackground.style.setProperty('background', finalBgImageUrl + ' center center/cover no-repeat #000000', 'important');
+    finalSectionBackground.style.setProperty('position', 'absolute', 'important');
+    finalSectionBackground.style.setProperty('top', '0', 'important');
+    finalSectionBackground.style.setProperty('left', '0', 'important');
+    finalSectionBackground.style.setProperty('right', '0', 'important');
+    finalSectionBackground.style.setProperty('bottom', '0', 'important');
+    finalSectionBackground.style.setProperty('width', '100%', 'important');
+    finalSectionBackground.style.setProperty('height', '100%', 'important');
+    finalSectionBackground.style.setProperty('z-index', '0', 'important');
     
     // Ukryj overlay - usuń inline style i ustaw przez setProperty
     var finalOverlay = finalSectionBackground.querySelector('.section-background-overlay');
