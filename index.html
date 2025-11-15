@@ -3008,6 +3008,21 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
   background-color: transparent !important;
 }
 
+/* Ukryj przycisk "Go to FAQ" w sekcji FAQ */
+#block-yui_3_17_2_1_1754409750664_10475,
+.fe-block-yui_3_17_2_1_1754409750664_10475,
+#block-yui_3_17_2_1_1754409750664_10475 *,
+.fe-block-yui_3_17_2_1_1754409750664_10475 * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* Ukryj małe zdjęcie w sekcji "our dedicated Spa Philosophy" */
 #block-yui_3_17_2_1_1754416919520_5501,
 .fe-block-yui_3_17_2_1_1754416919520_5501,
@@ -3163,7 +3178,7 @@ section[data-section-id="688e4e9c99f40f476643f202"] .section-background-overlay 
   font-weight: 300 !important;
 }
 
-/* Nagłówek "CZĘSTO ZADAWANE PYTANIA" - powiększony */
+/* Nagłówek "CZĘSTO ZADAWANE PYTANIA" - powiększony, maksymalnie 2 linie */
 #block-8e42ec35d81ff317065d h2,
 .fe-block-8e42ec35d81ff317065d h2,
 #block-8e42ec35d81ff317065d .sqs-html-content h2,
@@ -3179,6 +3194,29 @@ section[data-section-id="688e4e9c99f40f476643f202"] .section-background-overlay 
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
   text-rendering: optimizeLegibility !important;
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Wymuszenie maksymalnie 2 linii dla nagłówka */
+#block-8e42ec35d81ff317065d h2 strong,
+.fe-block-8e42ec35d81ff317065d h2 strong,
+#block-8e42ec35d81ff317065d .sqs-html-content h2 strong,
+.fe-block-8e42ec35d81ff317065d .sqs-html-content h2 strong {
+  display: inline-block !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+@media (max-width: 767px) {
+  #block-8e42ec35d81ff317065d h2,
+  .fe-block-8e42ec35d81ff317065d h2,
+  #block-8e42ec35d81ff317065d .sqs-html-content h2,
+  .fe-block-8e42ec35d81ff317065d .sqs-html-content h2 {
+    font-size: 2.5rem !important;
+  }
 }
 
 /* Wszystkie nagłówki H1 w sekcjach - szeryfowa, cienka czcionka */
@@ -6557,7 +6595,7 @@ align-items: center;
 </div></div></div><div class="fe-block fe-block-8e42ec35d81ff317065d"><div class="sqs-block html-block sqs-block-html" data-blend-mode="NORMAL" data-block-type="2" data-border-radii="&#123;&quot;topLeft&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;topRight&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;bottomLeft&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;,&quot;bottomRight&quot;:&#123;&quot;unit&quot;:&quot;px&quot;,&quot;value&quot;:0.0&#125;&#125;" data-sqsp-block="text" id="block-8e42ec35d81ff317065d"><div class="sqs-block-content">
 
 <div class="sqs-html-content" data-sqsp-text-block-content>
-  <p class="" data-rte-preserve-empty="true" style="text-align:left;white-space:pre-wrap;margin-bottom:0.5rem;"><strong>FAQ</strong></p><h2 style="text-align:left;white-space:pre-wrap;margin-bottom:3rem;"><strong>CZĘSTO ZADAWANE PYTANIA</strong></h2>
+  <p class="" data-rte-preserve-empty="true" style="text-align:left;white-space:pre-wrap;margin-bottom:0.5rem;"><strong>FAQ</strong></p><h2 style="text-align:left;white-space:pre-wrap;margin-bottom:3rem;"><strong>CZĘSTO<br>ZADAWANE PYTANIA</strong></h2>
   <p class="sqsrte-small" style="white-space:pre-wrap;margin-bottom:0.5rem;"><strong>PYTANIE</strong></p><p class="" style="white-space:pre-wrap;margin-bottom:1.5rem;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><p class="sqsrte-small" style="white-space:pre-wrap;margin-bottom:0.5rem;"><strong>PYTANIE</strong></p><p class="" style="white-space:pre-wrap;margin-bottom:1.5rem;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p><p class="sqsrte-small" style="white-space:pre-wrap;margin-bottom:0.5rem;"><strong>PYTANIE</strong></p><p class="" style="white-space:pre-wrap;margin-bottom:2.5rem;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
 </div>
 
