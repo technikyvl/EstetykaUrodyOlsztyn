@@ -2489,27 +2489,55 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 }
 
 /* Kontener zdjęcia - pozycja relative dla pozycjonowania podpisu */
-#about .fe-block-18ab1ef90ae2c4216b34 {
+#about .fe-block-18ab1ef90ae2c4216b34,
+#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 {
   position: relative !important;
 }
 
 #about .fe-block-18ab1ef90ae2c4216b34 .sqs-block,
 #about .fe-block-18ab1ef90ae2c4216b34 .sqs-block-content,
 #about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-animation-wrapper,
-#about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-container {
+#about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-container,
+#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 .sqs-block,
+#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 .sqs-block-content {
   position: relative !important;
 }
 
 /* "Joanna K" w sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - pozycja w lewym dolnym rogu zdjęcia */
+/* Nadpisanie grid-area i ustawienie pozycjonowania absolutnego */
 #about #block-7da1d85dc54f90cab987,
-#about .fe-block-7da1d85dc54f90cab987 {
+#about .fe-block-7da1d85dc54f90cab987,
+#about .fe-688e4e9899f40f476643f112 .fe-block-7da1d85dc54f90cab987,
+#about .fe-688e4e9899f40f476643f112 #block-7da1d85dc54f90cab987 {
   position: absolute !important;
+  grid-area: unset !important;
+  grid-row: unset !important;
+  grid-column: unset !important;
   bottom: 20px !important;
   left: 20px !important;
   z-index: 100 !important;
   pointer-events: none !important;
   width: auto !important;
   height: auto !important;
+  margin: 0 !important;
+  top: auto !important;
+  right: auto !important;
+}
+
+/* Upewnij się, że podpis jest pozycjonowany względem kontenera zdjęcia */
+/* Nadpisanie wszystkich grid-area definicji dla podpisu */
+#about .fe-688e4e9899f40f476643f112 .fe-block-7da1d85dc54f90cab987,
+#about .fe-block-7da1d85dc54f90cab987 {
+  position: absolute !important;
+  grid-area: unset !important;
+  grid-row: unset !important;
+  grid-column: unset !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  top: auto !important;
+  right: auto !important;
+  margin: 0 !important;
+  transform: none !important;
 }
 
 #block-7da1d85dc54f90cab987 *,
@@ -2540,17 +2568,35 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 /* Responsive - dostosowanie pozycji na różnych breakpointach */
 @media (max-width: 767px) {
   #about #block-7da1d85dc54f90cab987,
-  #about .fe-block-7da1d85dc54f90cab987 {
+  #about .fe-block-7da1d85dc54f90cab987,
+  #about .fe-688e4e9899f40f476643f112 .fe-block-7da1d85dc54f90cab987,
+  #about .fe-688e4e9899f40f476643f112 #block-7da1d85dc54f90cab987 {
+    position: absolute !important;
+    grid-area: unset !important;
+    grid-row: unset !important;
+    grid-column: unset !important;
     bottom: 15px !important;
     left: 15px !important;
+    top: auto !important;
+    right: auto !important;
+    margin: 0 !important;
   }
 }
 
 @media (min-width: 768px) {
   #about #block-7da1d85dc54f90cab987,
-  #about .fe-block-7da1d85dc54f90cab987 {
+  #about .fe-block-7da1d85dc54f90cab987,
+  #about .fe-688e4e9899f40f476643f112 .fe-block-7da1d85dc54f90cab987,
+  #about .fe-688e4e9899f40f476643f112 #block-7da1d85dc54f90cab987 {
+    position: absolute !important;
+    grid-area: unset !important;
+    grid-row: unset !important;
+    grid-column: unset !important;
     bottom: 30px !important;
     left: 30px !important;
+    top: auto !important;
+    right: auto !important;
+    margin: 0 !important;
   }
 }
 
@@ -12336,6 +12382,71 @@ setTimeout(applyNewsletterBackground, 50);
 setTimeout(applyNewsletterBackground, 100);
 setTimeout(applyNewsletterBackground, 300);
 setTimeout(applyNewsletterBackground, 500);
+
+// Przeniesienie podpisu "Joanna K" do kontenera zdjęcia w sekcji about
+function moveJoannaKSignature() {
+  var aboutSection = document.getElementById('about');
+  if (!aboutSection) return;
+  
+  var imageContainer = aboutSection.querySelector('.fe-block-18ab1ef90ae2c4216b34');
+  var signatureBlock = aboutSection.querySelector('.fe-block-7da1d85dc54f90cab987, #block-7da1d85dc54f90cab987');
+  
+  if (imageContainer && signatureBlock) {
+    // Sprawdź, czy podpis już został przeniesiony
+    var existingSignature = imageContainer.querySelector('.joanna-k-signature-moved');
+    if (existingSignature) {
+      return; // Już przeniesiony
+    }
+    
+    // Ustaw kontener zdjęcia jako relative
+    imageContainer.style.setProperty('position', 'relative', 'important');
+    
+    // Przenieś podpis do kontenera zdjęcia
+    var signatureContent = signatureBlock.cloneNode(true);
+    signatureContent.classList.add('joanna-k-signature-moved');
+    signatureContent.style.setProperty('position', 'absolute', 'important');
+    signatureContent.style.setProperty('z-index', '100', 'important');
+    signatureContent.style.setProperty('pointer-events', 'none', 'important');
+    signatureContent.style.setProperty('grid-area', 'unset', 'important');
+    signatureContent.style.setProperty('grid-row', 'unset', 'important');
+    signatureContent.style.setProperty('grid-column', 'unset', 'important');
+    
+    // Responsive positioning
+    if (window.innerWidth <= 767) {
+      signatureContent.style.setProperty('bottom', '15px', 'important');
+      signatureContent.style.setProperty('left', '15px', 'important');
+    } else {
+      signatureContent.style.setProperty('bottom', '30px', 'important');
+      signatureContent.style.setProperty('left', '30px', 'important');
+    }
+    
+    // Ukryj oryginalny podpis
+    signatureBlock.style.setProperty('display', 'none', 'important');
+    signatureBlock.style.setProperty('visibility', 'hidden', 'important');
+    
+    // Dodaj podpis do kontenera zdjęcia
+    imageContainer.appendChild(signatureContent);
+    
+    // Aktualizuj pozycję przy zmianie rozmiaru okna
+    window.addEventListener('resize', function() {
+      if (signatureContent && imageContainer.contains(signatureContent)) {
+        if (window.innerWidth <= 767) {
+          signatureContent.style.setProperty('bottom', '15px', 'important');
+          signatureContent.style.setProperty('left', '15px', 'important');
+        } else {
+          signatureContent.style.setProperty('bottom', '30px', 'important');
+          signatureContent.style.setProperty('left', '30px', 'important');
+        }
+      }
+    });
+  }
+}
+
+// Wywołaj funkcję po załadowaniu DOM
+moveJoannaKSignature();
+setTimeout(moveJoannaKSignature, 100);
+setTimeout(moveJoannaKSignature, 500);
+setTimeout(moveJoannaKSignature, 1000);
 setTimeout(applyNewsletterBackground, 1000);
 setTimeout(applyNewsletterBackground, 2000);
 setTimeout(applyNewsletterBackground, 3000);
