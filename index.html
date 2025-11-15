@@ -12580,16 +12580,21 @@ function moveJoannaKSignature() {
   window.addEventListener('resize', resizeHandler);
 }
 
-// Funkcja do zamiany zdjęcia w sekcji "our dedicated Spa Philosophy"
+// Funkcja do zamiany zdjęcia w sekcji "our dedicated Spa Philosophy" - zoptymalizowana
 function changeOurMissionImage() {
   var ourMissionSection = document.getElementById('our-mission');
   if (!ourMissionSection) return;
+  
+  // Sprawdź, czy już zostało wykonane (unikaj wielokrotnego wykonania)
+  if (ourMissionSection.getAttribute('data-image-changed') === 'true') {
+    return;
+  }
   
   // Znajdź duże zdjęcie w ramce - blok fe-block-29230f38c9ca973e88bf
   var largeImageBlock = ourMissionSection.querySelector('#block-29230f38c9ca973e88bf, .fe-block-29230f38c9ca973e88bf');
   if (largeImageBlock) {
     var img = largeImageBlock.querySelector('img[data-sqsp-image-block-image]');
-    if (img) {
+    if (img && (img.src.includes('testimonial2.png') || img.getAttribute('data-src').includes('testimonial2.png'))) {
       // Zamień testimonial2.png na joanna-kowalik-estetyka-urody.webp
       var newSrc = '/assets/img/joanna-kowalik-estetyka-urody.webp';
       img.setAttribute('data-src', newSrc);
@@ -12611,9 +12616,10 @@ function changeOurMissionImage() {
   
   // Znajdź również inne zdjęcia w sekcji our-mission (salon-estetyka.jpg)
   var images = ourMissionSection.querySelectorAll('img[data-sqsp-image-block-image]');
+  var changed = false;
   images.forEach(function(img) {
     // Jeśli zdjęcie to salon-estetyka.jpg, zamień na joanna-kowalik-estetyka-urody.webp
-    if (img.src && (img.src.includes('salon-estetyka.jpg') || img.src.includes('testimonial2.png'))) {
+    if (img.src && (img.src.includes('salon-estetyka.jpg') || img.getAttribute('data-src').includes('salon-estetyka.jpg'))) {
       var newSrc = '/assets/img/joanna-kowalik-estetyka-urody.webp';
       img.setAttribute('data-src', newSrc);
       img.setAttribute('data-image', newSrc);
@@ -12622,17 +12628,28 @@ function changeOurMissionImage() {
       // Zaktualizuj srcset
       var srcset = img.getAttribute('srcset');
       if (srcset) {
-        var newSrcset = srcset.replace(/salon-estetyka\.jpg|testimonial2\.png/g, 'joanna-kowalik-estetyka-urody.webp');
+        var newSrcset = srcset.replace(/salon-estetyka\.jpg/g, 'joanna-kowalik-estetyka-urody.webp');
         img.setAttribute('srcset', newSrcset);
       }
+      changed = true;
     }
   });
+  
+  // Oznacz jako wykonane
+  if (changed || largeImageBlock) {
+    ourMissionSection.setAttribute('data-image-changed', 'true');
+  }
 }
 
-// Funkcja do ustawienia tła sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - tłohero3gold.png
+// Funkcja do ustawienia tła sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - tłohero3gold.png - zoptymalizowana
 function applyAboutSectionBackground() {
   var aboutSection = document.getElementById('about');
   if (!aboutSection) return;
+  
+  // Sprawdź, czy już zostało wykonane (unikaj wielokrotnego wykonania)
+  if (aboutSection.getAttribute('data-bg-set') === 'true') {
+    return;
+  }
   
   var bgImageUrl = 'url("/assets/img/tłohero3gold.png")';
   
@@ -12729,6 +12746,9 @@ function applyAboutSectionBackground() {
     content.style.setProperty('background-color', 'transparent', 'important');
     content.style.setProperty('background-image', 'none', 'important');
   }
+  
+  // Oznacz jako wykonane
+  aboutSection.setAttribute('data-bg-set', 'true');
 }
 
 // Wywołaj funkcję po załadowaniu DOM - wielokrotne wywołania dla pewności
@@ -12744,103 +12764,92 @@ if (document.readyState === 'loading') {
   changeOurMissionImage();
 }
 
-// Wywołaj również po pełnym załadowaniu strony
+// Wywołaj również po pełnym załadowaniu strony - zoptymalizowane (tylko 2 wywołania)
 window.addEventListener('load', function() {
   moveJoannaKSignature();
   applyAboutSectionBackground();
   changeOurMissionImage();
-  setTimeout(moveJoannaKSignature, 100);
-  setTimeout(applyAboutSectionBackground, 100);
-  setTimeout(changeOurMissionImage, 100);
-  setTimeout(moveJoannaKSignature, 300);
-  setTimeout(applyAboutSectionBackground, 300);
-  setTimeout(changeOurMissionImage, 300);
-  setTimeout(moveJoannaKSignature, 500);
-  setTimeout(applyAboutSectionBackground, 500);
-  setTimeout(changeOurMissionImage, 500);
-  setTimeout(moveJoannaKSignature, 1000);
-  setTimeout(applyAboutSectionBackground, 1000);
-  setTimeout(changeOurMissionImage, 1000);
-  setTimeout(moveJoannaKSignature, 2000);
-  setTimeout(applyAboutSectionBackground, 2000);
-  setTimeout(changeOurMissionImage, 2000);
-});
-
-// Dodatkowe wywołania dla dynamicznie ładowanych elementów
-setTimeout(moveJoannaKSignature, 100);
-setTimeout(applyAboutSectionBackground, 100);
-setTimeout(changeOurMissionImage, 100);
-setTimeout(moveJoannaKSignature, 500);
-setTimeout(applyAboutSectionBackground, 500);
-setTimeout(changeOurMissionImage, 500);
-setTimeout(moveJoannaKSignature, 1000);
-setTimeout(applyAboutSectionBackground, 1000);
-setTimeout(changeOurMissionImage, 1000);
-setTimeout(moveJoannaKSignature, 2000);
-setTimeout(applyAboutSectionBackground, 2000);
-setTimeout(changeOurMissionImage, 2000);
-setTimeout(moveJoannaKSignature, 3000);
-setTimeout(applyAboutSectionBackground, 3000);
-setTimeout(changeOurMissionImage, 3000);
-
-// MutationObserver - obserwuj zmiany w DOM i dodaj podpis, gdy elementy są dostępne
-var observer = new MutationObserver(function(mutations) {
-  var aboutSection = document.getElementById('about');
-  if (aboutSection) {
-    // Ustaw tło sekcji
+  // Tylko jedno dodatkowe wywołanie po krótkim opóźnieniu dla dynamicznie ładowanych elementów
+  setTimeout(function() {
+    moveJoannaKSignature();
     applyAboutSectionBackground();
-    
-    // Szukaj kontenera DUŻEGO zdjęcia joanna-kowalik.jpg
-    var imageBlock = aboutSection.querySelector('img[src*="joanna-kowalik.jpg"]');
-    var imageContainer = null;
-    if (imageBlock) {
-      imageContainer = imageBlock.closest('.fe-block') || imageBlock.closest('.sqs-block-image');
-    }
-    if (!imageContainer) {
-      imageContainer = aboutSection.querySelector('#block-674b77ad9160cc57b5df, .fe-block-674b77ad9160cc57b5df');
-    }
-    
-    var signatureBlock = aboutSection.querySelector('#block-7da1d85dc54f90cab987, .fe-block-7da1d85dc54f90cab987');
-    var existingSignature = aboutSection.querySelector('.joanna-k-signature-moved');
-    
-    if (imageContainer && signatureBlock && !existingSignature) {
-      moveJoannaKSignature();
-    }
-  }
-  
-  // Zamień zdjęcie w sekcji our-mission
-  var ourMissionSection = document.getElementById('our-mission');
-  if (ourMissionSection) {
     changeOurMissionImage();
-  }
+  }, 500);
 });
 
-// Rozpocznij obserwację
-if (document.getElementById('about')) {
-  observer.observe(document.getElementById('about'), {
+// MutationObserver - obserwuj zmiany w DOM z debouncing (zoptymalizowane)
+var aboutObserverTimeout;
+var aboutObserver = new MutationObserver(function(mutations) {
+  // Debouncing - wykonaj tylko raz po zakończeniu zmian
+  clearTimeout(aboutObserverTimeout);
+  aboutObserverTimeout = setTimeout(function() {
+    var aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      // Sprawdź, czy podpis już został przeniesiony (unikaj wielokrotnego wykonania)
+      var existingSignature = aboutSection.querySelector('.joanna-k-signature-moved');
+      if (!existingSignature) {
+        // Ustaw tło sekcji tylko raz
+        var bgSet = aboutSection.getAttribute('data-bg-set');
+        if (!bgSet) {
+          applyAboutSectionBackground();
+          aboutSection.setAttribute('data-bg-set', 'true');
+        }
+        
+        // Szukaj kontenera DUŻEGO zdjęcia joanna-kowalik.jpg
+        var imageBlock = aboutSection.querySelector('img[src*="joanna-kowalik.jpg"]');
+        var imageContainer = null;
+        if (imageBlock) {
+          imageContainer = imageBlock.closest('.fe-block') || imageBlock.closest('.sqs-block-image');
+        }
+        if (!imageContainer) {
+          imageContainer = aboutSection.querySelector('#block-674b77ad9160cc57b5df, .fe-block-674b77ad9160cc57b5df');
+        }
+        
+        var signatureBlock = aboutSection.querySelector('#block-7da1d85dc54f90cab987, .fe-block-7da1d85dc54f90cab987');
+        
+        if (imageContainer && signatureBlock) {
+          moveJoannaKSignature();
+        }
+      }
+    }
+    
+    // Zamień zdjęcie w sekcji our-mission tylko raz
+    var ourMissionSection = document.getElementById('our-mission');
+    if (ourMissionSection) {
+      var imageChanged = ourMissionSection.getAttribute('data-image-changed');
+      if (!imageChanged) {
+        changeOurMissionImage();
+        ourMissionSection.setAttribute('data-image-changed', 'true');
+      }
+    }
+  }, 300); // Debounce 300ms
+});
+
+// Rozpocznij obserwację - zoptymalizowane (tylko gdy sekcje istnieją)
+var aboutSection = document.getElementById('about');
+if (aboutSection) {
+  aboutObserver.observe(aboutSection, {
     childList: true,
     subtree: true
   });
 }
 
-// Obserwuj również sekcję our-mission
-if (document.getElementById('our-mission')) {
-  observer.observe(document.getElementById('our-mission'), {
+// Obserwuj również sekcję our-mission - tylko zmiany atrybutów (mniej obciążające)
+var ourMissionSection = document.getElementById('our-mission');
+if (ourMissionSection) {
+  aboutObserver.observe(ourMissionSection, {
     childList: true,
-    subtree: true,
+    subtree: false, // Zmienione na false - obserwuj tylko bezpośrednie dzieci
     attributes: true,
     attributeFilter: ['src', 'data-src', 'data-image']
   });
 }
-setTimeout(applyNewsletterBackground, 1000);
-setTimeout(applyNewsletterBackground, 2000);
-setTimeout(applyNewsletterBackground, 3000);
 
-// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów) - BARDZO AGRESYWNE
-var observerTimeout;
-var observer = new MutationObserver(function(mutations) {
-  clearTimeout(observerTimeout);
-  observerTimeout = setTimeout(function() {
+// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów) - zoptymalizowane
+var newsletterObserverTimeout;
+var newsletterObserver = new MutationObserver(function(mutations) {
+  clearTimeout(newsletterObserverTimeout);
+  newsletterObserverTimeout = setTimeout(function() {
     applyNewsletterBackground();
     // Dodatkowo usuń wszystkie obrazki tła, które mogły zostać dodane - TYLKO tła, NIE obrazy treści
     var newsletterSection = document.getElementById('newsletter');
@@ -12864,13 +12873,21 @@ var observer = new MutationObserver(function(mutations) {
     }
   }, 100);
 });
-observer.observe(document.body, {
-  childList: true,
-  subtree: true,
-  attributes: true,
-  attributeFilter: ['src', 'data-src', 'data-image']
-});
-});
+
+// Obserwuj tylko sekcję newsletter (nie całe body - zoptymalizowane)
+var newsletterSection = document.getElementById('newsletter');
+if (newsletterSection) {
+  newsletterObserver.observe(newsletterSection, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['src', 'data-src', 'data-image']
+  });
+}
+
+// Zoptymalizowane - tylko 2 wywołania dla newsletter
+setTimeout(applyNewsletterBackground, 1000);
+setTimeout(applyNewsletterBackground, 2000);
 </script>
 
   </body>
