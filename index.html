@@ -2361,22 +2361,18 @@
    SPÓJNOŚĆ CZCIONEK NA CAŁEJ STRONIE
    ============================================ */
 
-/* WSZYSTKIE NAGŁÓWKI - Szeryfowa czcionka (Woodland) - tylko w sekcjach, nie w headerze */
-section h1, section h2, section h3, section h4, section h5, section h6,
-section .sqs-html-content h1, section .sqs-html-content h2, section .sqs-html-content h3,
-section .sqs-html-content h4, section .sqs-html-content h5, section .sqs-html-content h6,
-section .sqsrte-scaled-text h1, section .sqsrte-scaled-text h2, section .sqsrte-scaled-text h3,
-section .sqsrte-scaled-text h4, section .sqsrte-scaled-text h5, section .sqsrte-scaled-text h6,
-section .sqs-block-content h1, section .sqs-block-content h2, section .sqs-block-content h3,
-section .sqs-block-content h4, section .sqs-block-content h5, section .sqs-block-content h6,
-section .sqsrte-scaled-text-container h1, section .sqsrte-scaled-text-container h2, section .sqsrte-scaled-text-container h3,
+/* WSZYSTKIE NAGŁÓWKI - Szeryfowa czcionka (Woodland) */
+h1, h2, h3, h4, h5, h6,
 .sqs-html-content h1, .sqs-html-content h2, .sqs-html-content h3,
 .sqs-html-content h4, .sqs-html-content h5, .sqs-html-content h6,
 .sqsrte-scaled-text h1, .sqsrte-scaled-text h2, .sqsrte-scaled-text h3,
 .sqsrte-scaled-text h4, .sqsrte-scaled-text h5, .sqsrte-scaled-text h6,
 .sqs-block-content h1, .sqs-block-content h2, .sqs-block-content h3,
 .sqs-block-content h4, .sqs-block-content h5, .sqs-block-content h6,
-.sqsrte-scaled-text-container h1, .sqsrte-scaled-text-container h2, .sqsrte-scaled-text-container h3 {
+.sqsrte-scaled-text-container h1, .sqsrte-scaled-text-container h2, .sqsrte-scaled-text-container h3,
+section h1, section h2, section h3, section h4, section h5, section h6,
+section .sqs-html-content h1, section .sqs-html-content h2, section .sqs-html-content h3,
+section .sqs-block-content h1, section .sqs-block-content h2, section .sqs-block-content h3 {
   font-family: 'Woodland', 'Georgia', 'Times New Roman', serif !important;
   font-weight: 300 !important;
 }
@@ -2400,37 +2396,35 @@ button.btn,
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* WSZYSTKIE AKAPITY I TEKST - Montserrat (w sekcjach) */
-section p,
-section .sqs-html-content p,
-section .sqs-block-content p,
-section .sqsrte-small,
-section .sqsrte-large,
+/* WSZYSTKIE AKAPITY I TEKST - Montserrat */
+p,
 .sqs-html-content p,
 .sqs-block-content p,
 .sqsrte-small,
-.sqsrte-large {
+.sqsrte-large,
+.sqs-html-content,
+.sqs-block-content,
+div:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(button):not(.btn):not(.sqs-button-element) {
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* WSZYSTKIE LINKI - Montserrat (w sekcjach) */
-section a:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
-section .sqs-html-content a,
-section .sqs-block-content a,
+/* WSZYSTKIE LINKI - Montserrat */
+a,
 .sqs-html-content a,
-.sqs-block-content a {
+.sqs-block-content a,
+a:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* WSZYSTKIE ELEMENTY TEKSTOWE W SEKCJACH - Montserrat (już zdefiniowane powyżej, ale dla pewności) */
+/* WSZYSTKIE ELEMENTY TEKSTOWE W SEKCJACH - Montserrat */
 section p,
 section .sqs-html-content p,
 section .sqs-block-content p,
 section .sqsrte-small,
 section .sqsrte-large,
 section a:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
-section span:not(.sqsrte-text-color--accent):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
-section div:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(.sqsrte-scaled-text-container):not(.sqsrte-scaled-text),
+section span:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+section div:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
 section li,
 section label,
 section input,
@@ -2452,108 +2446,17 @@ section select {
 /* NAVIGATION I FOOTER - Montserrat */
 footer,
 footer *,
+header,
+header *,
 .nav,
 .nav * {
   font-family: 'Montserrat', sans-serif !important;
-}
-
-/* HEADER - naprawienie layoutu i czcionek */
-header {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  z-index: 1000 !important;
-  overflow: visible !important;
-}
-
-header * {
-  font-family: 'Montserrat', sans-serif !important;
-  box-sizing: border-box !important;
 }
 
 /* WYJĄTKI - Nagłówki pozostają szeryfowe */
 footer h1, footer h2, footer h3, footer h4, footer h5, footer h6,
 header h1, header h2, header h3, header h4, header h5, header h6 {
   font-family: 'Woodland', 'Georgia', 'Times New Roman', serif !important;
-}
-
-/* Naprawienie layoutu headera */
-header .header-display-desktop,
-header .header-display-mobile {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  width: 100% !important;
-  position: relative !important;
-}
-
-header .header-title-nav-wrapper {
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-}
-
-header .header-nav {
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-}
-
-header .header-nav-list {
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-header .header-nav-item {
-  display: inline-block !important;
-  margin: 0 10px !important;
-  white-space: nowrap !important;
-}
-
-header .header-actions {
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-}
-
-/* Naprawienie pozycjonowania elementów headera */
-header .header-title {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-header .header-title-logo {
-  display: block !important;
-  position: relative !important;
-}
-
-header .header-title-logo img {
-  display: block !important;
-  max-width: 100% !important;
-  height: auto !important;
-}
-
-/* Naprawienie burger menu */
-header .header-burger {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-}
-
-header .header-burger-btn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: transparent !important;
-  border: none !important;
-  padding: 10px !important;
-  cursor: pointer !important;
 }
 
 /* Czcionka Allura (eleganckie pismo ręczne) dla złotych napisów */
@@ -12677,30 +12580,6 @@ function moveJoannaKSignature() {
   window.addEventListener('resize', resizeHandler);
 }
 
-// Funkcja do zamiany zdjęcia w sekcji "our dedicated Spa Philosophy"
-function changeOurMissionImage() {
-  var ourMissionSection = document.getElementById('our-mission');
-  if (!ourMissionSection) return;
-  
-  // Znajdź wszystkie zdjęcia w sekcji our-mission
-  var images = ourMissionSection.querySelectorAll('img[data-sqsp-image-block-image]');
-  images.forEach(function(img) {
-    // Jeśli zdjęcie to salon-estetyka.jpg, zamień na joanna-kowalik-estetyka-urody.webp
-    if (img.src && img.src.includes('salon-estetyka.jpg')) {
-      var newSrc = img.src.replace('salon-estetyka.jpg', 'joanna-kowalik-estetyka-urody.webp');
-      img.setAttribute('data-src', newSrc);
-      img.setAttribute('data-image', newSrc);
-      img.setAttribute('src', newSrc);
-      
-      // Zaktualizuj srcset
-      var srcset = img.getAttribute('srcset');
-      if (srcset) {
-        var newSrcset = srcset.replace(/salon-estetyka\.jpg/g, 'joanna-kowalik-estetyka-urody.webp');
-        img.setAttribute('srcset', newSrcset);
-      }
-    }
-  });
-}
 
 // Funkcja do ustawienia tła sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - tłohero3gold.png
 function applyAboutSectionBackground() {
@@ -12806,52 +12685,24 @@ function applyAboutSectionBackground() {
 
 // Wywołaj funkcję po załadowaniu DOM - wielokrotne wywołania dla pewności
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
-    moveJoannaKSignature();
-    applyAboutSectionBackground();
-    changeOurMissionImage();
-  });
+  document.addEventListener('DOMContentLoaded', moveJoannaKSignature);
 } else {
   moveJoannaKSignature();
-  applyAboutSectionBackground();
-  changeOurMissionImage();
 }
 
 // Wywołaj również po pełnym załadowaniu strony
 window.addEventListener('load', function() {
   moveJoannaKSignature();
-  applyAboutSectionBackground();
   setTimeout(moveJoannaKSignature, 100);
-  setTimeout(applyAboutSectionBackground, 100);
-  setTimeout(moveJoannaKSignature, 300);
-  setTimeout(applyAboutSectionBackground, 300);
   setTimeout(moveJoannaKSignature, 500);
-  setTimeout(applyAboutSectionBackground, 500);
   setTimeout(moveJoannaKSignature, 1000);
-  setTimeout(applyAboutSectionBackground, 1000);
-  setTimeout(moveJoannaKSignature, 2000);
-  setTimeout(applyAboutSectionBackground, 2000);
+  setTimeout(applyNewsletterBackground, 1000);
 });
-
-// Dodatkowe wywołania dla dynamicznie ładowanych elementów
-setTimeout(moveJoannaKSignature, 100);
-setTimeout(applyAboutSectionBackground, 100);
-setTimeout(moveJoannaKSignature, 500);
-setTimeout(applyAboutSectionBackground, 500);
-setTimeout(moveJoannaKSignature, 1000);
-setTimeout(applyAboutSectionBackground, 1000);
-setTimeout(moveJoannaKSignature, 2000);
-setTimeout(applyAboutSectionBackground, 2000);
-setTimeout(moveJoannaKSignature, 3000);
-setTimeout(applyAboutSectionBackground, 3000);
 
 // MutationObserver - obserwuj zmiany w DOM i dodaj podpis, gdy elementy są dostępne
 var observer = new MutationObserver(function(mutations) {
   var aboutSection = document.getElementById('about');
   if (aboutSection) {
-    // Ustaw tło sekcji
-    applyAboutSectionBackground();
-    
     // Szukaj kontenera DUŻEGO zdjęcia joanna-kowalik.jpg
     var imageBlock = aboutSection.querySelector('img[src*="joanna-kowalik.jpg"]');
     var imageContainer = null;
@@ -12869,12 +12720,6 @@ var observer = new MutationObserver(function(mutations) {
       moveJoannaKSignature();
     }
   }
-  
-  // Zamień zdjęcie w sekcji our-mission
-  var ourMissionSection = document.getElementById('our-mission');
-  if (ourMissionSection) {
-    changeOurMissionImage();
-  }
 });
 
 // Rozpocznij obserwację
@@ -12885,59 +12730,9 @@ if (document.getElementById('about')) {
   });
 }
 
-// Obserwuj również sekcję our-mission
-if (document.getElementById('our-mission')) {
-  observer.observe(document.getElementById('our-mission'), {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['src', 'data-src', 'data-image']
-  });
-}
-
 setTimeout(applyNewsletterBackground, 1000);
 setTimeout(applyNewsletterBackground, 2000);
 setTimeout(applyNewsletterBackground, 3000);
-
-// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów) - BARDZO AGRESYWNE
-var newsletterObserverTimeout;
-var newsletterObserver = new MutationObserver(function(mutations) {
-  clearTimeout(newsletterObserverTimeout);
-  newsletterObserverTimeout = setTimeout(function() {
-    applyNewsletterBackground();
-    // Dodatkowo usuń wszystkie obrazki tła, które mogły zostać dodane - TYLKO tła, NIE obrazy treści
-    var newsletterSection = document.getElementById('newsletter');
-    if (newsletterSection) {
-      var allImgs = newsletterSection.querySelectorAll('img');
-      allImgs.forEach(function(img) {
-        // Sprawdź, czy to obrazek treści (NIE usuwać)
-        var isContentImage = img.closest('.sqs-block-image') || 
-                            img.closest('.image-block') ||
-                            img.closest('.fe-block') && !img.closest('.section-background');
-        
-        // Jeśli to NIE jest obrazek treści, sprawdź czy to tło
-        if (!isContentImage) {
-          if (img.closest('.section-background') || 
-              (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
-              img.classList.contains('background-image-fx')) {
-            img.remove();
-          }
-        }
-      });
-    }
-  }, 100);
-});
-
-// Obserwuj tylko sekcję newsletter (nie całe body)
-var newsletterSection = document.getElementById('newsletter');
-if (newsletterSection) {
-  newsletterObserver.observe(newsletterSection, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['src', 'data-src', 'data-image']
-  });
-}
 </script>
 
   </body>
