@@ -12580,6 +12580,44 @@ function moveJoannaKSignature() {
   window.addEventListener('resize', resizeHandler);
 }
 
+// Funkcja do zamiany zdjęcia w sekcji "our dedicated Spa Philosophy"
+function changeOurMissionImage() {
+  var ourMissionSection = document.getElementById('our-mission');
+  if (!ourMissionSection) return;
+  
+  // Znajdź wszystkie zdjęcia w sekcji our-mission
+  var images = ourMissionSection.querySelectorAll('img[data-sqsp-image-block-image]');
+  images.forEach(function(img) {
+    // Jeśli zdjęcie to testimonial2.png, zamień na joanna-kowalik-estetyka-urody.webp
+    if (img.src && (img.src.includes('testimonial2.png') || img.getAttribute('data-src') && img.getAttribute('data-src').includes('testimonial2.png'))) {
+      var basePath = '/assets/img/';
+      var newSrc = basePath + 'joanna-kowalik-estetyka-urody.webp';
+      
+      // Zaktualizuj wszystkie atrybuty src
+      img.setAttribute('data-src', newSrc);
+      img.setAttribute('data-image', newSrc);
+      img.setAttribute('src', newSrc);
+      
+      // Zaktualizuj srcset
+      var srcset = img.getAttribute('srcset');
+      if (srcset) {
+        var newSrcset = srcset.replace(/testimonial2\.png/g, 'joanna-kowalik-estetyka-urody.webp');
+        img.setAttribute('srcset', newSrcset);
+      } else {
+        // Utwórz nowy srcset jeśli nie istnieje
+        var newSrcset = newSrc + '?format=100w 100w, ' +
+                        newSrc + '?format=300w 300w, ' +
+                        newSrc + '?format=500w 500w, ' +
+                        newSrc + '?format=750w 750w, ' +
+                        newSrc + '?format=1000w 1000w, ' +
+                        newSrc + '?format=1500w 1500w, ' +
+                        newSrc + '?format=2500w 2500w';
+        img.setAttribute('srcset', newSrcset);
+      }
+    }
+  });
+}
+
 // Funkcja do ustawienia tła sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - tłohero3gold.png
 function applyAboutSectionBackground() {
   var aboutSection = document.getElementById('about');
@@ -12687,39 +12725,52 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
     moveJoannaKSignature();
     applyAboutSectionBackground();
+    changeOurMissionImage();
   });
 } else {
   moveJoannaKSignature();
   applyAboutSectionBackground();
+  changeOurMissionImage();
 }
 
 // Wywołaj również po pełnym załadowaniu strony
 window.addEventListener('load', function() {
   moveJoannaKSignature();
   applyAboutSectionBackground();
+  changeOurMissionImage();
   setTimeout(moveJoannaKSignature, 100);
   setTimeout(applyAboutSectionBackground, 100);
+  setTimeout(changeOurMissionImage, 100);
   setTimeout(moveJoannaKSignature, 300);
   setTimeout(applyAboutSectionBackground, 300);
+  setTimeout(changeOurMissionImage, 300);
   setTimeout(moveJoannaKSignature, 500);
   setTimeout(applyAboutSectionBackground, 500);
+  setTimeout(changeOurMissionImage, 500);
   setTimeout(moveJoannaKSignature, 1000);
   setTimeout(applyAboutSectionBackground, 1000);
+  setTimeout(changeOurMissionImage, 1000);
   setTimeout(moveJoannaKSignature, 2000);
   setTimeout(applyAboutSectionBackground, 2000);
+  setTimeout(changeOurMissionImage, 2000);
 });
 
 // Dodatkowe wywołania dla dynamicznie ładowanych elementów
 setTimeout(moveJoannaKSignature, 100);
 setTimeout(applyAboutSectionBackground, 100);
+setTimeout(changeOurMissionImage, 100);
 setTimeout(moveJoannaKSignature, 500);
 setTimeout(applyAboutSectionBackground, 500);
+setTimeout(changeOurMissionImage, 500);
 setTimeout(moveJoannaKSignature, 1000);
 setTimeout(applyAboutSectionBackground, 1000);
+setTimeout(changeOurMissionImage, 1000);
 setTimeout(moveJoannaKSignature, 2000);
 setTimeout(applyAboutSectionBackground, 2000);
+setTimeout(changeOurMissionImage, 2000);
 setTimeout(moveJoannaKSignature, 3000);
 setTimeout(applyAboutSectionBackground, 3000);
+setTimeout(changeOurMissionImage, 3000);
 
 // MutationObserver - obserwuj zmiany w DOM i dodaj podpis, gdy elementy są dostępne
 var observer = new MutationObserver(function(mutations) {
@@ -12745,6 +12796,12 @@ var observer = new MutationObserver(function(mutations) {
       moveJoannaKSignature();
     }
   }
+  
+  // Zamień zdjęcie w sekcji our-mission
+  var ourMissionSection = document.getElementById('our-mission');
+  if (ourMissionSection) {
+    changeOurMissionImage();
+  }
 });
 
 // Rozpocznij obserwację
@@ -12752,6 +12809,16 @@ if (document.getElementById('about')) {
   observer.observe(document.getElementById('about'), {
     childList: true,
     subtree: true
+  });
+}
+
+// Obserwuj również sekcję our-mission
+if (document.getElementById('our-mission')) {
+  observer.observe(document.getElementById('our-mission'), {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['src', 'data-src', 'data-image']
   });
 }
 setTimeout(applyNewsletterBackground, 1000);
