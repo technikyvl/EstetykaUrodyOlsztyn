@@ -2488,9 +2488,30 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
   font-style: normal !important;
 }
 
-/* "Joanna K" w sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - bardzo specyficzne selektory */
-#block-7da1d85dc54f90cab987,
-.fe-block-7da1d85dc54f90cab987,
+/* Kontener zdjęcia - pozycja relative dla pozycjonowania podpisu */
+#about .fe-block-18ab1ef90ae2c4216b34 {
+  position: relative !important;
+}
+
+#about .fe-block-18ab1ef90ae2c4216b34 .sqs-block,
+#about .fe-block-18ab1ef90ae2c4216b34 .sqs-block-content,
+#about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-animation-wrapper,
+#about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-container {
+  position: relative !important;
+}
+
+/* "Joanna K" w sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - pozycja w lewym dolnym rogu zdjęcia */
+#about #block-7da1d85dc54f90cab987,
+#about .fe-block-7da1d85dc54f90cab987 {
+  position: absolute !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
 #block-7da1d85dc54f90cab987 *,
 .fe-block-7da1d85dc54f90cab987 *,
 #block-7da1d85dc54f90cab987 h1,
@@ -2514,6 +2535,23 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
   font-family: 'Allura', 'Dancing Script', 'Great Vibes', cursive !important;
   font-weight: normal !important;
   font-style: normal !important;
+}
+
+/* Responsive - dostosowanie pozycji na różnych breakpointach */
+@media (max-width: 767px) {
+  #about #block-7da1d85dc54f90cab987,
+  #about .fe-block-7da1d85dc54f90cab987 {
+    bottom: 15px !important;
+    left: 15px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  #about #block-7da1d85dc54f90cab987,
+  #about .fe-block-7da1d85dc54f90cab987 {
+    bottom: 30px !important;
+    left: 30px !important;
+  }
 }
 
 /* Specyficzne reguły dla konkretnych nagłówków - Woodland Regular (odchudzona wersja) */
