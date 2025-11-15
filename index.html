@@ -2357,8 +2357,11 @@
   font-display: swap;
 }
 
-/* Czcionka Woodland dla WSZYSTKICH nagłówków na stronie - odchudzona wersja z fallback */
-/* WYJĄTEK: Złote napisy zachowują swoje oryginalne czcionki */
+/* ============================================
+   SPÓJNOŚĆ CZCIONEK NA CAŁEJ STRONIE
+   ============================================ */
+
+/* WSZYSTKIE NAGŁÓWKI - Szeryfowa czcionka (Woodland) */
 h1, h2, h3, h4, h5, h6,
 .sqs-html-content h1, .sqs-html-content h2, .sqs-html-content h3,
 .sqs-html-content h4, .sqs-html-content h5, .sqs-html-content h6,
@@ -2366,9 +2369,94 @@ h1, h2, h3, h4, h5, h6,
 .sqsrte-scaled-text h4, .sqsrte-scaled-text h5, .sqsrte-scaled-text h6,
 .sqs-block-content h1, .sqs-block-content h2, .sqs-block-content h3,
 .sqs-block-content h4, .sqs-block-content h5, .sqs-block-content h6,
-.sqsrte-scaled-text-container h1, .sqsrte-scaled-text-container h2, .sqsrte-scaled-text-container h3 {
+.sqsrte-scaled-text-container h1, .sqsrte-scaled-text-container h2, .sqsrte-scaled-text-container h3,
+section h1, section h2, section h3, section h4, section h5, section h6,
+section .sqs-html-content h1, section .sqs-html-content h2, section .sqs-html-content h3,
+section .sqs-block-content h1, section .sqs-block-content h2, section .sqs-block-content h3 {
   font-family: 'Woodland', 'Georgia', 'Times New Roman', serif !important;
   font-weight: 300 !important;
+}
+
+/* WSZYSTKIE PRZYCISKI - Montserrat */
+button,
+.btn,
+.sqs-button-element,
+.sqs-block-button-element,
+.sqs-block-button-container a,
+.sqs-block-button-container button,
+a.sqs-button-element,
+a.btn,
+button.btn,
+.header-nav-item a,
+.header-menu-nav-item a,
+.sqs-block-button a,
+.sqs-block-button button,
+[data-sqsp-button],
+.sqs-block-button-container * {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* WSZYSTKIE AKAPITY I TEKST - Montserrat */
+p,
+.sqs-html-content p,
+.sqs-block-content p,
+.sqsrte-small,
+.sqsrte-large,
+.sqs-html-content,
+.sqs-block-content,
+div:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(button):not(.btn):not(.sqs-button-element) {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* WSZYSTKIE LINKI - Montserrat */
+a,
+.sqs-html-content a,
+.sqs-block-content a,
+a:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* WSZYSTKIE ELEMENTY TEKSTOWE W SEKCJACH - Montserrat */
+section p,
+section .sqs-html-content p,
+section .sqs-block-content p,
+section .sqsrte-small,
+section .sqsrte-large,
+section a:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+section span:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+section div:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6),
+section li,
+section label,
+section input,
+section textarea,
+section select {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* STATYSTYKI I INNE ELEMENTY - Montserrat */
+.stat-number,
+.stat-label,
+.stats-container *,
+.list-item-content__title,
+.list-item-content__description,
+.user-items-list-item-container * {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* NAVIGATION I FOOTER - Montserrat */
+footer,
+footer *,
+header,
+header *,
+.nav,
+.nav * {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* WYJĄTKI - Nagłówki pozostają szeryfowe */
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6,
+header h1, header h2, header h3, header h4, header h5, header h6 {
+  font-family: 'Woodland', 'Georgia', 'Times New Roman', serif !important;
 }
 
 /* Czcionka Allura (eleganckie pismo ręczne) dla złotych napisów */
@@ -5665,7 +5753,7 @@ align-items: center;
             font-size: clamp(2.5rem, 4vw, 4.2rem); /* Use vw for responsive font-size */
             color: #443E38;
             margin: 0 !important;
-            font-family: 'Playfair Display', serif !important;
+            font-family: 'Montserrat', sans-serif !important;
         }
         .stat-label {
             font-size: clamp(1rem, 1vw, 1rem);
@@ -5693,7 +5781,7 @@ align-items: center;
         }
             .stat-number {
                 font-size: 6vw; /* Adjust font size for smaller screens */
-                font-family: 'Playfair Display', serif !important;
+                font-family: 'Montserrat', sans-serif !important;
             }
             .stat-label {
             word-break: break-all;
