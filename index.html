@@ -2965,15 +2965,17 @@ section[data-section-id="68921d0047edc42290b07ea6"] .content {
   margin-top: 0 !important;
 }
 
-/* Tło sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - tłohero3gold.png */
+/* Tło sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - tłohero3gold.png (czarne tło ze złotym kwiatem) */
 #about,
 #about .section-border,
-#about .section-background {
+#about .section-background,
+#about .section-background-content {
   background-image: url('/assets/img/tłohero3gold.png') !important;
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  background-color: transparent !important;
+  background-color: #000000 !important; /* Czarne tło */
+  background: url('/assets/img/tłohero3gold.png') center center/cover no-repeat #000000 !important;
 }
 
 /* Ukryj obecne tło obrazkowe w sekcji about */
@@ -12555,34 +12557,109 @@ function moveJoannaKSignature() {
   window.addEventListener('resize', resizeHandler);
 }
 
+// Funkcja do ustawienia tła sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - tłohero3gold.png
+function applyAboutSectionBackground() {
+  var aboutSection = document.getElementById('about');
+  if (!aboutSection) return;
+  
+  var bgImageUrl = 'url("/assets/img/tłohero3gold.png")';
+  
+  // Ustaw tło na głównej sekcji
+  aboutSection.style.setProperty('background-color', '#000000', 'important');
+  aboutSection.style.setProperty('background-image', bgImageUrl, 'important');
+  aboutSection.style.setProperty('background-size', 'cover', 'important');
+  aboutSection.style.setProperty('background-position', 'center center', 'important');
+  aboutSection.style.setProperty('background-repeat', 'no-repeat', 'important');
+  aboutSection.style.setProperty('background', bgImageUrl + ' center center/cover no-repeat #000000', 'important');
+  
+  // Ustaw tło na section-border
+  var sectionBorder = aboutSection.querySelector('.section-border');
+  if (sectionBorder) {
+    sectionBorder.style.setProperty('background-color', '#000000', 'important');
+    sectionBorder.style.setProperty('background-image', bgImageUrl, 'important');
+    sectionBorder.style.setProperty('background-size', 'cover', 'important');
+    sectionBorder.style.setProperty('background-position', 'center center', 'important');
+    sectionBorder.style.setProperty('background-repeat', 'no-repeat', 'important');
+    sectionBorder.style.setProperty('background', bgImageUrl + ' center center/cover no-repeat #000000', 'important');
+  }
+  
+  // Ustaw tło na section-background
+  var sectionBackground = aboutSection.querySelector('.section-background');
+  if (sectionBackground) {
+    sectionBackground.style.setProperty('background-color', '#000000', 'important');
+    sectionBackground.style.setProperty('background-image', bgImageUrl, 'important');
+    sectionBackground.style.setProperty('background-size', 'cover', 'important');
+    sectionBackground.style.setProperty('background-position', 'center center', 'important');
+    sectionBackground.style.setProperty('background-repeat', 'no-repeat', 'important');
+    sectionBackground.style.setProperty('background', bgImageUrl + ' center center/cover no-repeat #000000', 'important');
+    
+    // Ukryj obraz tła w section-background
+    var bgImages = sectionBackground.querySelectorAll('img');
+    bgImages.forEach(function(img) {
+      img.style.setProperty('display', 'none', 'important');
+      img.style.setProperty('visibility', 'hidden', 'important');
+      img.style.setProperty('opacity', '0', 'important');
+    });
+  }
+  
+  // Ustaw tło na section-background-content
+  var sectionBackgroundContent = aboutSection.querySelector('.section-background-content');
+  if (sectionBackgroundContent) {
+    sectionBackgroundContent.style.setProperty('background-color', '#000000', 'important');
+    sectionBackgroundContent.style.setProperty('background-image', bgImageUrl, 'important');
+    sectionBackgroundContent.style.setProperty('background-size', 'cover', 'important');
+    sectionBackgroundContent.style.setProperty('background-position', 'center center', 'important');
+    sectionBackgroundContent.style.setProperty('background-repeat', 'no-repeat', 'important');
+    sectionBackgroundContent.style.setProperty('background', bgImageUrl + ' center center/cover no-repeat #000000', 'important');
+  }
+}
+
 // Wywołaj funkcję po załadowaniu DOM - wielokrotne wywołania dla pewności
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', moveJoannaKSignature);
+  document.addEventListener('DOMContentLoaded', function() {
+    moveJoannaKSignature();
+    applyAboutSectionBackground();
+  });
 } else {
   moveJoannaKSignature();
+  applyAboutSectionBackground();
 }
 
 // Wywołaj również po pełnym załadowaniu strony
 window.addEventListener('load', function() {
   moveJoannaKSignature();
+  applyAboutSectionBackground();
   setTimeout(moveJoannaKSignature, 100);
+  setTimeout(applyAboutSectionBackground, 100);
   setTimeout(moveJoannaKSignature, 300);
+  setTimeout(applyAboutSectionBackground, 300);
   setTimeout(moveJoannaKSignature, 500);
+  setTimeout(applyAboutSectionBackground, 500);
   setTimeout(moveJoannaKSignature, 1000);
+  setTimeout(applyAboutSectionBackground, 1000);
   setTimeout(moveJoannaKSignature, 2000);
+  setTimeout(applyAboutSectionBackground, 2000);
 });
 
 // Dodatkowe wywołania dla dynamicznie ładowanych elementów
 setTimeout(moveJoannaKSignature, 100);
+setTimeout(applyAboutSectionBackground, 100);
 setTimeout(moveJoannaKSignature, 500);
+setTimeout(applyAboutSectionBackground, 500);
 setTimeout(moveJoannaKSignature, 1000);
+setTimeout(applyAboutSectionBackground, 1000);
 setTimeout(moveJoannaKSignature, 2000);
+setTimeout(applyAboutSectionBackground, 2000);
 setTimeout(moveJoannaKSignature, 3000);
+setTimeout(applyAboutSectionBackground, 3000);
 
 // MutationObserver - obserwuj zmiany w DOM i dodaj podpis, gdy elementy są dostępne
 var observer = new MutationObserver(function(mutations) {
   var aboutSection = document.getElementById('about');
   if (aboutSection) {
+    // Ustaw tło sekcji
+    applyAboutSectionBackground();
+    
     // Szukaj kontenera DUŻEGO zdjęcia joanna-kowalik.jpg
     var imageBlock = aboutSection.querySelector('img[src*="joanna-kowalik.jpg"]');
     var imageContainer = null;
