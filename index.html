@@ -2978,11 +2978,34 @@ section[data-section-id="68921d0047edc42290b07ea6"] .content {
   background: url('/assets/img/tłohero3gold.png') center center/cover no-repeat #000000 !important;
 }
 
+/* Upewnij się, że wszystkie elementy w sekcji about mają czarne tło (nie rozjaśniają) */
+#about > *:not(.content-wrapper):not(.content):not(.fe-block):not(.sqs-block) {
+  background-color: transparent !important;
+}
+
+/* Upewnij się, że content-wrapper i content nie mają tła, które rozjaśnia */
+#about .content-wrapper,
+#about .content {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
 /* Ukryj obecne tło obrazkowe w sekcji about */
 #about .section-background img {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+}
+
+/* Ukryj overlay w sekcji about - rozjaśnia tło */
+#about .section-background-overlay,
+#about .section-border .section-background-overlay,
+#about .section-background .section-background-overlay {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 /* Przezroczyste tło dla sekcji ze statystykami */
@@ -12600,7 +12623,39 @@ function applyAboutSectionBackground() {
       img.style.setProperty('visibility', 'hidden', 'important');
       img.style.setProperty('opacity', '0', 'important');
     });
+    
+    // Ukryj overlay - rozjaśnia tło
+    var overlays = sectionBackground.querySelectorAll('.section-background-overlay');
+    overlays.forEach(function(overlay) {
+      overlay.style.setProperty('display', 'none', 'important');
+      overlay.style.setProperty('visibility', 'hidden', 'important');
+      overlay.style.setProperty('opacity', '0', 'important');
+      overlay.style.setProperty('background', 'transparent', 'important');
+      overlay.style.setProperty('background-color', 'transparent', 'important');
+    });
   }
+  
+  // Ukryj overlay również w section-border
+  if (sectionBorder) {
+    var borderOverlays = sectionBorder.querySelectorAll('.section-background-overlay');
+    borderOverlays.forEach(function(overlay) {
+      overlay.style.setProperty('display', 'none', 'important');
+      overlay.style.setProperty('visibility', 'hidden', 'important');
+      overlay.style.setProperty('opacity', '0', 'important');
+      overlay.style.setProperty('background', 'transparent', 'important');
+      overlay.style.setProperty('background-color', 'transparent', 'important');
+    });
+  }
+  
+  // Ukryj overlay w całej sekcji about
+  var allOverlays = aboutSection.querySelectorAll('.section-background-overlay');
+  allOverlays.forEach(function(overlay) {
+    overlay.style.setProperty('display', 'none', 'important');
+    overlay.style.setProperty('visibility', 'hidden', 'important');
+    overlay.style.setProperty('opacity', '0', 'important');
+    overlay.style.setProperty('background', 'transparent', 'important');
+    overlay.style.setProperty('background-color', 'transparent', 'important');
+  });
   
   // Ustaw tło na section-background-content
   var sectionBackgroundContent = aboutSection.querySelector('.section-background-content');
@@ -12611,6 +12666,19 @@ function applyAboutSectionBackground() {
     sectionBackgroundContent.style.setProperty('background-position', 'center center', 'important');
     sectionBackgroundContent.style.setProperty('background-repeat', 'no-repeat', 'important');
     sectionBackgroundContent.style.setProperty('background', bgImageUrl + ' center center/cover no-repeat #000000', 'important');
+  }
+  
+  // Upewnij się, że content-wrapper i content mają transparentne tło (nie rozjaśniają)
+  var contentWrapper = aboutSection.querySelector('.content-wrapper');
+  if (contentWrapper) {
+    contentWrapper.style.setProperty('background-color', 'transparent', 'important');
+    contentWrapper.style.setProperty('background-image', 'none', 'important');
+  }
+  
+  var content = aboutSection.querySelector('.content');
+  if (content) {
+    content.style.setProperty('background-color', 'transparent', 'important');
+    content.style.setProperty('background-image', 'none', 'important');
   }
 }
 
