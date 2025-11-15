@@ -2523,6 +2523,18 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
   #about .fe-block-674b77ad9160cc57b5df .joanna-k-signature-moved {
     bottom: 30px !important;
     left: 15px !important;
+    z-index: 2000 !important; /* Wyższy z-index niż drugi obraz na mobile */
+  }
+  
+  /* Drugi obraz (salon) - niższy z-index na mobile, aby podpis był na wierzchu */
+  #about .fe-block-18ab1ef90ae2c4216b34,
+  #about #block-18ab1ef90ae2c4216b34,
+  #about .fe-block-18ab1ef90ae2c4216b34 .sqs-block,
+  #about .fe-block-18ab1ef90ae2c4216b34 .sqs-block-content,
+  #about .fe-block-18ab1ef90ae2c4216b34 .image-block-outer-wrapper,
+  #about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-container,
+  #about img[src*="salon-estetyka.jpg"] {
+    z-index: 5 !important; /* Niższy niż podpis */
   }
 }
 
@@ -12445,9 +12457,11 @@ function moveJoannaKSignature() {
       if (window.innerWidth <= 767) {
         existingSignature.style.setProperty('bottom', '30px', 'important');
         existingSignature.style.setProperty('left', '15px', 'important');
+        existingSignature.style.setProperty('z-index', '2000', 'important'); // Wyższy z-index na mobile
       } else {
         existingSignature.style.setProperty('bottom', '50px', 'important');
         existingSignature.style.setProperty('left', '30px', 'important');
+        existingSignature.style.setProperty('z-index', '1000', 'important');
       }
     return;
   }
@@ -12497,9 +12511,11 @@ function moveJoannaKSignature() {
     if (window.innerWidth <= 767) {
       signatureContent.style.setProperty('bottom', '30px', 'important');
       signatureContent.style.setProperty('left', '15px', 'important');
+      signatureContent.style.setProperty('z-index', '2000', 'important'); // Wyższy z-index na mobile
     } else {
       signatureContent.style.setProperty('bottom', '50px', 'important');
       signatureContent.style.setProperty('left', '30px', 'important');
+      signatureContent.style.setProperty('z-index', '1000', 'important');
     }
   
   // Ukryj oryginalny podpis
@@ -12527,9 +12543,11 @@ function moveJoannaKSignature() {
       if (window.innerWidth <= 767) {
         sig.style.setProperty('bottom', '30px', 'important');
         sig.style.setProperty('left', '15px', 'important');
+        sig.style.setProperty('z-index', '2000', 'important'); // Wyższy z-index na mobile
       } else {
         sig.style.setProperty('bottom', '50px', 'important');
         sig.style.setProperty('left', '30px', 'important');
+        sig.style.setProperty('z-index', '1000', 'important');
       }
     }
   };
