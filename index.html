@@ -2488,28 +2488,28 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
   font-style: normal !important;
 }
 
-/* Kontener zdjęcia - pozycja relative dla pozycjonowania podpisu */
-#about .fe-block-18ab1ef90ae2c4216b34,
-#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34,
-#about #block-18ab1ef90ae2c4216b34 {
+/* Kontener DUŻEGO zdjęcia kobiety w białym garniturze (joanna-kowalik.jpg) - pozycja relative dla pozycjonowania podpisu */
+#about .fe-block-674b77ad9160cc57b5df,
+#about #block-674b77ad9160cc57b5df,
+#about img[src*="joanna-kowalik.jpg"] {
   position: relative !important;
 }
 
-#about .fe-block-18ab1ef90ae2c4216b34 .sqs-block,
-#about .fe-block-18ab1ef90ae2c4216b34 .sqs-block-content,
-#about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-animation-wrapper,
-#about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-container,
-#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 .sqs-block,
-#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 .sqs-block-content,
-#about #block-18ab1ef90ae2c4216b34 .sqs-block-content,
-#about #block-18ab1ef90ae2c4216b34 .image-block-outer-wrapper {
+#about .fe-block-674b77ad9160cc57b5df .sqs-block,
+#about .fe-block-674b77ad9160cc57b5df .sqs-block-content,
+#about .fe-block-674b77ad9160cc57b5df .fluid-image-animation-wrapper,
+#about .fe-block-674b77ad9160cc57b5df .fluid-image-container,
+#about #block-674b77ad9160cc57b5df .sqs-block-content,
+#about #block-674b77ad9160cc57b5df .image-block-outer-wrapper {
   position: relative !important;
 }
 
-/* Podpis "Joanna K" w lewym dolnym rogu zdjęcia - CSS fallback */
+/* Podpis "Joanna K" w lewym dolnym rogu DUŻEGO zdjęcia kobiety - CSS fallback */
 #about .joanna-k-signature-moved,
-#about #block-18ab1ef90ae2c4216b34 .joanna-k-signature-moved,
-#about .fe-block-18ab1ef90ae2c4216b34 .joanna-k-signature-moved {
+#about #block-674b77ad9160cc57b5df .joanna-k-signature-moved,
+#about .fe-block-674b77ad9160cc57b5df .joanna-k-signature-moved,
+#about img[src*="joanna-kowalik.jpg"] + .joanna-k-signature-moved,
+#about .sqs-block-content:has(img[src*="joanna-kowalik.jpg"]) .joanna-k-signature-moved {
   position: absolute !important;
   bottom: 30px !important;
   left: 30px !important;
@@ -2519,8 +2519,8 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 
 @media (max-width: 767px) {
   #about .joanna-k-signature-moved,
-  #about #block-18ab1ef90ae2c4216b34 .joanna-k-signature-moved,
-  #about .fe-block-18ab1ef90ae2c4216b34 .joanna-k-signature-moved {
+  #about #block-674b77ad9160cc57b5df .joanna-k-signature-moved,
+  #about .fe-block-674b77ad9160cc57b5df .joanna-k-signature-moved {
     bottom: 15px !important;
     left: 15px !important;
   }
@@ -12411,18 +12411,23 @@ function moveJoannaKSignature() {
   var aboutSection = document.getElementById('about');
   if (!aboutSection) return;
   
-  // Znajdź kontener zdjęcia kosmetyczki - szukaj przez ID bloku
-  var imageContainer = aboutSection.querySelector('#block-18ab1ef90ae2c4216b34') || 
-                       aboutSection.querySelector('.fe-block-18ab1ef90ae2c4216b34');
+  // Znajdź kontener DUŻEGO zdjęcia kobiety w białym garniturze (joanna-kowalik.jpg)
+  // To jest właściwe zdjęcie, na którym powinien być podpis
+  var imageBlock = aboutSection.querySelector('img[src*="joanna-kowalik.jpg"]');
+  var imageContainer = null;
   
-  // Jeśli nie znaleziono, szukaj przez obraz
+  if (imageBlock) {
+    // Znajdź kontener tego obrazu
+    imageContainer = imageBlock.closest('.fe-block') || 
+                     imageBlock.closest('.sqs-block-image') ||
+                     imageBlock.closest('[id*="674b77ad9160cc57b5df"]') ||
+                     imageBlock.closest('.sqs-block-content');
+  }
+  
+  // Fallback - szukaj przez ID bloku
   if (!imageContainer) {
-    var imageBlock = aboutSection.querySelector('img[src*="salon-estetyka"]');
-    if (imageBlock) {
-      imageContainer = imageBlock.closest('.fe-block') || 
-                       imageBlock.closest('.sqs-block-image') ||
-                       imageBlock.closest('[id*="18ab1ef90ae2c4216b34"]');
-    }
+    imageContainer = aboutSection.querySelector('#block-674b77ad9160cc57b5df') || 
+                     aboutSection.querySelector('.fe-block-674b77ad9160cc57b5df');
   }
   
   var signatureBlock = aboutSection.querySelector('#block-7da1d85dc54f90cab987') || 
@@ -12450,8 +12455,8 @@ function moveJoannaKSignature() {
   // Znajdź właściwy kontener obrazu - szukaj sqs-block-content w kontenerze zdjęcia
   var imageWrapper = imageContainer.querySelector('.sqs-block-content');
   if (!imageWrapper) {
-    // Spróbuj znaleźć przez obraz
-    var img = imageContainer.querySelector('img[src*="salon-estetyka"]');
+    // Spróbuj znaleźć przez obraz joanna-kowalik.jpg
+    var img = imageContainer.querySelector('img[src*="joanna-kowalik.jpg"]');
     if (img) {
       imageWrapper = img.closest('.sqs-block-content') ||
                      img.closest('.fluid-image-container') ||
@@ -12560,7 +12565,16 @@ setTimeout(moveJoannaKSignature, 3000);
 var observer = new MutationObserver(function(mutations) {
   var aboutSection = document.getElementById('about');
   if (aboutSection) {
-    var imageContainer = aboutSection.querySelector('#block-18ab1ef90ae2c4216b34, .fe-block-18ab1ef90ae2c4216b34');
+    // Szukaj kontenera DUŻEGO zdjęcia joanna-kowalik.jpg
+    var imageBlock = aboutSection.querySelector('img[src*="joanna-kowalik.jpg"]');
+    var imageContainer = null;
+    if (imageBlock) {
+      imageContainer = imageBlock.closest('.fe-block') || imageBlock.closest('.sqs-block-image');
+    }
+    if (!imageContainer) {
+      imageContainer = aboutSection.querySelector('#block-674b77ad9160cc57b5df, .fe-block-674b77ad9160cc57b5df');
+    }
+    
     var signatureBlock = aboutSection.querySelector('#block-7da1d85dc54f90cab987, .fe-block-7da1d85dc54f90cab987');
     var existingSignature = aboutSection.querySelector('.joanna-k-signature-moved');
     
