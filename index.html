@@ -12580,7 +12580,6 @@ function moveJoannaKSignature() {
   window.addEventListener('resize', resizeHandler);
 }
 
-
 // Funkcja do ustawienia tła sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - tłohero3gold.png
 function applyAboutSectionBackground() {
   var aboutSection = document.getElementById('about');
@@ -12685,24 +12684,50 @@ function applyAboutSectionBackground() {
 
 // Wywołaj funkcję po załadowaniu DOM - wielokrotne wywołania dla pewności
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', moveJoannaKSignature);
+  document.addEventListener('DOMContentLoaded', function() {
+    moveJoannaKSignature();
+    applyAboutSectionBackground();
+  });
 } else {
   moveJoannaKSignature();
+  applyAboutSectionBackground();
 }
 
 // Wywołaj również po pełnym załadowaniu strony
 window.addEventListener('load', function() {
   moveJoannaKSignature();
+  applyAboutSectionBackground();
   setTimeout(moveJoannaKSignature, 100);
+  setTimeout(applyAboutSectionBackground, 100);
+  setTimeout(moveJoannaKSignature, 300);
+  setTimeout(applyAboutSectionBackground, 300);
   setTimeout(moveJoannaKSignature, 500);
+  setTimeout(applyAboutSectionBackground, 500);
   setTimeout(moveJoannaKSignature, 1000);
-  setTimeout(applyNewsletterBackground, 1000);
+  setTimeout(applyAboutSectionBackground, 1000);
+  setTimeout(moveJoannaKSignature, 2000);
+  setTimeout(applyAboutSectionBackground, 2000);
 });
+
+// Dodatkowe wywołania dla dynamicznie ładowanych elementów
+setTimeout(moveJoannaKSignature, 100);
+setTimeout(applyAboutSectionBackground, 100);
+setTimeout(moveJoannaKSignature, 500);
+setTimeout(applyAboutSectionBackground, 500);
+setTimeout(moveJoannaKSignature, 1000);
+setTimeout(applyAboutSectionBackground, 1000);
+setTimeout(moveJoannaKSignature, 2000);
+setTimeout(applyAboutSectionBackground, 2000);
+setTimeout(moveJoannaKSignature, 3000);
+setTimeout(applyAboutSectionBackground, 3000);
 
 // MutationObserver - obserwuj zmiany w DOM i dodaj podpis, gdy elementy są dostępne
 var observer = new MutationObserver(function(mutations) {
   var aboutSection = document.getElementById('about');
   if (aboutSection) {
+    // Ustaw tło sekcji
+    applyAboutSectionBackground();
+    
     // Szukaj kontenera DUŻEGO zdjęcia joanna-kowalik.jpg
     var imageBlock = aboutSection.querySelector('img[src*="joanna-kowalik.jpg"]');
     var imageContainer = null;
@@ -12729,10 +12754,45 @@ if (document.getElementById('about')) {
     subtree: true
   });
 }
-
 setTimeout(applyNewsletterBackground, 1000);
 setTimeout(applyNewsletterBackground, 2000);
 setTimeout(applyNewsletterBackground, 3000);
+
+// Obserwuj zmiany w DOM (dla dynamicznie ładowanych elementów) - BARDZO AGRESYWNE
+var observerTimeout;
+var observer = new MutationObserver(function(mutations) {
+  clearTimeout(observerTimeout);
+  observerTimeout = setTimeout(function() {
+    applyNewsletterBackground();
+    // Dodatkowo usuń wszystkie obrazki tła, które mogły zostać dodane - TYLKO tła, NIE obrazy treści
+    var newsletterSection = document.getElementById('newsletter');
+    if (newsletterSection) {
+      var allImgs = newsletterSection.querySelectorAll('img');
+      allImgs.forEach(function(img) {
+        // Sprawdź, czy to obrazek treści (NIE usuwać)
+        var isContentImage = img.closest('.sqs-block-image') || 
+                            img.closest('.image-block') ||
+                            img.closest('.fe-block') && !img.closest('.section-background');
+        
+        // Jeśli to NIE jest obrazek treści, sprawdź czy to tło
+        if (!isContentImage) {
+          if (img.closest('.section-background') || 
+              (img.hasAttribute('elementtiming') && img.getAttribute('elementtiming').includes('background')) ||
+              img.classList.contains('background-image-fx')) {
+            img.remove();
+          }
+        }
+      });
+    }
+  }, 100);
+});
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
+  attributes: true,
+  attributeFilter: ['src', 'data-src', 'data-image']
+});
+});
 </script>
 
   </body>
