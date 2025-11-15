@@ -7072,7 +7072,7 @@ align-items: center;
             
             
             
-            <img data-stretch="true" data-src="/assets/img/testimonial2.png" data-image="/assets/img/testimonial2.png" data-image-dimensions="928x1232" data-image-focal-point="0.5,0.5" alt="" data-load="false" elementtiming="system-image-block" data-sqsp-image-block-image src="/assets/img/testimonial2.png" width="928" height="1232" alt="" sizes="100vw" style="display:block;object-fit: cover; object-position: 50% 50%" srcset="/assets/img/testimonial2.png?format=100w 100w, /assets/img/testimonial2.png?format=300w 300w, /assets/img/testimonial2.png?format=500w 500w, /assets/img/testimonial2.png?format=750w 750w, /assets/img/testimonial2.png?format=1000w 1000w, /assets/img/testimonial2.png?format=1500w 1500w, /assets/img/testimonial2.png?format=2500w 2500w" loading="lazy" decoding="async" data-loader="sqs">
+            <img data-stretch="true" data-src="/assets/img/joanna-kowalik-estetyka-urody.webp" data-image="/assets/img/joanna-kowalik-estetyka-urody.webp" data-image-dimensions="928x1232" data-image-focal-point="0.5,0.5" alt="" data-load="false" elementtiming="system-image-block" data-sqsp-image-block-image src="/assets/img/joanna-kowalik-estetyka-urody.webp" width="928" height="1232" alt="" sizes="100vw" style="display:block;object-fit: cover; object-position: 50% 50%" srcset="/assets/img/joanna-kowalik-estetyka-urody.webp?format=100w 100w, /assets/img/joanna-kowalik-estetyka-urody.webp?format=300w 300w, /assets/img/joanna-kowalik-estetyka-urody.webp?format=500w 500w, /assets/img/joanna-kowalik-estetyka-urody.webp?format=750w 750w, /assets/img/joanna-kowalik-estetyka-urody.webp?format=1000w 1000w, /assets/img/joanna-kowalik-estetyka-urody.webp?format=1500w 1500w, /assets/img/joanna-kowalik-estetyka-urody.webp?format=2500w 2500w" loading="lazy" decoding="async" data-loader="sqs">
 
             
               
@@ -12585,12 +12585,13 @@ function changeOurMissionImage() {
   var ourMissionSection = document.getElementById('our-mission');
   if (!ourMissionSection) return;
   
-  // Znajdź wszystkie zdjęcia w sekcji our-mission
-  var images = ourMissionSection.querySelectorAll('img[data-sqsp-image-block-image]');
-  images.forEach(function(img) {
-    // Jeśli zdjęcie to salon-estetyka.jpg, zamień na joanna-kowalik-estetyka-urody.webp
-    if (img.src && img.src.includes('salon-estetyka.jpg')) {
-      var newSrc = img.src.replace('salon-estetyka.jpg', 'joanna-kowalik-estetyka-urody.webp');
+  // Znajdź duże zdjęcie w ramce - blok fe-block-29230f38c9ca973e88bf
+  var largeImageBlock = ourMissionSection.querySelector('#block-29230f38c9ca973e88bf, .fe-block-29230f38c9ca973e88bf');
+  if (largeImageBlock) {
+    var img = largeImageBlock.querySelector('img[data-sqsp-image-block-image]');
+    if (img) {
+      // Zamień testimonial2.png na joanna-kowalik-estetyka-urody.webp
+      var newSrc = '/assets/img/joanna-kowalik-estetyka-urody.webp';
       img.setAttribute('data-src', newSrc);
       img.setAttribute('data-image', newSrc);
       img.setAttribute('src', newSrc);
@@ -12598,7 +12599,30 @@ function changeOurMissionImage() {
       // Zaktualizuj srcset
       var srcset = img.getAttribute('srcset');
       if (srcset) {
-        var newSrcset = srcset.replace(/salon-estetyka\.jpg/g, 'joanna-kowalik-estetyka-urody.webp');
+        var newSrcset = srcset.replace(/testimonial2\.png/g, 'joanna-kowalik-estetyka-urody.webp');
+        img.setAttribute('srcset', newSrcset);
+      } else {
+        // Utwórz srcset jeśli nie istnieje
+        var newSrcset = newSrc + '?format=100w 100w, ' + newSrc + '?format=300w 300w, ' + newSrc + '?format=500w 500w, ' + newSrc + '?format=750w 750w, ' + newSrc + '?format=1000w 1000w, ' + newSrc + '?format=1500w 1500w, ' + newSrc + '?format=2500w 2500w';
+        img.setAttribute('srcset', newSrcset);
+      }
+    }
+  }
+  
+  // Znajdź również inne zdjęcia w sekcji our-mission (salon-estetyka.jpg)
+  var images = ourMissionSection.querySelectorAll('img[data-sqsp-image-block-image]');
+  images.forEach(function(img) {
+    // Jeśli zdjęcie to salon-estetyka.jpg, zamień na joanna-kowalik-estetyka-urody.webp
+    if (img.src && (img.src.includes('salon-estetyka.jpg') || img.src.includes('testimonial2.png'))) {
+      var newSrc = '/assets/img/joanna-kowalik-estetyka-urody.webp';
+      img.setAttribute('data-src', newSrc);
+      img.setAttribute('data-image', newSrc);
+      img.setAttribute('src', newSrc);
+      
+      // Zaktualizuj srcset
+      var srcset = img.getAttribute('srcset');
+      if (srcset) {
+        var newSrcset = srcset.replace(/salon-estetyka\.jpg|testimonial2\.png/g, 'joanna-kowalik-estetyka-urody.webp');
         img.setAttribute('srcset', newSrcset);
       }
     }
