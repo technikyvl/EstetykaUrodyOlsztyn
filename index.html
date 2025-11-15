@@ -2892,17 +2892,25 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 }
 
 /* Powiększenie sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" */
-#about .content-wrapper {
-  padding-top: calc(8vmax / 10) !important;
-  padding-bottom: calc(8vmax / 10) !important;
-  min-height: 80vh !important;
+#about,
+#about.page-section,
+#about[data-section-theme="light-bold"] {
+  background-color: #000000 !important;
+  background: url('/assets/img/tłohero3gold.png') center center/cover no-repeat #000000 !important;
+}
+
+#about .section-border,
+#about .section-background,
+#about .content-wrapper,
+#about .content {
   background-color: transparent !important;
   background: transparent !important;
 }
 
-#about {
-  background-color: #000000 !important;
-  background: url('/assets/img/tłohero3gold.png') center center/cover no-repeat #000000 !important;
+#about .content-wrapper {
+  padding-top: calc(8vmax / 10) !important;
+  padding-bottom: calc(8vmax / 10) !important;
+  min-height: 80vh !important;
 }
 
 @media (min-width: 768px) {
@@ -2914,23 +2922,25 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 }
 
 /* Powiększenie sekcji "our dedicated Spa Philosophy" */
-#our-mission .content-wrapper {
-  padding-top: calc(8vmax / 10) !important;
-  padding-bottom: calc(8vmax / 10) !important;
-  min-height: 80vh !important;
-  background-color: transparent !important;
-  background: transparent !important;
-}
-
-#our-mission {
+#our-mission,
+#our-mission.page-section,
+#our-mission[data-section-theme="black"] {
   background-color: transparent !important;
   background: transparent !important;
 }
 
 #our-mission .section-background,
-#our-mission .section-border {
+#our-mission .section-border,
+#our-mission .content-wrapper,
+#our-mission .content {
   background-color: transparent !important;
   background: transparent !important;
+}
+
+#our-mission .content-wrapper {
+  padding-top: calc(8vmax / 10) !important;
+  padding-bottom: calc(8vmax / 10) !important;
+  min-height: 80vh !important;
 }
 
 @media (min-width: 768px) {
