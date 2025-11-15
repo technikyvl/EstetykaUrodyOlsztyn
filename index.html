@@ -2490,7 +2490,8 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 
 /* Kontener zdjęcia - pozycja relative dla pozycjonowania podpisu */
 #about .fe-block-18ab1ef90ae2c4216b34,
-#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 {
+#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34,
+#about #block-18ab1ef90ae2c4216b34 {
   position: relative !important;
 }
 
@@ -2499,8 +2500,30 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 #about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-animation-wrapper,
 #about .fe-block-18ab1ef90ae2c4216b34 .fluid-image-container,
 #about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 .sqs-block,
-#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 .sqs-block-content {
+#about .fe-688e4e9899f40f476643f112 .fe-block-18ab1ef90ae2c4216b34 .sqs-block-content,
+#about #block-18ab1ef90ae2c4216b34 .sqs-block-content,
+#about #block-18ab1ef90ae2c4216b34 .image-block-outer-wrapper {
   position: relative !important;
+}
+
+/* Podpis "Joanna K" w lewym dolnym rogu zdjęcia - CSS fallback */
+#about .joanna-k-signature-moved,
+#about #block-18ab1ef90ae2c4216b34 .joanna-k-signature-moved,
+#about .fe-block-18ab1ef90ae2c4216b34 .joanna-k-signature-moved {
+  position: absolute !important;
+  bottom: 30px !important;
+  left: 30px !important;
+  z-index: 1000 !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 767px) {
+  #about .joanna-k-signature-moved,
+  #about #block-18ab1ef90ae2c4216b34 .joanna-k-signature-moved,
+  #about .fe-block-18ab1ef90ae2c4216b34 .joanna-k-signature-moved {
+    bottom: 15px !important;
+    left: 15px !important;
+  }
 }
 
 /* "Joanna K" w sekcji "POZNAJ KOSMETYCZKĘ Z PASJĄ DO BEAUTY" - pozycja w lewym dolnym rogu zdjęcia */
@@ -12388,95 +12411,172 @@ function moveJoannaKSignature() {
   var aboutSection = document.getElementById('about');
   if (!aboutSection) return;
   
-  // Znajdź kontener zdjęcia kosmetyczki (może być w różnych miejscach)
-  var imageContainer = aboutSection.querySelector('.fe-block-18ab1ef90ae2c4216b34');
+  // Znajdź kontener zdjęcia kosmetyczki - szukaj przez ID bloku
+  var imageContainer = aboutSection.querySelector('#block-18ab1ef90ae2c4216b34') || 
+                       aboutSection.querySelector('.fe-block-18ab1ef90ae2c4216b34');
+  
+  // Jeśli nie znaleziono, szukaj przez obraz
   if (!imageContainer) {
-    // Spróbuj znaleźć przez obraz
     var imageBlock = aboutSection.querySelector('img[src*="salon-estetyka"]');
     if (imageBlock) {
-      imageContainer = imageBlock.closest('.fe-block');
+      imageContainer = imageBlock.closest('.fe-block') || 
+                       imageBlock.closest('.sqs-block-image') ||
+                       imageBlock.closest('[id*="18ab1ef90ae2c4216b34"]');
     }
   }
   
-  var signatureBlock = aboutSection.querySelector('.fe-block-7da1d85dc54f90cab987, #block-7da1d85dc54f90cab987');
+  var signatureBlock = aboutSection.querySelector('#block-7da1d85dc54f90cab987') || 
+                       aboutSection.querySelector('.fe-block-7da1d85dc54f90cab987');
   
-  if (imageContainer && signatureBlock) {
-    // Sprawdź, czy podpis już został przeniesiony
-    var existingSignature = imageContainer.querySelector('.joanna-k-signature-moved');
-    if (existingSignature) {
-      // Aktualizuj pozycję istniejącego podpisu
-      if (window.innerWidth <= 767) {
-        existingSignature.style.setProperty('bottom', '15px', 'important');
-        existingSignature.style.setProperty('left', '15px', 'important');
-      } else {
-        existingSignature.style.setProperty('bottom', '30px', 'important');
-        existingSignature.style.setProperty('left', '30px', 'important');
-      }
-      return;
-    }
-    
-    // Znajdź właściwy kontener obrazu (sqs-block-content lub fluid-image-container)
-    var imageWrapper = imageContainer.querySelector('.sqs-block-content') || 
-                       imageContainer.querySelector('.fluid-image-container') ||
-                       imageContainer.querySelector('.fluid-image-animation-wrapper') ||
-                       imageContainer;
-    
-    // Ustaw kontener jako relative
-    imageWrapper.style.setProperty('position', 'relative', 'important');
-    imageContainer.style.setProperty('position', 'relative', 'important');
-    
-    // Przenieś podpis do kontenera zdjęcia
-    var signatureContent = signatureBlock.cloneNode(true);
-    signatureContent.classList.add('joanna-k-signature-moved');
-    signatureContent.style.setProperty('position', 'absolute', 'important');
-    signatureContent.style.setProperty('z-index', '1000', 'important');
-    signatureContent.style.setProperty('pointer-events', 'none', 'important');
-    signatureContent.style.setProperty('grid-area', 'unset', 'important');
-    signatureContent.style.setProperty('grid-row', 'unset', 'important');
-    signatureContent.style.setProperty('grid-column', 'unset', 'important');
-    signatureContent.style.setProperty('margin', '0', 'important');
-    signatureContent.style.setProperty('width', 'auto', 'important');
-    signatureContent.style.setProperty('height', 'auto', 'important');
-    
-    // Responsive positioning
+  if (!imageContainer || !signatureBlock) {
+    console.log('Nie znaleziono kontenera zdjęcia lub podpisu');
+    return;
+  }
+  
+  // Sprawdź, czy podpis już został przeniesiony
+  var existingSignature = imageContainer.querySelector('.joanna-k-signature-moved');
+  if (existingSignature) {
+    // Aktualizuj pozycję istniejącego podpisu
     if (window.innerWidth <= 767) {
-      signatureContent.style.setProperty('bottom', '15px', 'important');
-      signatureContent.style.setProperty('left', '15px', 'important');
+      existingSignature.style.setProperty('bottom', '15px', 'important');
+      existingSignature.style.setProperty('left', '15px', 'important');
     } else {
-      signatureContent.style.setProperty('bottom', '30px', 'important');
-      signatureContent.style.setProperty('left', '30px', 'important');
+      existingSignature.style.setProperty('bottom', '30px', 'important');
+      existingSignature.style.setProperty('left', '30px', 'important');
     }
-    
-    // Ukryj oryginalny podpis
-    signatureBlock.style.setProperty('display', 'none', 'important');
-    signatureBlock.style.setProperty('visibility', 'hidden', 'important');
-    signatureBlock.style.setProperty('opacity', '0', 'important');
-    
-    // Dodaj podpis do kontenera zdjęcia
-    imageWrapper.appendChild(signatureContent);
-    
-    // Aktualizuj pozycję przy zmianie rozmiaru okna
-    var resizeHandler = function() {
-      if (signatureContent && imageWrapper.contains(signatureContent)) {
-        if (window.innerWidth <= 767) {
-          signatureContent.style.setProperty('bottom', '15px', 'important');
-          signatureContent.style.setProperty('left', '15px', 'important');
-        } else {
-          signatureContent.style.setProperty('bottom', '30px', 'important');
-          signatureContent.style.setProperty('left', '30px', 'important');
-        }
-      }
-    };
-    
-    window.addEventListener('resize', resizeHandler);
+    return;
   }
+  
+  // Znajdź właściwy kontener obrazu - szukaj sqs-block-content w kontenerze zdjęcia
+  var imageWrapper = imageContainer.querySelector('.sqs-block-content');
+  if (!imageWrapper) {
+    // Spróbuj znaleźć przez obraz
+    var img = imageContainer.querySelector('img[src*="salon-estetyka"]');
+    if (img) {
+      imageWrapper = img.closest('.sqs-block-content') ||
+                     img.closest('.fluid-image-container') ||
+                     img.closest('.image-block-outer-wrapper') ||
+                     img.closest('.fluid-image-animation-wrapper');
+    }
+    if (!imageWrapper) {
+      imageWrapper = imageContainer.querySelector('.fluid-image-container') ||
+                     imageContainer.querySelector('.image-block-outer-wrapper') ||
+                     imageContainer.querySelector('.fluid-image-animation-wrapper') ||
+                     imageContainer;
+    }
+  }
+  
+  // Ustaw kontener jako relative
+  if (imageWrapper) {
+    imageWrapper.style.setProperty('position', 'relative', 'important');
+  }
+  imageContainer.style.setProperty('position', 'relative', 'important');
+  
+  // Przenieś podpis do kontenera zdjęcia
+  var signatureContent = signatureBlock.cloneNode(true);
+  signatureContent.classList.add('joanna-k-signature-moved');
+  signatureContent.style.setProperty('position', 'absolute', 'important');
+  signatureContent.style.setProperty('z-index', '1000', 'important');
+  signatureContent.style.setProperty('pointer-events', 'none', 'important');
+  signatureContent.style.setProperty('grid-area', 'unset', 'important');
+  signatureContent.style.setProperty('grid-row', 'unset', 'important');
+  signatureContent.style.setProperty('grid-column', 'unset', 'important');
+  signatureContent.style.setProperty('margin', '0', 'important');
+  signatureContent.style.setProperty('padding', '0', 'important');
+  signatureContent.style.setProperty('width', 'auto', 'important');
+  signatureContent.style.setProperty('height', 'auto', 'important');
+  signatureContent.style.setProperty('top', 'auto', 'important');
+  signatureContent.style.setProperty('right', 'auto', 'important');
+  
+  // Responsive positioning - lewy dolny róg
+  if (window.innerWidth <= 767) {
+    signatureContent.style.setProperty('bottom', '15px', 'important');
+    signatureContent.style.setProperty('left', '15px', 'important');
+  } else {
+    signatureContent.style.setProperty('bottom', '30px', 'important');
+    signatureContent.style.setProperty('left', '30px', 'important');
+  }
+  
+  // Ukryj oryginalny podpis
+  signatureBlock.style.setProperty('display', 'none', 'important');
+  signatureBlock.style.setProperty('visibility', 'hidden', 'important');
+  signatureBlock.style.setProperty('opacity', '0', 'important');
+  signatureBlock.style.setProperty('height', '0', 'important');
+  signatureBlock.style.setProperty('overflow', 'hidden', 'important');
+  
+  // Dodaj podpis do kontenera zdjęcia - upewnij się, że imageWrapper istnieje
+  if (imageWrapper) {
+    imageWrapper.appendChild(signatureContent);
+  } else {
+    // Fallback - dodaj bezpośrednio do kontenera zdjęcia
+    imageContainer.appendChild(signatureContent);
+  }
+  
+  // Aktualizuj pozycję przy zmianie rozmiaru okna
+  var resizeHandler = function() {
+    var sig = (imageWrapper || imageContainer).querySelector('.joanna-k-signature-moved');
+    if (!sig) {
+      sig = aboutSection.querySelector('.joanna-k-signature-moved');
+    }
+    if (sig) {
+      if (window.innerWidth <= 767) {
+        sig.style.setProperty('bottom', '15px', 'important');
+        sig.style.setProperty('left', '15px', 'important');
+      } else {
+        sig.style.setProperty('bottom', '30px', 'important');
+        sig.style.setProperty('left', '30px', 'important');
+      }
+    }
+  };
+  
+  window.addEventListener('resize', resizeHandler);
 }
 
-// Wywołaj funkcję po załadowaniu DOM
-moveJoannaKSignature();
+// Wywołaj funkcję po załadowaniu DOM - wielokrotne wywołania dla pewności
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', moveJoannaKSignature);
+} else {
+  moveJoannaKSignature();
+}
+
+// Wywołaj również po pełnym załadowaniu strony
+window.addEventListener('load', function() {
+  moveJoannaKSignature();
+  setTimeout(moveJoannaKSignature, 100);
+  setTimeout(moveJoannaKSignature, 300);
+  setTimeout(moveJoannaKSignature, 500);
+  setTimeout(moveJoannaKSignature, 1000);
+  setTimeout(moveJoannaKSignature, 2000);
+});
+
+// Dodatkowe wywołania dla dynamicznie ładowanych elementów
 setTimeout(moveJoannaKSignature, 100);
 setTimeout(moveJoannaKSignature, 500);
 setTimeout(moveJoannaKSignature, 1000);
+setTimeout(moveJoannaKSignature, 2000);
+setTimeout(moveJoannaKSignature, 3000);
+
+// MutationObserver - obserwuj zmiany w DOM i dodaj podpis, gdy elementy są dostępne
+var observer = new MutationObserver(function(mutations) {
+  var aboutSection = document.getElementById('about');
+  if (aboutSection) {
+    var imageContainer = aboutSection.querySelector('#block-18ab1ef90ae2c4216b34, .fe-block-18ab1ef90ae2c4216b34');
+    var signatureBlock = aboutSection.querySelector('#block-7da1d85dc54f90cab987, .fe-block-7da1d85dc54f90cab987');
+    var existingSignature = aboutSection.querySelector('.joanna-k-signature-moved');
+    
+    if (imageContainer && signatureBlock && !existingSignature) {
+      moveJoannaKSignature();
+    }
+  }
+});
+
+// Rozpocznij obserwację
+if (document.getElementById('about')) {
+  observer.observe(document.getElementById('about'), {
+    childList: true,
+    subtree: true
+  });
+}
 setTimeout(applyNewsletterBackground, 1000);
 setTimeout(applyNewsletterBackground, 2000);
 setTimeout(applyNewsletterBackground, 3000);
