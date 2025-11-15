@@ -2511,7 +2511,7 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 #about img[src*="joanna-kowalik.jpg"] + .joanna-k-signature-moved,
 #about .sqs-block-content:has(img[src*="joanna-kowalik.jpg"]) .joanna-k-signature-moved {
   position: absolute !important;
-  bottom: 30px !important;
+  bottom: 50px !important;
   left: 30px !important;
   z-index: 1000 !important;
   pointer-events: none !important;
@@ -2521,7 +2521,7 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
   #about .joanna-k-signature-moved,
   #about #block-674b77ad9160cc57b5df .joanna-k-signature-moved,
   #about .fe-block-674b77ad9160cc57b5df .joanna-k-signature-moved {
-    bottom: 15px !important;
+    bottom: 30px !important;
     left: 15px !important;
   }
 }
@@ -12441,14 +12441,14 @@ function moveJoannaKSignature() {
   // Sprawdź, czy podpis już został przeniesiony
   var existingSignature = imageContainer.querySelector('.joanna-k-signature-moved');
   if (existingSignature) {
-    // Aktualizuj pozycję istniejącego podpisu
-    if (window.innerWidth <= 767) {
-      existingSignature.style.setProperty('bottom', '15px', 'important');
-      existingSignature.style.setProperty('left', '15px', 'important');
-    } else {
-      existingSignature.style.setProperty('bottom', '30px', 'important');
-      existingSignature.style.setProperty('left', '30px', 'important');
-    }
+      // Aktualizuj pozycję istniejącego podpisu (delikatnie podniesiony)
+      if (window.innerWidth <= 767) {
+        existingSignature.style.setProperty('bottom', '30px', 'important');
+        existingSignature.style.setProperty('left', '15px', 'important');
+      } else {
+        existingSignature.style.setProperty('bottom', '50px', 'important');
+        existingSignature.style.setProperty('left', '30px', 'important');
+      }
     return;
   }
   
@@ -12493,14 +12493,14 @@ function moveJoannaKSignature() {
   signatureContent.style.setProperty('top', 'auto', 'important');
   signatureContent.style.setProperty('right', 'auto', 'important');
   
-  // Responsive positioning - lewy dolny róg
-  if (window.innerWidth <= 767) {
-    signatureContent.style.setProperty('bottom', '15px', 'important');
-    signatureContent.style.setProperty('left', '15px', 'important');
-  } else {
-    signatureContent.style.setProperty('bottom', '30px', 'important');
-    signatureContent.style.setProperty('left', '30px', 'important');
-  }
+    // Responsive positioning - lewy dolny róg (delikatnie podniesiony)
+    if (window.innerWidth <= 767) {
+      signatureContent.style.setProperty('bottom', '30px', 'important');
+      signatureContent.style.setProperty('left', '15px', 'important');
+    } else {
+      signatureContent.style.setProperty('bottom', '50px', 'important');
+      signatureContent.style.setProperty('left', '30px', 'important');
+    }
   
   // Ukryj oryginalny podpis
   signatureBlock.style.setProperty('display', 'none', 'important');
@@ -12517,7 +12517,7 @@ function moveJoannaKSignature() {
     imageContainer.appendChild(signatureContent);
   }
   
-  // Aktualizuj pozycję przy zmianie rozmiaru okna
+  // Aktualizuj pozycję przy zmianie rozmiaru okna (delikatnie podniesiony)
   var resizeHandler = function() {
     var sig = (imageWrapper || imageContainer).querySelector('.joanna-k-signature-moved');
     if (!sig) {
@@ -12525,10 +12525,10 @@ function moveJoannaKSignature() {
     }
     if (sig) {
       if (window.innerWidth <= 767) {
-        sig.style.setProperty('bottom', '15px', 'important');
+        sig.style.setProperty('bottom', '30px', 'important');
         sig.style.setProperty('left', '15px', 'important');
       } else {
-        sig.style.setProperty('bottom', '30px', 'important');
+        sig.style.setProperty('bottom', '50px', 'important');
         sig.style.setProperty('left', '30px', 'important');
       }
     }
